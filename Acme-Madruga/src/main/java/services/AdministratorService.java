@@ -23,13 +23,13 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository	adminRepository;
 
-	// Supporting services
-//	@Autowired
-//	private ActorService			actorService;
+		// Supporting services
+	//	@Autowired
+	//	private ActorService			actorService;
 
 
 
-	// CRUD methods
+	/************************************* CRUD methods ********************************/
 	public Administrator create() {
 		// Initialice
 		final UserAccount userAccount = new UserAccount();
@@ -89,8 +89,11 @@ public class AdministratorService {
 		Assert.isTrue(admin.getId() != 0);
 		this.adminRepository.delete(admin);
 	}
+	
+	
+	
 
-	// Other business methods
+	/************************************* Other business methods********************************/
 	public Administrator findByPrincipal() {
 		Administrator result;
 		UserAccount userAccount;
