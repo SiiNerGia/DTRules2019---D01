@@ -1,0 +1,7 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+Sample-Project-1.18.2/target/
+Sample-Project-1.18.2/.classpath
+Sample-Project-1.18.2/.settings
+Sample-Project-1.18.2/.idea
+Sample-Project-1.18.2/src/main/resources/Entities.map
