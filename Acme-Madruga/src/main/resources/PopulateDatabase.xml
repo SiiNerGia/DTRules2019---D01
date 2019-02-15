@@ -57,6 +57,58 @@
 		</property>
 	</bean>
 	
-	<!-- Other domain beans come here -->	
-	
+	<!-- Other domain beans come here -->
+
+
+	<!-- Floats -->
+
+	<bean id="float1" class="domain.Float">
+		<property name="title" value="Title Float 1" />
+		<property name="description" value="Description Float 1" />
+		<property name="picture" value="http://www.instagram.com" />
+	</bean>
+
+
+	<bean id="float2" class="domain.Float">
+		<property name="title" value="Title Float 2" />
+		<property name="description" value="Description Float 2" />
+	</bean>
+
+	<bean id="float3" class="domain.Float">
+		<property name="title" value="Title Float 3" />
+		<property name="description" value="Description Float 3" />
+	</bean>
+
+	<bean id="float4" class="domain.Float">
+		<property name="title" value="Title Float 4" />
+		<property name="description" value="Description Float 4" />
+	</bean>
+
+
+	<!-- Requests -->
+
+	<bean id="request1" class="domain.Request">
+		<property name="status" value="ACCEPTED" />
+		<property name="row" value="2" />
+		<property name="column" value="2" />
+	</bean>
+
+	<bean id="request2" class="domain.Request">
+		<property name="status" value="REJECTED" />
+		<property name="reason" value="Es demasiado gordo, ocuparía dos puestos" />
+	</bean>
+
+	<bean id="request3" class="domain.Request">
+		<property name="status" value="PENDING" />
+	</bean>
+
+	<bean id="request4" class="domain.Request">
+		<property name="status" value="ACCEPTED" />
+		<property name="row" value="1" />
+		<property name="column" value="1" />
+	</bean>
+
+
+
+
 </beans>
