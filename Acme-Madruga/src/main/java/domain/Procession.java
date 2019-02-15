@@ -76,19 +76,19 @@ public class Procession extends DomainEntity {
 	
 
 	// Relationships ----------------------------------------------------------
-//	private Brotherhood brotherhood;
+	private Brotherhood brotherhood;
 	private Collection<Request> request;
 
 
-//	@ManyToOne(optional = false)
-//	public Brotherhood getBrotherhood() {
-//		return brotherhood;
-//	}
-//
-//
-//	public void setBrotherhood(Brotherhood brotherhood) {
-//		this.brotherhood = brotherhood;
-//	}
+	@ManyToOne(optional = false)
+	public Brotherhood getBrotherhood() {
+		return brotherhood;
+	}
+
+
+	public void setBrotherhood(Brotherhood brotherhood) {
+		this.brotherhood = brotherhood;
+	}
 
 
 	@OneToMany
