@@ -23,16 +23,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Brotherhood extends Actor {
 
 	// Attributes
-	private String				title;
-	private Date				establishment;
-	private Collection<Url>		pictures;
+	private String title;
+	private Date establishment;
+	private Collection<Url> pictures;
 
 	// Relationships ----------------------------------------------------------
-	//	private Collection<Enrol>		enrols;
-	//	private Collection<Procession>	processions;
-	//private Area					area;
-	private Collection<Float>	floats;
-
+	// private Collection<Enrol> enrols;
+	private Collection<Procession> processions;
+	// private Area area;
+	private Collection<Float> floats;
 
 	@NotBlank
 	public String getTitle() {
@@ -67,25 +66,25 @@ public class Brotherhood extends Actor {
 
 	// RELATIONSHIPS ---------------------------------------------------
 
-	//	@Valid
-	//	@OneToMany
-	//	public Collection<Enrol> getEnrols() {
-	//		return this.enrols;
-	//	}
+	// @Valid
+	// @OneToMany
+	// public Collection<Enrol> getEnrols() {
+	// return this.enrols;
+	// }
 	//
-	//	public void setEnrols(final Collection<Enrol> enrols) {
-	//		this.enrols = enrols;
-	//	}
+	// public void setEnrols(final Collection<Enrol> enrols) {
+	// this.enrols = enrols;
+	// }
 	//
-	//	@Valid
-	//	@OneToMany
-	//	public Collection<Procession> getProcessions() {
-	//		return this.processions;
-	//	}
-	//
-	//	public void setProcessions(final Collection<Procession> processions) {
-	//		this.processions = processions;
-	//	}
+	@Valid
+	@OneToMany
+	public Collection<Procession> getProcessions() {
+		return this.processions;
+	}
+
+	public void setProcessions(final Collection<Procession> processions) {
+		this.processions = processions;
+	}
 
 	@Valid
 	@OneToMany
@@ -97,15 +96,15 @@ public class Brotherhood extends Actor {
 		this.floats = floats;
 	}
 
-	//	@Valid
-	//	@ManyToOne(optional=true)
-	//	public Area getArea() {
-	//		return this.area;
-	//	}
+	// @Valid
+	// @ManyToOne(optional=true)
+	// public Area getArea() {
+	// return this.area;
+	// }
 	//
-	//	public void setArea(final Area area) {
-	//		this.area = area;
-	//	}
+	// public void setArea(final Area area) {
+	// this.area = area;
+	// }
 
 	@Override
 	public String toString() {
