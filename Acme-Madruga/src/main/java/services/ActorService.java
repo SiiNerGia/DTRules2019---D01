@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Actor;
 import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 
 @Service
 @Transactional
@@ -19,7 +19,7 @@ public class ActorService {
 
 	// Manage Repository
 	@Autowired
-	private ActorRepository actorRepository;
+	private ActorRepository	actorRepository;
 
 
 	// CRUD methods
@@ -74,10 +74,6 @@ public class ActorService {
 		result = this.actorRepository.findByUserAccountId(userAccount.getId());
 
 		return result;
-	}
-
-	public Collection<Actor> findSuspicious() {
-		return this.actorRepository.findSuspicious();
 	}
 
 	public Actor findOneByUsername(final String username) {
