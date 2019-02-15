@@ -23,15 +23,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Brotherhood extends Actor {
 
 	// Attributes
-	private String title;
-	private Date establishment;
-	private Collection<Url> pictures;
+	private String					title;
+	private Date					establishment;
+	private Collection<Url>			pictures;
 
 	// Relationships ----------------------------------------------------------
 	// private Collection<Enrol> enrols;
-	private Collection<Procession> processions;
+	private Collection<Procession>	processions;
 	// private Area area;
-	private Collection<Float> floats;
+	private Collection<Paso>		pasos;
+
 
 	@NotBlank
 	public String getTitle() {
@@ -88,12 +89,12 @@ public class Brotherhood extends Actor {
 
 	@Valid
 	@OneToMany
-	public Collection<Float> getFloats() {
-		return this.floats;
+	public Collection<Paso> getPasos() {
+		return this.pasos;
 	}
 
-	public void setFloats(final Collection<Float> floats) {
-		this.floats = floats;
+	public void setPasos(final Collection<Paso> pasos) {
+		this.pasos = pasos;
 	}
 
 	// @Valid

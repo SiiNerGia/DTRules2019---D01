@@ -72,28 +72,28 @@
 	<!-- Other domain beans come here -->
 
 
-	<!-- Floats -->
+	<!-- Pasos -->
 
-	<bean id="float1" class="domain.Float">
-		<property name="title" value="Title Float 1" />
-		<property name="description" value="Description Float 1" />
+	<bean id="paso1" class="domain.Paso">
+		<property name="title" value="Title Paso 1" />
+		<property name="description" value="Description Paso 1" />
 		<property name="picture" value="http://www.instagram.com" />
 	</bean>
 
 
-	<bean id="float2" class="domain.Float">
-		<property name="title" value="Title Float 2" />
-		<property name="description" value="Description Float 2" />
+	<bean id="paso2" class="domain.Paso">
+		<property name="title" value="Title Paso 2" />
+		<property name="description" value="Description Paso 2" />
 	</bean>
 
-	<bean id="float3" class="domain.Float">
-		<property name="title" value="Title Float 3" />
-		<property name="description" value="Description Float 3" />
+	<bean id="paso3" class="domain.Paso">
+		<property name="title" value="Title Paso 3" />
+		<property name="description" value="Description Paso 3" />
 	</bean>
 
-	<bean id="float4" class="domain.Float">
-		<property name="title" value="Title Float 4" />
-		<property name="description" value="Description Float 4" />
+	<bean id="paso4" class="domain.Paso">
+		<property name="title" value="Title Paso 4" />
+		<property name="description" value="Description Paso 4" />
 	</bean>
 
 
@@ -129,9 +129,9 @@
 		<property name="title" value="brotherhood1"/>
 		<property name="establishment" value="2019/01/30" />
 		<property name="UserAccount" ref="userAccount2" />
-		<property name="floats">
+		<property name="pasos">
 			<list>
-				<ref bean="float1" />
+				<ref bean="paso1" />
 			</list>
 		</property>
 	</bean>
@@ -143,9 +143,9 @@
 		<property name="title" value="brotherhood2"/>
 		<property name="establishment" value="2019/02/10" />
 		<property name="UserAccount" ref="userAccount4" />
-		<property name="floats">
+		<property name="pasos">
 			<list>
-				<ref bean="float2" />
+				<ref bean="paso2" />
 			</list>
 		</property>
 	</bean>

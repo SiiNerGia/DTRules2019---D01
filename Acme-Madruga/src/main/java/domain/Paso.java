@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Float extends DomainEntity {
+public class Paso extends DomainEntity {
 
     // Attributes
 
