@@ -1,0 +1,7 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+Acme-Madruga/target/
+Acme-Madruga/.classpath
+Acme-Madruga/.settings
+Acme-Madruga/.idea
+Acme-Madruga/src/main/resources/Entities.map
