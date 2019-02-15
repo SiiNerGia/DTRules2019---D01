@@ -31,12 +31,12 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="brotherhood1" />
+		<property name="password" value="479e3180a45b21ea8e88beb0c45aa8ed" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="BROTHERHOOD" />
 				</bean>
 			</list>
 		</property>
@@ -52,6 +52,18 @@
 				</bean>
 				<bean class="security.Authority">
 					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="brotherhood2" />
+		<property name="password" value="88f1b810c40cd63107fb758fef4d77db" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="BROTHERHOOD" />
 				</bean>
 			</list>
 		</property>
@@ -109,6 +121,33 @@
 	</bean>
 
 
-
+	<!-- Brotherhoods -->
+	<bean id="brotherhood1" class="domain.Brotherhood">
+		<property name="name" value="brotherhood1" />
+		<property name="surname" value="brotherhood1" />
+		<property name="email" value="broterhood1@mail.com"/>
+		<property name="title" value="brotherhood1"/>
+		<property name="establishment" value="2019/01/30" />
+		<property name="UserAccount" ref="userAccount2" />
+		<property name="floats">
+			<list>
+				<ref bean="float1" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="brotherhood2" class="domain.Brotherhood">
+		<property name="name" value="brotherhood2" />
+		<property name="surname" value="brotherhood2" />
+		<property name="email" value="broterhood2@mail.com"/>
+		<property name="title" value="brotherhood2"/>
+		<property name="establishment" value="2019/02/10" />
+		<property name="UserAccount" ref="userAccount4" />
+		<property name="floats">
+			<list>
+				<ref bean="float2" />
+			</list>
+		</property>
+	</bean>
 
 </beans>
