@@ -73,6 +73,7 @@ public class ProcessionService {
 		// Principal must be a Brotherhood
 		principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Brotherhood.class, principal);
+		Assert.isTrue(procession.getId() != 0);
 		
 		Brotherhood brotherhood = (Brotherhood) principal;
 		Assert.isTrue(brotherhood.getProcessions().contains(procession));
