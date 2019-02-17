@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import repositories.BrotherhoodRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
+import domain.Paso;
+import domain.Procession;
+import domain.Url;
 
 @Service
 @Transactional
@@ -23,7 +27,15 @@ public class BrotherhoodService {
 
 
 	// CRUD methods
+	public Brotherhood create() {
+		final Brotherhood result = new Brotherhood();
 
+		result.setPictures(new ArrayList<Url>());
+		result.setPasos(new ArrayList<Paso>());
+		result.setProcessions(new ArrayList<Procession>());
+
+		return result;
+	}
 	public Brotherhood findOne(final int brotherhoodId) {
 		final Brotherhood result = this.brotherhoodRepository.findOne(brotherhoodId);
 		Assert.notNull(result);
