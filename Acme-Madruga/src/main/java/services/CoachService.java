@@ -1,21 +1,16 @@
 package services;
 
-import domain.Actor;
-import domain.Brotherhood;
-import domain.Coach;
-import domain.Procession;
-import org.apache.commons.lang.RandomStringUtils;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import repositories.CoachRepository;
-import repositories.ProcessionRepository;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
+import domain.Actor;
+import domain.Brotherhood;
+import domain.Coach;
+import repositories.CoachRepository;
 
 @Service
 @Transactional
