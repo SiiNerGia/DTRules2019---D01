@@ -15,8 +15,8 @@ public class Request extends DomainEntity {
     // Attributes
 
     private String				status;
-    private Integer             row;
-    private Integer             column;
+    private Integer             assignedRow;
+    private Integer             assignedColumn;
     private String              reason;
 
 
@@ -33,21 +33,21 @@ public class Request extends DomainEntity {
     }
 
     @Min(0)
-    public int getRow() {
-        return this.row;
+    public int getAssignedRow() {
+        return this.assignedRow;
     }
 
-    public void setRow(final int row) {
-        this.row = row;
+    public void setAssignedRow(final int assignedRow) {
+        this.assignedRow = assignedRow;
     }
 
     @Min(0)
-    public int getColumn() {
-        return this.column;
+    public int getAssignedColumn() {
+        return this.assignedColumn;
     }
 
-    public void setColumn(final int column) {
-        this.column = column;
+    public void setAssignedColumn(final int assignedColumn) {
+        this.assignedColumn = assignedColumn;
     }
 
     public String getReason(){

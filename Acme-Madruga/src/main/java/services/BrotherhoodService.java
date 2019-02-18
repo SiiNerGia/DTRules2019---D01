@@ -13,7 +13,7 @@ import repositories.BrotherhoodRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
-import domain.Paso;
+import domain.Coach;
 import domain.Procession;
 import domain.Url;
 
@@ -31,7 +31,7 @@ public class BrotherhoodService {
 		final Brotherhood result = new Brotherhood();
 
 		result.setPictures(new ArrayList<Url>());
-		result.setPasos(new ArrayList<Paso>());
+		result.setCoaches(new ArrayList<Coach>());
 		result.setProcessions(new ArrayList<Procession>());
 
 		return result;

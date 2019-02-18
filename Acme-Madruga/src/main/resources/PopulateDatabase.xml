@@ -72,28 +72,28 @@
 	<!-- Other domain beans come here -->
 
 
-	<!-- Pasos -->
+	<!-- Coaches -->
 
-	<bean id="paso1" class="domain.Paso">
-		<property name="title" value="Title Paso 1" />
-		<property name="description" value="Description Paso 1" />
+	<bean id="coach1" class="domain.Coach">
+		<property name="title" value="Title Coach 1" />
+		<property name="description" value="Description Coach 1" />
 		<property name="picture" value="http://www.instagram.com" />
 	</bean>
 
 
-	<bean id="paso2" class="domain.Paso">
-		<property name="title" value="Title Paso 2" />
-		<property name="description" value="Description Paso 2" />
+	<bean id="coach2" class="domain.Coach">
+		<property name="title" value="Title Coach 2" />
+		<property name="description" value="Description Coach 2" />
 	</bean>
 
-	<bean id="paso3" class="domain.Paso">
-		<property name="title" value="Title Paso 3" />
-		<property name="description" value="Description Paso 3" />
+	<bean id="coach3" class="domain.Coach">
+		<property name="title" value="Title Coach 3" />
+		<property name="description" value="Description Coach 3" />
 	</bean>
 
-	<bean id="paso4" class="domain.Paso">
-		<property name="title" value="Title Paso 4" />
-		<property name="description" value="Description Paso 4" />
+	<bean id="coach4" class="domain.Coach">
+		<property name="title" value="Title Coach 4" />
+		<property name="description" value="Description Coach 4" />
 	</bean>
 
 
@@ -101,8 +101,8 @@
 
 	<bean id="request1" class="domain.Request">
 		<property name="status" value="ACCEPTED" />
-		<property name="row" value="2" />
-		<property name="column" value="2" />
+		<property name="assignedRow" value="2" />
+		<property name="assignedColumn" value="2" />
 	</bean>
 
 	<bean id="request2" class="domain.Request">
@@ -116,8 +116,8 @@
 
 	<bean id="request4" class="domain.Request">
 		<property name="status" value="ACCEPTED" />
-		<property name="row" value="1" />
-		<property name="column" value="1" />
+		<property name="assignedRow" value="1" />
+		<property name="assignedColumn" value="1" />
 	</bean>
 
 
@@ -129,9 +129,9 @@
 		<property name="title" value="brotherhood1"/>
 		<property name="establishment" value="2019/01/30" />
 		<property name="UserAccount" ref="userAccount2" />
-		<property name="pasos">
+		<property name="coaches">
 			<list>
-				<ref bean="paso1" />
+				<ref bean="coach1" />
 			</list>
 		</property>
 	</bean>
@@ -143,9 +143,9 @@
 		<property name="title" value="brotherhood2"/>
 		<property name="establishment" value="2019/02/10" />
 		<property name="UserAccount" ref="userAccount4" />
-		<property name="pasos">
+		<property name="coaches">
 			<list>
-				<ref bean="paso2" />
+				<ref bean="coach2" />
 			</list>
 		</property>
 	</bean>

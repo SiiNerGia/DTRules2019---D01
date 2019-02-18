@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Paso extends DomainEntity {
+public class Coach extends DomainEntity {
 
     // Attributes
 
