@@ -48,9 +48,6 @@
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
 					<property name="authority" value="BROTHERHOOD" />
 				</bean>
 			</list>
@@ -69,7 +66,17 @@
 		</property>
 	</bean>
 	
-	<!-- Other domain beans come here -->
+	<!-- Actors *************************************************************************** -->
+	<!-- Administrators *************************************************************************** -->
+	<bean id="admin1" class="domain.Administrator">
+		<property name="name" value="admin" />
+		<property name="middleName" value="middlename1" />
+		<property name="surname" value="surname1" />
+		<property name="email" value="admin1@gmail.com" />
+		<property name="phoneNumber" value="656256697" />
+		<property name="address" value="admin1 18" />
+		<property name="UserAccount" ref="userAccount1" />
+	</bean>
 
 
 	<!-- Coaches -->
@@ -142,7 +149,7 @@
 		<property name="email" value="broterhood2@mail.com"/>
 		<property name="title" value="brotherhood2"/>
 		<property name="establishment" value="2019/02/10" />
-		<property name="UserAccount" ref="userAccount4" />
+		<property name="UserAccount" ref="userAccount3" />
 		<property name="coaches">
 			<list>
 				<ref bean="coach2" />
