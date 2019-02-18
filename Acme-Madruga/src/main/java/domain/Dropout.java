@@ -15,7 +15,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Dropout {
+public class Dropout extends DomainEntity {
 
 	// Attributes -------------------------------------------------
 	private Date moment;

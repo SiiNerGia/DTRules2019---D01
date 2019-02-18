@@ -6,7 +6,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 
 @Entity
@@ -19,7 +18,7 @@ public class Member extends Actor {
 	// Relationships
 	// -----------------------------------------------------------------
 
-	private Finder finder;
+//	private Finder finder;
 
 	private Collection<Enrol> enrols;
 
@@ -27,15 +26,15 @@ public class Member extends Actor {
 
 	private Collection<Request> requests;
 
-	@Valid
-	@OneToOne
-	public Finder getFinder() {
-		return finder;
-	}
-
-	public void setFinder(Finder finder) {
-		this.finder = finder;
-	}
+//	@Valid
+//	@OneToOne
+//	public Finder getFinder() {
+//		return finder;
+//	}
+//
+//	public void setFinder(Finder finder) {
+//		this.finder = finder;
+//	}
 
 	@Valid
 	@OneToMany

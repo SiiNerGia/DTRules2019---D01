@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -13,16 +14,18 @@ import javax.validation.constraints.Past;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Enrol {
+public class Enrol extends DomainEntity {
 
 	// Atributtes ----------------------------------------------------
 	private Date moment;
+	
+	
 	// Relashionships -----------------------------------------------
 	private Member member;
 
 	private Brotherhood brotherhood;
 
-	private Position position;
+	private Collection<Position> positions;
 
 	// Methods -------------------------------------------------------
 
@@ -57,12 +60,11 @@ public class Enrol {
 	}
 
 	@ManyToMany
-	public Position getPosition() {
-		return position;
+	public Collection<Position> getPositions() {
+		return positions;
 	}
 
-	public void setPosition(Position position) {
-		this.position = position;
+	public void setPositions(Collection<Position> positions) {
+		this.positions = positions;
 	}
-
 }
