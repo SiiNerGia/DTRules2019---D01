@@ -51,7 +51,7 @@
 					<property name="authority" value="ADMIN" />
 				</bean>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="BROTHERHOOD" />
 				</bean>
 			</list>
 		</property>
@@ -100,7 +100,7 @@
 	<!-- Requests -->
 
 	<bean id="request1" class="domain.Request">
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="APPROVED" />
 		<property name="assignedRow" value="2" />
 		<property name="assignedColumn" value="2" />
 	</bean>
@@ -115,7 +115,7 @@
 	</bean>
 
 	<bean id="request4" class="domain.Request">
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="APPROVED" />
 		<property name="assignedRow" value="1" />
 		<property name="assignedColumn" value="1" />
 	</bean>

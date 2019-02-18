@@ -1,12 +1,12 @@
 package domain;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -21,7 +21,6 @@ public class Request extends DomainEntity {
 
 
     // Getters & setters
-
     @NotBlank
     @Pattern(regexp = "^(PENDING|APPROVED|REJECTED)$")
     public String getStatus(){
@@ -33,7 +32,7 @@ public class Request extends DomainEntity {
     }
 
     @Min(0)
-    public int getAssignedRow() {
+    public Integer getAssignedRow() {
         return this.assignedRow;
     }
 
@@ -42,7 +41,7 @@ public class Request extends DomainEntity {
     }
 
     @Min(0)
-    public int getAssignedColumn() {
+    public Integer getAssignedColumn() {
         return this.assignedColumn;
     }
 
