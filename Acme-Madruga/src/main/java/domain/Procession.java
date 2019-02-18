@@ -9,11 +9,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -29,7 +32,7 @@ public class Procession extends DomainEntity {
 	
 	@NotBlank
 	@Column(unique = true)
-	@Pattern(regexp = "^([0-9]{2})(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])(-)([A-Z0-9] {5})$")
+	@Pattern(regexp = "^([0-9]{2})(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])(-)([A-Z0-9]{5})$")
 	public String getTicker() {
 		return ticker;
 	}
@@ -64,6 +67,8 @@ public class Procession extends DomainEntity {
 	
 	@NotNull
 	@Future
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMoment() {
 		return moment;
 	}
@@ -77,7 +82,7 @@ public class Procession extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 	private Brotherhood brotherhood;
-	private Collection<Request> request;
+	private Collection<Request> requests;
 
 
 	@ManyToOne(optional = false)
@@ -92,19 +97,19 @@ public class Procession extends DomainEntity {
 
 
 	@OneToMany
-	public Collection<Request> getRequest() {
-		return request;
+	public Collection<Request> getRequests() {
+		return requests;
 	}
 
 
-	public void setRequest(Collection<Request> request) {
-		this.request = request;
+	public void setRequests(Collection<Request> requests) {
+		this.requests = requests;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Procession [ticker=" + ticker + ", title=" + title + ", description=" + description + ", moment="
-				+ moment + ", request=" + request + "]";
+				+ moment + ", requests=" + requests + "]";
 	}
 }

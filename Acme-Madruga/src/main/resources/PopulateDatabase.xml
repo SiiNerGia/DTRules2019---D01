@@ -66,7 +66,7 @@
 		</property>
 	</bean>
 	
-	<!-- Actors *************************************************************************** -->
+
 	<!-- Administrators *************************************************************************** -->
 	<bean id="admin1" class="domain.Administrator">
 		<property name="name" value="admin" />
@@ -80,7 +80,6 @@
 
 
 	<!-- Coaches -->
-
 	<bean id="coach1" class="domain.Coach">
 		<property name="title" value="Title Coach 1" />
 		<property name="description" value="Description Coach 1" />
@@ -104,8 +103,7 @@
 	</bean>
 
 
-	<!-- Requests -->
-
+	<!-- Request ****************************************************************************************-->
 	<bean id="request1" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="assignedRow" value="2" />
@@ -128,7 +126,7 @@
 	</bean>
 
 
-	<!-- Brotherhoods -->
+	<!-- Brotherhoods ****************************************************************************************-->
 	<bean id="brotherhood1" class="domain.Brotherhood">
 		<property name="name" value="brotherhood1" />
 		<property name="surname" value="brotherhood1" />
@@ -157,4 +155,53 @@
 		</property>
 	</bean>
 
+	<!-- Processions ****************************************************************************************-->
+	<bean id="procession1" class="domain.Procession">
+		<property name="ticker" value="190210-AAAAA" />
+		<property name="title" value="procession1" />
+		<property name="description" value="procession1 description"/>
+		<property name="moment" value="2019/04/14"/>
+		<property name="brotherhood" ref="brotherhood1" />
+		<property name="requests">
+			<list>
+				<ref bean="request1" />
+				<ref bean="request2" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="procession2" class="domain.Procession">
+		<property name="ticker" value="190215-BBBBB" />
+		<property name="title" value="procession2" />
+		<property name="description" value="procession2 description"/>
+		<property name="moment" value="2019/04/15"/>
+		<property name="brotherhood" ref="brotherhood2" />
+		<property name="requests">
+			<list>
+				<ref bean="request3" />
+				<ref bean="request4" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </beans>
