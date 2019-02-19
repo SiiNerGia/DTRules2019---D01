@@ -65,6 +65,30 @@
 			</list>
 		</property>
 	</bean>
+
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="member1" />
+		<property name="password" value="c7764cfed23c5ca3bb393308a0da2306" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MEMBER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="member2" />
+		<property name="password" value="88ed421f060aadcacbd63f28d889797f" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="MEMBER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	
 
 	<!-- Administrators *************************************************************************** -->
@@ -79,7 +103,85 @@
 	</bean>
 
 
-	<!-- Coaches -->
+	<!-- Members ****************************************************************************************-->
+	<bean id="member1" class="domain.Member">
+		<property name="name" value="member1" />
+		<property name="surname" value="member1" />
+		<property name="email" value="member1@mail.com"/>
+		<property name="UserAccount" ref="userAccount5" />
+		<property name="requests">
+			<list>
+				<ref bean="request1" />
+				<ref bean="request2" />
+			</list>
+		</property>
+		<property name="enrols">
+			<list>
+				<ref bean="enrol1" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="member2" class="domain.Member">
+		<property name="name" value="member2" />
+		<property name="surname" value="member2" />
+		<property name="email" value="member2@mail.com"/>
+		<property name="UserAccount" ref="userAccount6" />
+		<property name="requests">
+			<list>
+				<ref bean="request3" />
+				<ref bean="request4" />
+			</list>
+		</property>
+		<property name="enrols">
+			<list>
+				<ref bean="enrol2" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Brotherhoods ****************************************************************************************-->
+	<bean id="brotherhood1" class="domain.Brotherhood">
+		<property name="name" value="brotherhood1" />
+		<property name="surname" value="brotherhood1" />
+		<property name="email" value="broterhood1@mail.com"/>
+		<property name="title" value="brotherhood1"/>
+		<property name="establishment" value="2019/01/30" />
+		<property name="UserAccount" ref="userAccount2" />
+		<property name="coaches">
+			<list>
+				<ref bean="coach1" />
+			</list>
+		</property>
+		<property name="enrols">
+			<list>
+				<ref bean="enrol1" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="brotherhood2" class="domain.Brotherhood">
+		<property name="name" value="brotherhood2" />
+		<property name="surname" value="brotherhood2" />
+		<property name="email" value="broterhood2@mail.com"/>
+		<property name="title" value="brotherhood2"/>
+		<property name="establishment" value="2019/02/10" />
+		<property name="UserAccount" ref="userAccount3" />
+		<property name="coaches">
+			<list>
+				<ref bean="coach2" />
+			</list>
+		</property>
+		<property name="enrols">
+			<list>
+				<ref bean="enrol2" />
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Coaches ******************************************************** -->
 	<bean id="coach1" class="domain.Coach">
 		<property name="title" value="Title Coach 1" />
 		<property name="description" value="Description Coach 1" />
@@ -108,51 +210,29 @@
 		<property name="status" value="APPROVED" />
 		<property name="assignedRow" value="2" />
 		<property name="assignedColumn" value="2" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession1" />
 	</bean>
 
 	<bean id="request2" class="domain.Request">
 		<property name="status" value="REJECTED" />
 		<property name="reason" value="Es demasiado gordo, ocuparía dos puestos" />
+		<property name="member" ref="member1" />
+		<property name="procession" ref="procession2" />
 	</bean>
 
 	<bean id="request3" class="domain.Request">
 		<property name="status" value="PENDING" />
+		<property name="member" ref="member2" />
+		<property name="procession" ref="procession1" />
 	</bean>
 
 	<bean id="request4" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="assignedRow" value="1" />
 		<property name="assignedColumn" value="1" />
-	</bean>
-
-
-	<!-- Brotherhoods ****************************************************************************************-->
-	<bean id="brotherhood1" class="domain.Brotherhood">
-		<property name="name" value="brotherhood1" />
-		<property name="surname" value="brotherhood1" />
-		<property name="email" value="broterhood1@mail.com"/>
-		<property name="title" value="brotherhood1"/>
-		<property name="establishment" value="2019/01/30" />
-		<property name="UserAccount" ref="userAccount2" />
-		<property name="coaches">
-			<list>
-				<ref bean="coach1" />
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="brotherhood2" class="domain.Brotherhood">
-		<property name="name" value="brotherhood2" />
-		<property name="surname" value="brotherhood2" />
-		<property name="email" value="broterhood2@mail.com"/>
-		<property name="title" value="brotherhood2"/>
-		<property name="establishment" value="2019/02/10" />
-		<property name="UserAccount" ref="userAccount3" />
-		<property name="coaches">
-			<list>
-				<ref bean="coach2" />
-			</list>
-		</property>
+		<property name="member" ref="member2" />
+		<property name="procession" ref="procession2" />
 	</bean>
 
 	<!-- Processions ****************************************************************************************-->
@@ -165,7 +245,7 @@
 		<property name="requests">
 			<list>
 				<ref bean="request1" />
-				<ref bean="request2" />
+				<ref bean="request3" />
 			</list>
 		</property>
 	</bean>
@@ -178,30 +258,26 @@
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="requests">
 			<list>
-				<ref bean="request3" />
+				<ref bean="request2" />
 				<ref bean="request4" />
 			</list>
 		</property>
 	</bean>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+	<!-- Enrol ****************************************************************************************-->
+	<bean id="enrol1" class="domain.Enrol">
+		<property name="moment" value="2019/02/19"/>
+		<property name="member" ref="member1" />
+		<property name="brotherhood" ref="brotherhood1" />
+	</bean>
+
+	<bean id="enrol2" class="domain.Enrol">
+		<property name="moment" value="2019/02/19"/>
+		<property name="member" ref="member2" />
+		<property name="brotherhood" ref="brotherhood2" />
+	</bean>
+
+
 	
 </beans>

@@ -23,7 +23,7 @@ public class Request extends DomainEntity {
 	private String		reason;
 	// relationships --------------------
 	private Member		member;
-	private Brotherhood	brotherhood;
+	private Procession	procession;
 
 
 	// Getters & setters
@@ -77,12 +77,12 @@ public class Request extends DomainEntity {
 
 	@Valid
 	@ManyToOne(optional = false)
-	public Brotherhood getBrotherhood() {
-		return this.brotherhood;
+	public Procession getProcession() {
+		return this.procession;
 	}
 
-	public void setBrotherhood(final Brotherhood brotherhood) {
-		this.brotherhood = brotherhood;
+	public void setProcession(final Procession procession) {
+		this.procession = procession;
 	}
 
 }
