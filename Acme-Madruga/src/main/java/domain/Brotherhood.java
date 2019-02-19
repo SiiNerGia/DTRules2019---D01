@@ -78,7 +78,7 @@ public class Brotherhood extends Actor {
 	// }
 	//
 	@Valid
-	@OneToMany
+	@OneToMany(mappedBy = "brotherhood")
 	public Collection<Procession> getProcessions() {
 		return this.processions;
 	}

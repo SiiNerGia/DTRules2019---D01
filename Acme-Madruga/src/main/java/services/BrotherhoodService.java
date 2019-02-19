@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class BrotherhoodService {
 		userAccount.setAuthorities(authorities);
 
 		result.setUserAccount(userAccount);
+		result.setEstablishment(new Date());
 		result.setPictures(new ArrayList<Url>());
 		result.setCoaches(new ArrayList<Coach>());
 		result.setProcessions(new ArrayList<Procession>());
