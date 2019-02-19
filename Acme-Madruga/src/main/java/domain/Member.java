@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -18,51 +19,52 @@ public class Member extends Actor {
 	// Relationships
 	// -----------------------------------------------------------------
 
-//	private Finder finder;
+	//	private Finder finder;
 
-	private Collection<Enrol> enrols;
+	private Collection<Enrol>	enrols;
 
-	private Collection<Dropout> dropouts;
+	private Collection<Dropout>	dropouts;
 
-	private Collection<Request> requests;
+	private Collection<Request>	requests;
 
-//	@Valid
-//	@OneToOne
-//	public Finder getFinder() {
-//		return finder;
-//	}
-//
-//	public void setFinder(Finder finder) {
-//		this.finder = finder;
-//	}
+
+	//	@Valid
+	//	@OneToOne
+	//	public Finder getFinder() {
+	//		return finder;
+	//	}
+	//
+	//	public void setFinder(Finder finder) {
+	//		this.finder = finder;
+	//	}
 
 	@Valid
-	@OneToMany
+	@OneToMany(mappedBy = "member")
 	public Collection<Enrol> getEnrols() {
-		return enrols;
+		return this.enrols;
 	}
 
-	public void setEnrols(Collection<Enrol> enrols) {
+	public void setEnrols(final Collection<Enrol> enrols) {
 		this.enrols = enrols;
 	}
 
 	@Valid
-	@OneToMany
+	@OneToMany(mappedBy = "member")
 	public Collection<Dropout> getDropouts() {
-		return dropouts;
+		return this.dropouts;
 	}
 
-	public void setDropouts(Collection<Dropout> dropouts) {
+	public void setDropouts(final Collection<Dropout> dropouts) {
 		this.dropouts = dropouts;
 	}
 
 	@Valid
 	@OneToMany
 	public Collection<Request> getRequests() {
-		return requests;
+		return this.requests;
 	}
 
-	public void setRequests(Collection<Request> requests) {
+	public void setRequests(final Collection<Request> requests) {
 		this.requests = requests;
 	}
 

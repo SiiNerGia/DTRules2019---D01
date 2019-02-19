@@ -1,8 +1,11 @@
+
 package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 
@@ -12,49 +15,74 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class Request extends DomainEntity {
 
-    // Attributes
+	// Attributes
 
-    private String				status;
-    private Integer             assignedRow;
-    private Integer             assignedColumn;
-    private String              reason;
+	private String		status;
+	private Integer		assignedRow;
+	private Integer		assignedColumn;
+	private String		reason;
+	// relationships --------------------
+	private Member		member;
+	private Brotherhood	brotherhood;
 
 
-    // Getters & setters
-    @NotBlank
-    @Pattern(regexp = "^(PENDING|APPROVED|REJECTED)$")
-    public String getStatus(){
-        return this.status;
-    }
+	// Getters & setters
+	@NotBlank
+	@Pattern(regexp = "^(PENDING|APPROVED|REJECTED)$")
+	public String getStatus() {
+		return this.status;
+	}
 
-    public void setStatus(String status){
-        this.status=status;
-    }
+	public void setStatus(final String status) {
+		this.status = status;
+	}
 
-    @Min(0)
-    public Integer getAssignedRow() {
-        return this.assignedRow;
-    }
+	@Min(0)
+	public Integer getAssignedRow() {
+		return this.assignedRow;
+	}
 
-    public void setAssignedRow(final int assignedRow) {
-        this.assignedRow = assignedRow;
-    }
+	public void setAssignedRow(final int assignedRow) {
+		this.assignedRow = assignedRow;
+	}
 
-    @Min(0)
-    public Integer getAssignedColumn() {
-        return this.assignedColumn;
-    }
+	@Min(0)
+	public Integer getAssignedColumn() {
+		return this.assignedColumn;
+	}
 
-    public void setAssignedColumn(final int assignedColumn) {
-        this.assignedColumn = assignedColumn;
-    }
+	public void setAssignedColumn(final int assignedColumn) {
+		this.assignedColumn = assignedColumn;
+	}
 
-    public String getReason(){
-        return this.reason;
-    }
+	public String getReason() {
+		return this.reason;
+	}
 
-    public void setReason(String reason){
-        this.reason=reason;
-    }
+	public void setReason(final String reason) {
+		this.reason = reason;
+	}
+
+	// RELATIONSHIPS	---------------------------------------
+
+	@Valid
+	@ManyToOne(optional = false)
+	public Member getMember() {
+		return this.member;
+	}
+
+	public void setMember(final Member member) {
+		this.member = member;
+	}
+
+	@Valid
+	@ManyToOne(optional = false)
+	public Brotherhood getBrotherhood() {
+		return this.brotherhood;
+	}
+
+	public void setBrotherhood(final Brotherhood brotherhood) {
+		this.brotherhood = brotherhood;
+	}
 
 }

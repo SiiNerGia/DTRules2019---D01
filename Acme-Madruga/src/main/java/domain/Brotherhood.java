@@ -28,7 +28,7 @@ public class Brotherhood extends Actor {
 	private Collection<Url>			pictures;
 
 	// Relationships ----------------------------------------------------------
-	// private Collection<Enrol> enrols;
+	private Collection<Enrol>		enrols;
 	private Collection<Procession>	processions;
 	// private Area area;
 	private Collection<Coach>		coaches;
@@ -67,16 +67,16 @@ public class Brotherhood extends Actor {
 
 	// RELATIONSHIPS ---------------------------------------------------
 
-	// @Valid
-	// @OneToMany
-	// public Collection<Enrol> getEnrols() {
-	// return this.enrols;
-	// }
-	//
-	// public void setEnrols(final Collection<Enrol> enrols) {
-	// this.enrols = enrols;
-	// }
-	//
+	@Valid
+	@OneToMany(mappedBy = "brotherhood")
+	public Collection<Enrol> getEnrols() {
+		return this.enrols;
+	}
+
+	public void setEnrols(final Collection<Enrol> enrols) {
+		this.enrols = enrols;
+	}
+
 	@Valid
 	@OneToMany(mappedBy = "brotherhood")
 	public Collection<Procession> getProcessions() {

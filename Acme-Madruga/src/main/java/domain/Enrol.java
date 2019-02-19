@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -17,54 +18,54 @@ import javax.validation.constraints.Past;
 public class Enrol extends DomainEntity {
 
 	// Atributtes ----------------------------------------------------
-	private Date moment;
-	
-	
+	private Date					moment;
+
 	// Relashionships -----------------------------------------------
-	private Member member;
+	private Member					member;
 
-	private Brotherhood brotherhood;
+	private Brotherhood				brotherhood;
 
-	private Collection<Position> positions;
+	private Collection<Position>	positions;
+
 
 	// Methods -------------------------------------------------------
 
 	@NotNull
 	@Past
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
 
 	@Valid
-	@ManyToOne
+	@ManyToOne(optional = false)
 	public Member getMember() {
-		return member;
+		return this.member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(final Member member) {
 		this.member = member;
 	}
 
 	@Valid
-	@ManyToOne
+	@ManyToOne(optional = false)
 	public Brotherhood getBrotherhood() {
-		return brotherhood;
+		return this.brotherhood;
 	}
 
-	public void setBrotherhood(Brotherhood brotherhood) {
+	public void setBrotherhood(final Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
 	}
 
 	@ManyToMany
 	public Collection<Position> getPositions() {
-		return positions;
+		return this.positions;
 	}
 
-	public void setPositions(Collection<Position> positions) {
+	public void setPositions(final Collection<Position> positions) {
 		this.positions = positions;
 	}
 }
