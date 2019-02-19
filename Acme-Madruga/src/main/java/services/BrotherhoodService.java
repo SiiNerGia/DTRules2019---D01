@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.BrotherhoodRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
@@ -30,6 +31,14 @@ public class BrotherhoodService {
 	public Brotherhood create() {
 		final Brotherhood result = new Brotherhood();
 
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		final Authority authority = new Authority();
+		authority.setAuthority(Authority.BROTHERHOOD);
+		authorities.add(authority);
+		userAccount.setAuthorities(authorities);
+
+		result.setUserAccount(userAccount);
 		result.setPictures(new ArrayList<Url>());
 		result.setCoaches(new ArrayList<Coach>());
 		result.setProcessions(new ArrayList<Procession>());
