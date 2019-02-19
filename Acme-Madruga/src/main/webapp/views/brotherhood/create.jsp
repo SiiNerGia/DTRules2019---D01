@@ -16,7 +16,6 @@
 	<form:hidden path="userAccount.Authorities" />
 	<form:hidden path="processions" />
 	<form:hidden path="coaches" />
-	<form:hidden path="pictures" />
 	<form:hidden path="establishment" />
 
 	<%-- UserAccount--%>
@@ -112,13 +111,13 @@
 	<br>
 
 	<%-- Picture --%>
-<%-- 	<form:label path="pictures">
+ 	<form:label path="pictures">
 		<spring:message code="brotherhood.picture" />
 	</form:label>
 	<form:input path="pictures" />
 	<form:errors class="error" path="pictures" />
 	<br>
-	<br> --%>
+	<br>
 
 	<script type="text/javascript">
 		function phoneNumberValidator() {
