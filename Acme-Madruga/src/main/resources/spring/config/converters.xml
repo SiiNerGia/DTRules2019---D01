@@ -18,10 +18,29 @@
 	">
 
 	<util:list id="converters">
-		<!-- 
-			Add your own converters using entries of the following form: 
-			<bean class="converters.Class1ToClass2" /> 
-		-->
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+		
+		<bean class="converters.AuthorityToStringConverter" />
+		<bean class="converters.StringToAuthorityConverter" />
+		
+		<bean class="converters.UserAccountToStringConverter" />
+		<bean class="converters.StringToUserAccountConverter" />
+		
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
+		
+		<bean class="converters.UrlToStringConverter" />
+		<bean class="converters.StringToUrlConverter" />
+		
+		<bean class="converters.BrotherhoodToStringConverter" />
+		<bean class="converters.StringToBrotherhoodConverter" />
+		
+		<bean class="converters.CoachToStringConverter" />
+		<bean class="converters.StringToCoachConverter" />
+		
+		<bean class="converters.ProcessionToStringConverter" />
+		<bean class="converters.StringToProcessionConverter" />
 	</util:list>
 	
 </beans>
