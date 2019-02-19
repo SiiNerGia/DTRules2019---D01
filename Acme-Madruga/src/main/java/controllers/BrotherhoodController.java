@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -31,6 +32,26 @@ public class BrotherhoodController extends AbstractController {
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
 		return new ModelAndView("redirect:/");
+	}
+
+	// List ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Brotherhood> bros;
+
+		try {
+			bros = this.brotherhoodService.findAll();
+			result = new ModelAndView("brotherhood/list");
+			result.addObject("brotherhoods", bros);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
 	}
 
 	// Register ------------------------------------------------------------------------------------
