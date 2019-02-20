@@ -28,6 +28,7 @@ public class Procession extends DomainEntity {
 	private String title;
 	private String description;
 	private Date moment;
+	private Boolean draftMode;
 	
 	
 	@NotBlank
@@ -80,6 +81,20 @@ public class Procession extends DomainEntity {
 	
 	
 
+	public Boolean getDraftMode() {
+		return draftMode;
+	}
+
+
+	public void setDraftMode(Boolean finalMode) {
+		this.draftMode = finalMode;
+	}
+
+
+
+
+
+
 	// Relationships ----------------------------------------------------------
 	private Brotherhood brotherhood;
 	private Collection<Request> requests;
@@ -110,6 +125,6 @@ public class Procession extends DomainEntity {
 	@Override
 	public String toString() {
 		return "Procession [ticker=" + ticker + ", title=" + title + ", description=" + description + ", moment="
-				+ moment + ", requests=" + requests + "]";
+				+ moment + ", draftMode=" + draftMode + ", brotherhood=" + brotherhood + ", requests=" + requests + "]";
 	}
 }

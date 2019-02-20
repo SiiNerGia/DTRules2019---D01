@@ -34,6 +34,7 @@ public class ProcessionService {
 		Procession result;
 		
 		result = new Procession();
+		result.setDraftMode(true);
 		
 		return result;
 	}
