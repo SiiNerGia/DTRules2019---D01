@@ -25,8 +25,6 @@
         <form:hidden path="procession" />
     </security:authorize>
 
-	<%-- UserAccount--%>
-
 
 	<security:authorize access="hasRole('MEMBER')">
 	    <!-- Select Procession -->
