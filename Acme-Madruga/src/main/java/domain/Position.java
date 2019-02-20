@@ -1,8 +1,11 @@
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -24,16 +27,16 @@ public class Position extends DomainEntity {
 	
 	
 	// Relationships ----------------------------------------------------------
-//	private Collection<Enrol> enrol;
-//
-//	@ManyToMany
-//	public Collection<Enrol> getEnrol() {
-//		return enrol;
-//	}
-//
-//	public void setEnrol(Collection<Enrol> enrol) {
-//		this.enrol = enrol;
-//	}
+	private Collection<Enrol> enrol;
+
+	@ManyToMany
+	public Collection<Enrol> getEnrol() {
+		return enrol;
+	}
+
+	public void setEnrol(Collection<Enrol> enrol) {
+		this.enrol = enrol;
+	}
 
 	
 	
