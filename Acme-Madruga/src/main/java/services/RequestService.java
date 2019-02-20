@@ -34,6 +34,8 @@ public class RequestService {
 		// Principal must be a Member
 		principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Member.class, principal);
+
+		result.setStatus("PENDING");
 		
 		return result;
 	}
@@ -57,18 +59,17 @@ public class RequestService {
 	public Request save(Request request) {
 		Assert.notNull(request);
 		Actor principal;
-		boolean check = false;
 		
 		// Principal must be a Member or a Brotherhood
 		principal = this.actorService.findByPrincipal();
 
-		if(principal instanceof Member || principal instanceof Brotherhood) {
-			check = true;
+		if(request.getId()!=0){
+			Assert.isInstanceOf(Brotherhood.class, principal);
+		}else{
+			Assert.isInstanceOf(Member.class, principal);
 		}
 
-		Assert.isTrue(check);
-
-
+		checkRequest(request);
 
 		return this.requestRepository.save(request);
 	}
