@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -60,7 +61,9 @@ public class Enrol extends DomainEntity {
 		this.brotherhood = brotherhood;
 	}
 
-	@ManyToMany
+	@ManyToMany(cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH
+	})
 	public Collection<Position> getPositions() {
 		return this.positions;
 	}
