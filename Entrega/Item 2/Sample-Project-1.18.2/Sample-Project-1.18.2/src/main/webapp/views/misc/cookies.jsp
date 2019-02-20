@@ -1,7 +1,7 @@
 <%--
- * 403.jsp
+ * index.jsp
  *
- * Copyright (C) 2019 Universidad de Sevilla
+ * Copyright (C) 2017 Universidad de Sevilla
  * 
  * The use of this project is hereby constrained to the conditions of the 
  * TDG Licence, a copy of which you may download from 
@@ -17,3 +17,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+<p><spring:message code="terms.cookies.1" /> </p>
+
+<p><spring:message code="terms.cookies.2" /> </p>

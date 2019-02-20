@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!-- 
- * tiles_es.xml
+ * tiles.xml
  *
  * Copyright (C) 2019 Universidad de Sevilla
  * 
@@ -16,9 +16,20 @@
        
 <tiles-definitions>
 
-	<definition name="panic" extends="master.page">
-		<put-attribute name="title" value="Pánico" />
+	<definition name="misc/panic" extends="master.page">
+		<put-attribute name="title" value="Panic" />
 		<put-attribute name="body" value="/views/misc/panic.jsp" />
 	</definition>
-
+	
+	<definition name="misc/cookies" extends="master.page">	
+		<put-attribute name="title" value="Cookies Policy" />
+		<put-attribute name="body" value="/views/misc/cookies.jsp" />
+	</definition>
+	
+	<definition name="misc/terms" extends="master.page">	
+		<put-attribute name="title" value="Terms of Service" />
+		<put-attribute name="body" value="/views/misc/terms.jsp" />
+	</definition>
+	
 </tiles-definitions>
+
