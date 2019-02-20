@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="coach/brotherhood/create" extends="master.page">
+		<put-attribute name="title" value="Crear Cuadrilla" />
+		<put-attribute name="body" value="/views/coach/edit.jsp" />
+	</definition>
+
+	<definition name="coach/brotherhood/edit" extends="master.page">
+		<put-attribute name="title" value="Editar Cuadrilla" />
+		<put-attribute name="body" value="/views/coach/edit.jsp" />
+	</definition>
+
+	<definition name="coach/list" extends="master.page">
+		<put-attribute name="title" value="Lista de Cuadrillas" />
+		<put-attribute name="body" value="/views/coach/list.jsp" />
+	</definition>
+
+	<definition name="coach/display" extends="master.page">
+		<put-attribute name="title" value="Mostrar Cuadrilla" />
+		<put-attribute name="body" value="/views/coach/display.jsp" />
+	</definition>
+	
+</tiles-definitions>
