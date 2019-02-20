@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="procession/brotherhood/create" extends="master.page">	
+		<put-attribute name="title" value="Create Procesion" />
+		<put-attribute name="body" value="/views/procession/brotherhood/create.jsp" />
+	</definition>
+	
+	<definition name="procession/brotherhood/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit Procesion" />
+		<put-attribute name="body" value="/views/procession/brotherhood/edit.jsp" />
+	</definition>
+	
+	<definition name="procession/list" extends="master.page">	
+		<put-attribute name="title" value="Processions List" />
+		<put-attribute name="body" value="/views/procession/brotherhood/list.jsp" />
+	</definition>
+	
+	<definition name="procession/diplay" extends="master.page">	
+		<put-attribute name="title" value="Procession: " />
+		<put-attribute name="body" value="/views/procession/diplay.jsp" />
+	</definition>
+	
+</tiles-definitions>
