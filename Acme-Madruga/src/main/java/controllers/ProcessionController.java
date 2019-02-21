@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,7 +95,7 @@ public class ProcessionController extends AbstractController {
 
 	// Save -------------------------------------------------------------
 	@RequestMapping(value = "brotherhood/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Procession procession, BindingResult binding) {
+	public ModelAndView save(@Valid Procession procession, BindingResult binding) {
 		ModelAndView result;
 
 		procession = this.processionService.reconstruct(procession, binding);
