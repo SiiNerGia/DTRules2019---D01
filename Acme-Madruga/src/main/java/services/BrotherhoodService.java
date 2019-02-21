@@ -6,9 +6,12 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.BrotherhoodRepository;
 import security.Authority;
@@ -18,6 +21,7 @@ import domain.Brotherhood;
 import domain.Coach;
 import domain.Procession;
 import domain.Url;
+import forms.BrotherhoodForm;
 
 @Service
 @Transactional
@@ -26,6 +30,11 @@ public class BrotherhoodService {
 	// Manage Repository
 	@Autowired
 	private BrotherhoodRepository	brotherhoodRepository;
+
+	// Validator for form
+	@Autowired
+	@Qualifier("validator")
+	private Validator				validator;
 
 
 	// CRUD methods
@@ -103,5 +112,27 @@ public class BrotherhoodService {
 		Assert.notNull(username);
 
 		return this.brotherhoodRepository.findByUserName(username);
+	}
+
+	//Reconstruct object, check validity and update binding
+	public Brotherhood reconstruct(final BrotherhoodForm form, final BindingResult binding) {
+		final Brotherhood bro = this.create();
+
+		bro.getUserAccount().setPassword(form.getUserAccount().getPassword());
+		bro.getUserAccount().setUsername(form.getUserAccount().getUsername());
+
+		bro.setAddress(form.getAddress());
+		bro.setEmail(form.getEmail());
+		bro.setMiddleName(form.getMiddlename());
+		bro.setName(form.getName());
+		bro.setPhoneNumber(form.getPhone());
+		bro.setPhoto(form.getPhoto());
+		bro.setSurname(form.getSurname());
+		bro.setTitle(form.getTitle());
+		bro.getEstablishment().setTime(bro.getEstablishment().getTime() - 1000);
+
+		this.validator.validate(bro, binding);
+
+		return bro;
 	}
 }

@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import services.BrotherhoodService;
 import utilities.Md5;
 import domain.Brotherhood;
+import domain.Url;
+import forms.BrotherhoodForm;
 
 @Controller
 @RequestMapping("/brotherhood")
@@ -58,12 +60,12 @@ public class BrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Brotherhood bro;
+		BrotherhoodForm bro;
 
 		try {
-			bro = this.brotherhoodService.create();
+			bro = new BrotherhoodForm();
 			result = new ModelAndView("brotherhood/create");
-			result.addObject("brotherhood", bro);
+			result.addObject("brotherhoodForm", bro);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -74,18 +76,41 @@ public class BrotherhoodController extends AbstractController {
 		return result;
 	}
 
-	// SAVE ------------------------------------------------------------------------------------
+	//	// Register ------------------------------------------------------------------------------------
+	//	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	//	public ModelAndView create() {
+	//		ModelAndView result;
+	//		Brotherhood bro;
+	//
+	//		try {
+	//			bro = this.brotherhoodService.create();
+	//			result = new ModelAndView("brotherhood/create");
+	//			result.addObject("brotherhood", bro);
+	//		} catch (final Throwable oops) {
+	//			System.out.println(oops.getMessage());
+	//			System.out.println(oops.getClass());
+	//			System.out.println(oops.getCause());
+	//			result = this.forbiddenOpperation();
+	//		}
+	//
+	//		return result;
+	//	}
+
+	// Save the new brotherhood ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Brotherhood brotherhood, final BindingResult binding) {
+	public ModelAndView save(@Valid final BrotherhoodForm brotherhoodForm, final BindingResult binding) {
 		ModelAndView result;
+		Brotherhood brotherhood;
 		String password;
+
+		brotherhood = this.brotherhoodService.reconstruct(brotherhoodForm, binding);
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
 
 			result = new ModelAndView("brotherhood/create");
-			result.addObject("brotherhood", brotherhood);
+			result.addObject("brotherhoodForm", brotherhoodForm);
 		}
 
 		else
@@ -99,29 +124,182 @@ public class BrotherhoodController extends AbstractController {
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
 				System.out.println(oops.getCause());
-				result = this.createEditModelAndView(brotherhood);
+				result = this.createEditModelAndView(brotherhoodForm);
 
 				if (oops instanceof DataIntegrityViolationException)
-					result = this.createEditModelAndView(brotherhood, "brotherhood.duplicated.username");
+					result = this.createEditModelAndView(brotherhoodForm, "brotherhood.duplicated.username");
 				else
-					result = this.createEditModelAndView(brotherhood, "brotherhood.registration.error");
+					result = this.createEditModelAndView(brotherhoodForm, "brotherhood.registration.error");
 			}
 		return result;
 	}
 
-	// Ancillary methods -----------------------------------------------------------------------
-	protected ModelAndView createEditModelAndView(final Brotherhood brotherhood) {
-		ModelAndView result;
+	//	// SAVE ------------------------------------------------------------------------------------
+	//	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	//	public ModelAndView save(@Valid final Brotherhood brotherhood, final BindingResult binding) {
+	//		ModelAndView result;
+	//		String password;
+	//		if (binding.hasErrors()) {
+	//			final List<ObjectError> errors = binding.getAllErrors();
+	//			for (final ObjectError e : errors)
+	//				System.out.println(e.toString());
+	//
+	//			result = new ModelAndView("brotherhood/create");
+	//			result.addObject("brotherhood", brotherhood);
+	//		}
+	//
+	//		else
+	//			try {
+	//				password = Md5.encodeMd5(brotherhood.getUserAccount().getPassword());
+	//				brotherhood.getUserAccount().setPassword(password);
+	//				this.brotherhoodService.save(brotherhood);
+	//				result = new ModelAndView("redirect:../security/login.do");
+	//			} catch (final Throwable oops) {
+	//				System.out.println(brotherhood);
+	//				System.out.println(oops.getMessage());
+	//				System.out.println(oops.getClass());
+	//				System.out.println(oops.getCause());
+	//				result = this.createEditModelAndView(brotherhood);
+	//
+	//				if (oops instanceof DataIntegrityViolationException)
+	//					result = this.createEditModelAndView(brotherhood, "brotherhood.duplicated.username");
+	//				else
+	//					result = this.createEditModelAndView(brotherhood, "brotherhood.registration.error");
+	//			}
+	//		return result;
+	//	}
 
-		result = this.createEditModelAndView(brotherhood, null);
+	// Edit ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		Brotherhood bro;
+
+		try {
+			bro = this.brotherhoodService.findByPrincipal();
+			result = new ModelAndView("brotherhood/edit");
+			result.addObject("brotherhood", bro);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Brotherhood brotherhood, final String message) {
+	// SAVE ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveEdit(@Valid final Brotherhood brotherhood, final BindingResult binding) {
+		ModelAndView result;
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+
+			result = new ModelAndView("brotherhood/edit");
+			result.addObject("brotherhood", brotherhood);
+		}
+
+		else
+			try {
+				this.brotherhoodService.save(brotherhood);
+				result = new ModelAndView("redirect:/");
+			} catch (final Throwable oops) {
+				System.out.println(brotherhood);
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = this.editModelAndView(brotherhood, "brotherhood.registration.error");
+			}
+		return result;
+	}
+
+	// Picture  ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/addPicture", method = RequestMethod.GET)
+	public ModelAndView addPicture() {
+		ModelAndView result;
+		Url picture;
+
+		try {
+			picture = new Url();
+			result = new ModelAndView("brotherhood/addPicture");
+			result.addObject("picture", picture);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
+
+	// SAVE ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/addPicture", method = RequestMethod.POST, params = "save")
+	public ModelAndView savePicture(@Valid final Url picture, final BindingResult binding) {
+		ModelAndView result;
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+
+			result = new ModelAndView("brotherhood/addPicture");
+			result.addObject("picture", picture);
+		}
+
+		else
+			try {
+				Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
+				brotherhood.getPictures().add(picture);
+				brotherhood = this.brotherhoodService.save(brotherhood);
+				System.out.println("Sin errores");
+				result = this.editModelAndView(brotherhood);
+			} catch (final Throwable oops) {
+				System.out.println(picture);
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				System.out.println("Con errores");
+				result = new ModelAndView("brotherhood/addPicture");
+				result.addObject("picture", picture);
+			}
+		System.out.println(result.getViewName());
+		return result;
+	}
+
+	// Ancillary methods -----------------------------------------------------------------------
+	protected ModelAndView createEditModelAndView(final BrotherhoodForm brotherhoodForm) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(brotherhoodForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final BrotherhoodForm brotherhoodForm, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("brotherhood/create");
+		result.addObject("brotherhoodForm", brotherhoodForm);
+		result.addObject("message", message);
+
+		return result;
+	}
+
+	protected ModelAndView editModelAndView(final Brotherhood brotherhood) {
+		ModelAndView result;
+
+		result = this.editModelAndView(brotherhood, null);
+
+		return result;
+	}
+
+	protected ModelAndView editModelAndView(final Brotherhood brotherhood, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("brotherhood/edit");
 		result.addObject("brotherhood", brotherhood);
 		result.addObject("message", message);
 

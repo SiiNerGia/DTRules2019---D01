@@ -15,5 +15,15 @@
 		<put-attribute name="title" value="Lista de Hermandades" />
 		<put-attribute name="body" value="/views/brotherhood/list.jsp" />
 	</definition>
+
+	<definition name="brotherhood/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar perfil" />
+		<put-attribute name="body" value="/views/brotherhood/edit.jsp" />
+	</definition>
+
+	<definition name="brotherhood/addPicture" extends="master.page">	
+		<put-attribute name="title" value="Añadir Imagen" />
+		<put-attribute name="body" value="/views/brotherhood/addPicture.jsp" />
+	</definition>
 	
 </tiles-definitions>
