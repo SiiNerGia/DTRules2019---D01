@@ -9,32 +9,23 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="brotherhood/create.do" modelAttribute="brotherhoodForm">
+<form:form action="brotherhood/edit.do" modelAttribute="brotherhood">
 
 	<%-- Hidden properties from handy worker--%>
-<%-- 	<form:hidden path="id" />
+	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="userAccount.Authorities" />
+	<form:hidden path="userAccount" />
 	<form:hidden path="processions" />
 	<form:hidden path="coaches" />
 	<form:hidden path="establishment" />
-	<form:hidden path="pictures" /> --%>
-	<%-- UserAccount--%>
-
-	<%-- username--%>
-	<acme:textbox code="brotherhood.username" path="userAccount.username" />
-	<br>
-
-	<%-- password--%>
-	<acme:password code="brotherhood.password" path="userAccount.password" />
-	<br>
-
+	
 	<%-- Name --%>
 	<acme:textbox code="brotherhood.name" path="name" />
 	<br>
 
 	<%-- Middlename --%>
-	<acme:textbox code="brotherhood.middleName" path="middlename" />
+	<acme:textbox code="brotherhood.middleName" path="middleName" />
 	<br>
 
 	<%-- Surname --%>
@@ -46,7 +37,7 @@
 	<br>
 
 	<%-- Phone --%>
-	<acme:textbox code="brotherhood.phone" path="phone" />
+	<acme:textbox code="brotherhood.phone" path="phoneNumber" />
 	<br>
 
 	<%-- email --%>
@@ -60,9 +51,28 @@
 	<%-- Title --%>
 	<acme:textbox code="brotherhood.title" path="title" />
 	<br>
-	<%-- Picture --%>
-<%--  	<acme:textbox code="brotherhood.picture" path="pictures" />
-	<br> --%>
+	
+	
+	<jstl:if test="${not empty brotherhood.pictures}">
+	<display:table name="brotherhood.pictures"  id="row" >
+		<spring:message code="brotherhood.picture" var="pictureNameHeader" />
+		<display:column title="${pictureNameHeader}" sortable="false" >
+			<img src="${row.link}" width="200" height="200" />
+		</display:column>
+			
+<%-- 		<spring:message code="brotherhood.pictures.delete" var="deleteHeader" />
+		<display:column title="${deleteHeader}">
+			<a href="brotherhood/picture/delete.do?pictureId=${row.id}"><spring:message code="brotherhood.picture.delete"/></a>
+		</display:column> --%>
+		
+	<display:caption><spring:message code="brotherhood.pictures"/></display:caption>
+	</display:table>
+	</jstl:if>
+	<br>
+	<a href="brotherhood/addPicture.do">
+			<spring:message code="brotherhood.picture.create"/>
+	</a>
+	<br>
 
 	<script type="text/javascript">
 		function phoneNumberValidator() {
