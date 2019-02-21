@@ -47,7 +47,16 @@
 		<!-- BROTHERHOOD -->
 		<security:intercept-url pattern="/brotherhood/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/brotherhood/list.do" access="permitAll" />
-	
+		
+		<!-- PROCESSION -->
+		<security:intercept-url pattern="/procession/list.do" access="hasRole('BROTHERHOOD')" />	
+		
+		
+		
+		
+		
+		
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

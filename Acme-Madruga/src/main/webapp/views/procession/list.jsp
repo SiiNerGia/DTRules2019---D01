@@ -6,15 +6,16 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="processions" id="row" requestURI="${ uri }" pagesize="5" class="displaytag">
+<display:table name="processions" id="row" requestURI="${uri}" pagesize="5" class="displaytag">
 	
-	<!-- ticker -->
-	<spring:message code="procession.ticker" var="tickerHeader" />
-	<display:column property="title" title="${tickerHeader}" />
 	
 	<!-- title -->
 	<spring:message code="procession.title" var="titleHeader" />
-	<display:column property="establishment" title="${titleHeader}" format="{0,date,dd/MM/yyyy}"/>
+	<display:column property="title" title="${titleHeader}" />
+	
+	<!-- ticker -->
+	<spring:message code="procession.ticker" var="tickerHeader" />
+	<display:column property="ticker" title="${tickerHeader}" />
 	
 	<!-- description -->
 	<spring:message code="procession.description" var="descriptionHeader" />
@@ -26,7 +27,7 @@
 	
 	<!-- brotherhood -->
 	<spring:message code="procession.brotherhood" var="brotherhoodHeader" />
-	<display:column property="brotherhood" title="${brotherhoodHeader}" />
+	<display:column property="brotherhood.title" title="${brotherhoodHeader}" />
 	
 </display:table>
 
