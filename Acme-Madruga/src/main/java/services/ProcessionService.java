@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import domain.Actor;
 import domain.Brotherhood;
@@ -29,12 +31,17 @@ public class ProcessionService {
 	private ActorService			actorService;
 	
 	
+	// Validator
+	@Autowired
+	private Validator				validator;
+	
+	
 	/************************************* CRUD methods ********************************/
 	public Procession create() {
 		Procession result;
 		
 		result = new Procession();
-		result.setDraftMode(true);
+		
 		
 		return result;
 	}
@@ -63,6 +70,15 @@ public class ProcessionService {
 		principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Brotherhood.class, principal);
 		
+		Brotherhood brotherhood = (Brotherhood) principal;
+		
+		if(procession.getId() == 0) {
+			procession.setTicker(this.generateTicker());
+			procession.setBrotherhood(brotherhood);
+		} else {
+			Assert.isTrue(brotherhood.getProcessions().contains(procession));
+		}
+		
 		return this.processionRepository.save(procession);
 	}
 	
@@ -83,6 +99,26 @@ public class ProcessionService {
 		this.processionRepository.delete(procession);
 		
 	}
+	
+	/************************************* Reconstruct ******************************************/
+	public Procession reconstruct(Procession procession, BindingResult binding) {
+		Procession result;
+		
+		if(procession.getId() == 0) {
+			result = procession;
+		} else {
+			result = this.processionRepository.findOne(procession.getId());
+			result.setTitle(procession.getTitle());
+			result.setDescription(procession.getDescription());
+			result.setMoment(procession.getMoment());
+			result.setDraftMode(procession.getDraftMode());
+			
+			validator.validate(result, binding);
+		}
+		return result;
+	}
+	
+	
 	
 	/************************************* Other business methods********************************/
 	public String generateTicker() {

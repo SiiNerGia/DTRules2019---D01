@@ -12,8 +12,8 @@
 	</definition>
 	
 	<definition name="procession/brotherhood/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar Procesión" />
-		<put-attribute name="body" value="/views/procession/brotherhood/edit.jsp" />
+		<put-attribute name="title" value="Crear/Editar Procesión" />
+		<put-attribute name="body" value="/views/procession/edit.jsp" />
 	</definition>
 	
 	<definition name="procession/list" extends="master.page">	
