@@ -56,6 +56,16 @@
 				</ul>
 			</li>
 		</security:authorize>
+		
+		<!-- An actor who is authenticated as a Brotherhood -->
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<li><a class="fNiv"><spring:message	code="master.page.processions" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="procession/list.do"><spring:message code="master.page.procession.list" /></a></li>				
+				</ul>
+			</li>
+		</security:authorize>
 	</ul>
 </div>
 
