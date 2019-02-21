@@ -6,38 +6,30 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="brotherhoods" id="row" requestURI="brotherhood/list.do" pagesize="5" class="displaytag">
+<display:table name="processions" id="row" requestURI="${ uri }" pagesize="5" class="displaytag">
 	
-	<!-- Title -->
-	<spring:message code="brotherhood.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" />
+	<!-- ticker -->
+	<spring:message code="procession.ticker" var="tickerHeader" />
+	<display:column property="title" title="${tickerHeader}" />
 	
-	<!-- Establishment -->
-	<spring:message code="brotherhood.establishment" var="establishmentHeader" />
-	<display:column property="establishment" title="${establishmentHeader}" format="{0,date,dd/MM/yyyy}"/>
+	<!-- title -->
+	<spring:message code="procession.title" var="titleHeader" />
+	<display:column property="establishment" title="${titleHeader}" format="{0,date,dd/MM/yyyy}"/>
 	
-	<!-- Members -->
-	<spring:message code="brotherhood.members" var="membersHeader" />
-	<display:column>
-			<a href="member/list.do?brotherhoodId=${row.id}">
-				<spring:message code="brotherhood.members" />
-			</a>
-	</display:column>
+	<!-- description -->
+	<spring:message code="procession.description" var="descriptionHeader" />
+	<display:column property="description" title="${ descriptionHeader }" />
 	
-	<!-- Processions -->
-	<spring:message code="brotherhood.processions" var="processionsHeader" />
-	<display:column>
-			<a href="procession/list.do?brotherhoodId=${row.id}">
-				<spring:message code="brotherhood.processions" />
-			</a>
-	</display:column>
+	<!-- moment -->
+	<spring:message code="procession.moment" var="momentHeader" />
+	<display:column property="moment" title="${momentHeader}" format="{0,date,dd/MM/yyyy}"/>
 	
-	<!-- Floats -->
-	<spring:message code="brotherhood.coaches" var="coachesHeader" />
-	<display:column>
-			<a href="coach/list.do?brotherhoodId=${row.id}">
-				<spring:message code="brotherhood.coaches" />
-			</a>
-	</display:column>
+	<!-- brotherhood -->
+	<spring:message code="procession.brotherhood" var="brotherhoodHeader" />
+	<display:column property="brotherhood" title="${brotherhoodHeader}" />
 	
 </display:table>
+
+<security:authorize access="hasRole('BROTHERHOOD')">
+	<a href=procession/brotherhood/create.do><spring:message code="procession.create" /></a>
+</security:authorize>
