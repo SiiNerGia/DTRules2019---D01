@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="http://images.telemadrid.es/2017/04/13/imagenes-de-archivo/Telemadrid-ofrece-Madruga-Sevilla_1893420643_2808023_1300x731.jpg" alt="Acme-Madruga Co., Inc." width="1000" height="200" /></a>
+	<a href="#"><img src="https://gaceta.es/wp-content/uploads/madruga_1.jpg" alt="Acme-Madruga Co., Inc." width="1000" height="300" /></a>
 </div>
 
 <div>
@@ -47,6 +47,11 @@
 				<ul>
 					<li class="arrow"></li>					
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
+					<security:authorize access="hasRole('BROTHERHOOD')">
+						<li><a href="brotherhood/edit.do">
+							<spring:message code="master.page.brotherhood.edit" />
+						</a></li>
+					</security:authorize>
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message	code="master.page.brotherhood" /></a>
@@ -56,6 +61,7 @@
 				</ul>
 			</li>
 		</security:authorize>
+		
 		
 		<!-- An actor who is authenticated as a Brotherhood -->
 		<security:authorize access="hasRole('BROTHERHOOD')">

@@ -57,13 +57,13 @@
 	<display:table name="brotherhood.pictures"  id="row" >
 		<spring:message code="brotherhood.picture" var="pictureNameHeader" />
 		<display:column title="${pictureNameHeader}" sortable="false" >
-			<img src="${row.link}" width="200" height="200" />
+			<img src="${row.link}" width="50%" height="200"/>
 		</display:column>
 			
-<%-- 		<spring:message code="brotherhood.pictures.delete" var="deleteHeader" />
+ 		<spring:message code="brotherhood.pictures.delete" var="deleteHeader" />
 		<display:column title="${deleteHeader}">
-			<a href="brotherhood/picture/delete.do?pictureId=${row.id}"><spring:message code="brotherhood.picture.delete"/></a>
-		</display:column> --%>
+			<a href="brotherhood/deletePicture.do?link=${row.link}"><spring:message code="brotherhood.picture.delete"/></a>
+		</display:column>
 		
 	<display:caption><spring:message code="brotherhood.pictures"/></display:caption>
 	</display:table>
