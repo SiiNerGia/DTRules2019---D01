@@ -71,12 +71,17 @@
 				</a>
 				<ul>
 					<li class="arrow"></li>					
-					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
+					
+					<!-- PROFILE -->
 					<security:authorize access="hasRole('BROTHERHOOD')">
-						<li><a href="brotherhood/edit.do">
-							<spring:message code="master.page.brotherhood.edit" />
-						</a></li>
+						<li><a href="brotherhood/edit.do"><spring:message code="master.page.brotherhood.edit" /></a></li>
 					</security:authorize>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="administrator/update.do"><spring:message code="master.page.brotherhood.edit" /></a></li>
+					</security:authorize>
+					
+					<!-- LOGOUT -->
+					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
 		</security:authorize>

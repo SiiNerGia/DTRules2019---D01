@@ -79,7 +79,7 @@ public class AdministratorController extends AbstractController {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			//admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
+			// admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			result = new ModelAndView("administrator/create");
 			result.addObject("administrator", admin);
 		} else
@@ -97,6 +97,42 @@ public class AdministratorController extends AbstractController {
 					System.out.println(oops.getCause().toString());
 					result.addObject("message", "admin.registration.error");
 				}
+			}
+		return result;
+	}
+
+	// Update -----------------------------------------------------------
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public ModelAndView edit() {
+		ModelAndView result;
+		Administrator admin;
+
+		admin = this.administratorService.findByPrincipal();
+		result = new ModelAndView("administrator/update");
+		result.addObject("administrator", admin);
+
+		return result;
+	}
+
+	// Save Update ----------------------------------------------------------
+	@RequestMapping(value = "/update", method = RequestMethod.POST, params = "update")
+	public ModelAndView edit(@Valid final Administrator admin, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+			result = new ModelAndView("administrator/update");
+			result.addObject("administrator", admin);
+		} else
+			try {
+				this.administratorService.save(admin);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("administrator/update");
+				result.addObject("administrator", admin);
+				result.addObject("message", "administrator.commit.error");
 			}
 		return result;
 	}
