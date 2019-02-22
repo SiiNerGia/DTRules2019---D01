@@ -5,11 +5,6 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
       
 <tiles-definitions>
-
-	<definition name="procession/brotherhood/create" extends="master.page">	
-		<put-attribute name="title" value="Crear Procesión" />
-		<put-attribute name="body" value="/views/procession/brotherhood/create.jsp" />
-	</definition>
 	
 	<definition name="procession/brotherhood/edit" extends="master.page">	
 		<put-attribute name="title" value="Crear/Editar Procesión" />

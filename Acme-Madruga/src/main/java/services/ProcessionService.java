@@ -7,6 +7,7 @@ import java.util.Date;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -33,6 +34,7 @@ public class ProcessionService {
 	
 	// Validator
 	@Autowired
+	@Qualifier("validator")
 	private Validator				validator;
 	
 	
@@ -41,6 +43,7 @@ public class ProcessionService {
 		Procession result;
 		
 		result = new Procession();
+		result.setTicker(this.generateTicker());
 		
 		
 		return result;
@@ -71,9 +74,9 @@ public class ProcessionService {
 		Assert.isInstanceOf(Brotherhood.class, principal);
 		
 		Brotherhood brotherhood = (Brotherhood) principal;
+
 		
 		if(procession.getId() == 0) {
-			procession.setTicker(this.generateTicker());
 			procession.setBrotherhood(brotherhood);
 		} else {
 			Assert.isTrue(brotherhood.getProcessions().contains(procession));
@@ -113,7 +116,8 @@ public class ProcessionService {
 			result.setMoment(procession.getMoment());
 			result.setDraftMode(procession.getDraftMode());
 			
-			validator.validate(result, binding);
+			validator.validate(procession, binding);
+			System.out.println("From Service " + binding);
 		}
 		return result;
 	}

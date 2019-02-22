@@ -1,14 +1,14 @@
 package controllers;
 
 import java.util.Collection;
-
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -95,13 +95,17 @@ public class ProcessionController extends AbstractController {
 
 	// Save -------------------------------------------------------------
 	@RequestMapping(value = "brotherhood/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid Procession procession, BindingResult binding) {
+	public ModelAndView save(Procession procession, BindingResult binding) {
 		ModelAndView result;
 
 		procession = this.processionService.reconstruct(procession, binding);
-		
-		if (binding.hasErrors())
+		System.out.println("From Controller " + binding);
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
 			result = this.createEditModelAndView(procession);
+		}
 		else
 			try {
 				this.processionService.save(procession);
@@ -114,7 +118,26 @@ public class ProcessionController extends AbstractController {
 		return result;
 	}
 
-	// Ancillary methods
+	// Delete
+	// --------------------------------------------------------------------------------------
+	@RequestMapping(value = "brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam int processionId) {
+		ModelAndView result = null;
+		Procession procession;
+
+		try {
+			procession = this.processionService.findOne(processionId);
+			this.processionService.delete(procession);
+			result = new ModelAndView("redirect:../list.do");
+		} catch (final Throwable oops) {
+			result = this.forbiddenOpperation();
+			return result;
+		}
+
+		return result;
+	}
+
+	// Ancillary Methods
 	// -----------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Procession procession) {
 		ModelAndView result;
