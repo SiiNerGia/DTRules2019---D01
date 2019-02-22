@@ -42,7 +42,7 @@ public class Request extends DomainEntity {
 		return this.assignedRow;
 	}
 
-	public void setAssignedRow(final int assignedRow) {
+	public void setAssignedRow(final Integer assignedRow) {
 		this.assignedRow = assignedRow;
 	}
 
@@ -51,7 +51,7 @@ public class Request extends DomainEntity {
 		return this.assignedColumn;
 	}
 
-	public void setAssignedColumn(final int assignedColumn) {
+	public void setAssignedColumn(final Integer assignedColumn) {
 		this.assignedColumn = assignedColumn;
 	}
 

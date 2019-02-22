@@ -166,12 +166,12 @@ public class BrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/addPicture", method = RequestMethod.GET)
 	public ModelAndView addPicture() {
 		ModelAndView result;
-		Url picture;
+		final Url url;
 
 		try {
-			picture = new Url();
+			url = new Url();
 			result = new ModelAndView("brotherhood/addPicture");
-			result.addObject("picture", picture);
+			result.addObject("url", url);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -204,7 +204,7 @@ public class BrotherhoodController extends AbstractController {
 	}
 	// SAVE ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST, params = "save")
-	public ModelAndView savePicture(@Valid final Url picture, final BindingResult binding) {
+	public ModelAndView savePicture(@Valid final Url url, final BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
@@ -212,22 +212,22 @@ public class BrotherhoodController extends AbstractController {
 				System.out.println(e.toString());
 
 			result = new ModelAndView("brotherhood/addPicture");
-			result.addObject("picture", picture);
+			result.addObject("url", url);
 		}
 
 		else
 			try {
 				Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
-				brotherhood.getPictures().add(picture);
+				brotherhood.getPictures().add(url);
 				brotherhood = this.brotherhoodService.save(brotherhood);
 				result = this.editModelAndView(brotherhood);
 			} catch (final Throwable oops) {
-				System.out.println(picture);
+				System.out.println(url);
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
 				System.out.println(oops.getCause());
 				result = new ModelAndView("brotherhood/addPicture");
-				result.addObject("picture", picture);
+				result.addObject("url", url);
 			}
 		return result;
 	}
