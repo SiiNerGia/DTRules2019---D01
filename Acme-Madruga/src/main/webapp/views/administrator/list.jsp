@@ -16,16 +16,16 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="administrators" id="row" requestURI="administrator/list.do" pagesize="5" class="displaytag">
+<display:table name="administrators" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 
 	<spring:message code="administrator.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" sortable="true" />
+	<display:column property="name" title="${nameHeader}" />
 	
 	<spring:message code="administrator.middleName" var="middleNameHeader" />
-	<display:column property="middleName" title="${middleNameHeader}" sortable="true" />
+	<display:column property="middleName" title="${middleNameHeader}" />
 
 	<spring:message code="administrator.surname" var="surnameHeader" />
-	<display:column property="surname" title="${surnameHeader}" sortable="true" />
+	<display:column property="surname" title="${surnameHeader}" />
 	
 	<spring:message code="administrator.phone" var="phoneHeader" />
 	<display:column property="phoneNumber" title="${phoneHeader}" />
