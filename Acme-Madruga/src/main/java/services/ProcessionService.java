@@ -116,9 +116,9 @@ public class ProcessionService {
 			result.setMoment(procession.getMoment());
 			result.setDraftMode(procession.getDraftMode());
 			
-			validator.validate(procession, binding);
-			System.out.println("From Service " + binding);
+			validator.validate(result, binding);
 		}
+		
 		return result;
 	}
 	

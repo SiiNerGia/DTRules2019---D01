@@ -35,6 +35,10 @@
 	<!-- brotherhood -->
 	<spring:message code="procession.brotherhood" var="brotherhoodHeader" />
 	<display:column property="brotherhood.title" title="${brotherhoodHeader}" />
+	
+	<!-- draftMode -->
+<%-- 	<spring:message code="procession.draftMode" var="draftModeHeader" /> --%>
+<%-- 	<display:column property="draftMode" title="${draftModeHeader}" /> --%>
 
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<spring:message code="procession.delete" var="deleteHeader" />

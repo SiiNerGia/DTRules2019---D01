@@ -32,7 +32,7 @@
 	<form:errors class="error" path="moment" />
 	<br><br>
 
-	<%-- moment --%>
+	<%-- draftMode --%>
 	<form:label path="draftMode">
 		<spring:message code="procession.draftMode" />
 	</form:label>
