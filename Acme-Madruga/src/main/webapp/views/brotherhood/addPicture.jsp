@@ -8,7 +8,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="brotherhood/addPicture.do" modelAttribute="picture">	
+<form:form action="brotherhood/addPicture.do" modelAttribute="url">	
 		<%-- Hidden properties--%>
 		<form:hidden path="targetId" />
 
