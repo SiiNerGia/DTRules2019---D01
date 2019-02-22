@@ -23,7 +23,9 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository	adminRepository;
 
-		// Supporting services
+	// Supporting services
+	@Autowired
+	private ConfigurationsService 	configurationsService;
 	//	@Autowired
 	//	private ActorService			actorService;
 
@@ -68,15 +70,15 @@ public class AdministratorService {
 		if (admin.getId() == 0) {
 			//admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			if (!admin.getPhoneNumber().startsWith("+")) {
-				//final String countryCode = this.configurationsService.getConfiguration().getCountryCode();
-				//final String phoneNumer = admin.getPhoneNumber();
-				//admin.setPhoneNumber(countryCode.concat(phoneNumer));
+				final String countryCode = this.configurationsService.getConfiguration().getCountryCode();
+				final String phoneNumer = admin.getPhoneNumber();
+				admin.setPhoneNumber(countryCode.concat(phoneNumer));
 			}
 		} else {
 			if (!admin.getPhoneNumber().startsWith("+")) {
-				//final String countryCode = this.configurationsService.getConfiguration().getCountryCode();
-				//final String phoneNumer = admin.getPhoneNumber();
-				//admin.setPhoneNumber(countryCode.concat(phoneNumer));
+				final String countryCode = this.configurationsService.getConfiguration().getCountryCode();
+				final String phoneNumer = admin.getPhoneNumber();
+				admin.setPhoneNumber(countryCode.concat(phoneNumer));
 			}
 			userAccount = LoginService.getPrincipal();
 			Assert.isTrue(userAccount.equals(admin.getUserAccount()));

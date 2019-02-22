@@ -10,13 +10,25 @@
 
 package controllers;
 
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import domain.Administrator;
+import services.AdministratorService;
 
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController extends AbstractController {
+	
+	
+	@Autowired
+	private AdministratorService	administratorService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -24,24 +36,31 @@ public class AdministratorController extends AbstractController {
 		super();
 	}
 
-	// Action-1 ---------------------------------------------------------------		
-
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
+	// List -------------------------------------------------------------
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
 		ModelAndView result;
+		Collection<Administrator> admins;
 
-		result = new ModelAndView("administrator/action-1");
+		admins = this.administratorService.findAll();
+
+		result = new ModelAndView("administrator/list");
+		result.addObject("administrators", admins);
+		result.addObject("requestURI", "administrator/list.do");
 
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------
-
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
+	// Create -----------------------------------------------------------
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
 		ModelAndView result;
+		Administrator admin;
 
-		result = new ModelAndView("administrator/action-2");
+		admin = this.administratorService.create();
+
+		result = new ModelAndView("administrator/create");
+		result.addObject("administrator", admin);
 
 		return result;
 	}
