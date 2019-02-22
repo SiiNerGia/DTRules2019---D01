@@ -20,6 +20,9 @@
 <div>
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
+		
+	
+		<!-- An actor who is authenticated as an ADMIN -->
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
@@ -28,16 +31,37 @@
 			</li>
 		</security:authorize>
 		
+		
+		<!-- An actor who is authenticated as a BROTHERHOOD -->
+		<security:authorize access="hasRole('BROTHERHOOD')">
+			<li><a class="fNiv"><spring:message	code="master.page.processions" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="procession/list.do"><spring:message code="master.page.procession.list" /></a></li>				
+				</ul>
+			</li>
+		</security:authorize>
+		
+		
+		<!-- An actor who is NOT authenticated -->
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message	code="master.page.brotherhood" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>				
+				</ul>
+			</li>
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="brotherhood/create.do"><spring:message code="master.page.brotherhood.register" /></a></li>				
 				</ul>
 			</li>
+			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
+		
+		<!-- An actor who is authenticated -->
 		<security:authorize access="isAuthenticated()">
 			<li>
 				<a class="fNiv"> 
@@ -52,23 +76,6 @@
 							<spring:message code="master.page.brotherhood.edit" />
 						</a></li>
 					</security:authorize>
-				</ul>
-			</li>
-			<li><a class="fNiv"><spring:message	code="master.page.brotherhood" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>				
-				</ul>
-			</li>
-		</security:authorize>
-		
-		
-		<!-- An actor who is authenticated as a Brotherhood -->
-		<security:authorize access="hasRole('BROTHERHOOD')">
-			<li><a class="fNiv"><spring:message	code="master.page.processions" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="procession/list.do"><spring:message code="master.page.procession.list" /></a></li>				
 				</ul>
 			</li>
 		</security:authorize>
