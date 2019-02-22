@@ -11,24 +11,29 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Administrator;
 import services.AdministratorService;
+import utilities.Md5;
 
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController extends AbstractController {
-	
-	
-	@Autowired
-	private AdministratorService	administratorService;
 
+	@Autowired
+	private AdministratorService administratorService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -62,6 +67,37 @@ public class AdministratorController extends AbstractController {
 		result = new ModelAndView("administrator/create");
 		result.addObject("administrator", admin);
 
+		return result;
+	}
+
+	// Save -----------------------------------------------------------
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Administrator admin, final BindingResult binding) {
+		ModelAndView result;
+		String password;
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+			//admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
+			result = new ModelAndView("administrator/create");
+			result.addObject("administrator", admin);
+		} else
+			try {
+				password = Md5.encodeMd5(admin.getUserAccount().getPassword());
+				admin.getUserAccount().setPassword(password);
+				this.administratorService.save(admin);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("administrator/create");
+				result.addObject("administrator", admin);
+				if (oops instanceof DataIntegrityViolationException)
+					result.addObject("message", "admin.duplicated.username");
+				else {
+					System.out.println(oops.getCause().toString());
+					result.addObject("message", "admin.registration.error");
+				}
+			}
 		return result;
 	}
 

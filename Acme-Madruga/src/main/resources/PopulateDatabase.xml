@@ -97,7 +97,7 @@
 		<property name="middleName" value="middlename1" />
 		<property name="surname" value="surname1" />
 		<property name="email" value="admin1@gmail.com" />
-		<property name="phoneNumber" value="656256697" />
+		<property name="phoneNumber" value="+34656256697" />
 		<property name="address" value="admin1 18" />
 		<property name="UserAccount" ref="userAccount1" />
 	</bean>
@@ -280,64 +280,115 @@
 	
 	
 	<!-- Positions default ****************************************************************************************-->
-	<bean id="position1" class="domain.Position">
+	<bean id="President" class="domain.Position">
 		<property name="name" value="President"/>
 	</bean>
 	
-	<bean id="position2" class="domain.Position">
+	<bean id="Vice President" class="domain.Position">
 		<property name="name" value="Vice President"/>
 	</bean>
 	
-	<bean id="position3" class="domain.Position">
+	<bean id="Secretary" class="domain.Position">
 		<property name="name" value="Secretary"/>
 	</bean>
 	
-	<bean id="position4" class="domain.Position">
+	<bean id="Treasurer" class="domain.Position">
 		<property name="name" value="Treasurer"/>
 	</bean>
 	
-	<bean id="position5" class="domain.Position">
+	<bean id="Historian" class="domain.Position">
 		<property name="name" value="Historian"/>
 	</bean>
 	
-	<bean id="position6" class="domain.Position">
+	<bean id="Fundraiser" class="domain.Position">
 		<property name="name" value="Fundraiser"/>
 	</bean>
 	
-	<bean id="position7" class="domain.Position">
+	<bean id="Officer" class="domain.Position">
 		<property name="name" value="Officer"/>
 	</bean>
 	
-	<bean id="position8" class="domain.Position">
+	<bean id="Presidente" class="domain.Position">
 		<property name="name" value="Presidente"/>
 	</bean>
 	
-	<bean id="position9" class="domain.Position">
-		<property name="name" value="President"/>
-	</bean>
-	
-	<bean id="position10" class="domain.Position">
+	<bean id="Vicepresidente" class="domain.Position">
 		<property name="name" value="Vicepresidente"/>
 	</bean>
 	
-	<bean id="position11" class="domain.Position">
+	<bean id="Secretario" class="domain.Position">
 		<property name="name" value="Secretario"/>
 	</bean>
 	
-	<bean id="position12" class="domain.Position">
+	<bean id="Tesorero" class="domain.Position">
 		<property name="name" value="Tesorero"/>
 	</bean>
 	
-	<bean id="position13" class="domain.Position">
+	<bean id="Historiador" class="domain.Position">
 		<property name="name" value="Historiador"/>
 	</bean>
 	
-	<bean id="position14" class="domain.Position">
+	<bean id="Promotor" class="domain.Position">
 		<property name="name" value="Promotor"/>
 	</bean>
 	
-	<bean id="position15" class="domain.Position">
+	<bean id="Vocal" class="domain.Position">
 		<property name="name" value="Vocal"/>
+	</bean>
+	
+	
+	<!-- configurations *************************************************************************** -->
+	<bean id="configurations" class="domain.Configurations">
+		<property name="cacheTime" value="1" />
+		<property name="finderMaxResult" value="10" />
+		<property name="vat" value="0.21" />
+		<property name="countryCode" value="+34" />
+		<property name="title" value="Acme Madruga Co., Inc." />
+		<property name="logo" value="https://tinyurl.com/acme-madruga" />
+		<property name="spamWords">
+			<list>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you've been selected</value>
+				<value>Nigeria</value>
+				<value>sexo</value>
+				<value>un millón</value>
+				<value>ha sido seleccionado</value>
+			</list>
+		</property>
+		<property name="positiveWords">
+			<list>
+				<value>good</value>
+				<value>fantastic</value>
+				<value>excellent</value>
+				<value>great</value>
+				<value>amazing</value>
+				<value>terrific</value>
+				<value>beautiful</value>
+				<value>bueno</value>
+				<value>fantástico</value>
+				<value>excelente</value>
+				<value>gran</value>
+				<value>asombroso</value>
+				<value>terrible</value>
+				<value>bonito</value>
+			</list>
+		</property>
+		<property name="negativeWords">
+			<list>
+				<value>not</value>
+				<value>no</value>
+				<value>bad</value>
+				<value>malo</value>
+				<value>horrible</value>
+				<value>average</value>
+				<value>mediocre</value>
+				<value>disaster</value>
+				<value>desastre</value>
+			</list>
+		</property>
 	</bean>
 
 	

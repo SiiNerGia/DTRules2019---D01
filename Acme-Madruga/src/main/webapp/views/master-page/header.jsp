@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="https://gaceta.es/wp-content/uploads/madruga_1.jpg" alt="Acme-Madruga Co., Inc." width="1000" height="300" /></a>
+	<a href="#"><img src="${logo}" alt="${title}" width="1000" height="300" /></a>
 </div>
 
 <div>

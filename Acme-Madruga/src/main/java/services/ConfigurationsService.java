@@ -22,7 +22,7 @@ public class ConfigurationsService {
 
 	// CRUD methods
 	public Configurations getConfiguration() {
-		final Configurations result = this.configurationsRepository.findAll().get(0);
+		Configurations result = this.configurationsRepository.findAll().get(0);
 
 		Assert.notNull(result);
 

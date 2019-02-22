@@ -11,13 +11,27 @@
 package controllers;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.ConfigurationsService;
 
 @Controller
 public class AbstractController {
+	
+	@Autowired
+	private ConfigurationsService configurationsService;
+	
+	@ModelAttribute
+	public void getGeneralAttributes(Model result) {
+		result.addAttribute("title", this.configurationsService.getConfiguration().getTitle());
+		result.addAttribute("logo", this.configurationsService.getConfiguration().getLogo());
+	}
 
 	// Panic handler ----------------------------------------------------------
 

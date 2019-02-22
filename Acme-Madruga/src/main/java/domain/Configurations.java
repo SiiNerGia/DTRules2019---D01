@@ -27,7 +27,6 @@ public class Configurations extends DomainEntity {
 	private Collection<String>	negativeWords;
 	private double				vat;
 	private String				countryCode;
-	private Collection<String>	brandName;
 	private String 				title;
 	private String 				logo;
 
@@ -101,16 +100,6 @@ public class Configurations extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
-	@NotNull
-	@NotEmpty
-	@ElementCollection
-	public Collection<String> getBrandName() {
-		return this.brandName;
-	}
-	public void setBrandName(final Collection<String> brandName) {
-		this.brandName = brandName;
-	}
-	
 
 	@NotEmpty
 	public String getTitle() {

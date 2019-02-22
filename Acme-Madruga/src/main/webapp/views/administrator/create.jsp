@@ -137,6 +137,7 @@
 		<input type="submit" name="save"
 			value="<spring:message code="administrator.save" />"
 			onClick="javascript: return phoneNumberValidator()" />
+		
 		<!-- <input type="submit" name="delete" value="<spring:message code="administrator.delete"/>" -->
 
 		<input type="button" name="cancel"
