@@ -27,6 +27,8 @@
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/procession/tiles.xml</value>
+		<value>/views/coach/tiles.xml</value>
+		<value>/views/request/tiles.xml</value>
 	</util:list>
 
 </beans>
