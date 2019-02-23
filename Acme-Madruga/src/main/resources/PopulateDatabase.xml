@@ -291,7 +291,8 @@
 	
 	<!-- Positions default ****************************************************************************************-->
 	<bean id="President" class="domain.Position">
-		<property name="name" value="President"/>
+		<property name="spanishName" value="Presidente"/>
+		<property name="englishName" value="President"/>
 		<property name="enrol">
 			<list>
 				<ref bean="enrol1" />
@@ -301,57 +302,35 @@
 	</bean>
 	
 	<bean id="Vice President" class="domain.Position">
-		<property name="name" value="Vice President"/>
+		<property name="spanishName" value="Vicepresidente"/>
+		<property name="englishName" value="Vice President"/>
 	</bean>
 	
 	<bean id="Secretary" class="domain.Position">
-		<property name="name" value="Secretary"/>
+		<property name="spanishName" value="Secretario"/>
+		<property name="englishName" value="Secretary"/>
 	</bean>
 	
 	<bean id="Treasurer" class="domain.Position">
-		<property name="name" value="Treasurer"/>
+		<property name="spanishName" value="Tesorero"/>
+		<property name="englishName" value="Treasurer"/>
 	</bean>
 	
 	<bean id="Historian" class="domain.Position">
-		<property name="name" value="Historian"/>
+		<property name="spanishName" value="Historiador"/>
+		<property name="englishName" value="Historian"/>
 	</bean>
 	
 	<bean id="Fundraiser" class="domain.Position">
-		<property name="name" value="Fundraiser"/>
+		<property name="spanishName" value="Promotor"/>
+		<property name="englishName" value="Fundraiser"/>
 	</bean>
 	
 	<bean id="Officer" class="domain.Position">
-		<property name="name" value="Officer"/>
+		<property name="spanishName" value="Vocal"/>
+		<property name="englishName" value="Officer"/>
 	</bean>
-	
-	<bean id="Presidente" class="domain.Position">
-		<property name="name" value="Presidente"/>
-	</bean>
-	
-	<bean id="Vicepresidente" class="domain.Position">
-		<property name="name" value="Vicepresidente"/>
-	</bean>
-	
-	<bean id="Secretario" class="domain.Position">
-		<property name="name" value="Secretario"/>
-	</bean>
-	
-	<bean id="Tesorero" class="domain.Position">
-		<property name="name" value="Tesorero"/>
-	</bean>
-	
-	<bean id="Historiador" class="domain.Position">
-		<property name="name" value="Historiador"/>
-	</bean>
-	
-	<bean id="Promotor" class="domain.Position">
-		<property name="name" value="Promotor"/>
-	</bean>
-	
-	<bean id="Vocal" class="domain.Position">
-		<property name="name" value="Vocal"/>
-	</bean>
-	
+
 	
 	<!-- configurations *************************************************************************** -->
 	<bean id="configurations" class="domain.Configurations">

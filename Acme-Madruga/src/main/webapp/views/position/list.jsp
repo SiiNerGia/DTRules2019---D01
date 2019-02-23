@@ -15,7 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 
 <!-- Listing Grid -->
 <display:table name="positions" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
@@ -28,11 +28,17 @@
 		</display:column>
 	</security:authorize>
 
-	<!-- Name -->
-	<spring:message code="position.name" var="nameHeader" />
-	<display:column property="name" title="${nameHeader}" />
+	<!-- Spanish Name -->
+	<spring:message code="position.spanish" var="spanishHeader" />
+	<display:column property="spanishName" title="${spanishHeader}" />
+	
+	<!-- English Name -->
+	<spring:message code="position.english" var="englishHeader" />
+	<display:column property="englishName" title="${englishHeader}" />
 	
 </display:table>
+
+
 
 
 <!-- Action link -->

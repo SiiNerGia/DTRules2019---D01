@@ -15,6 +15,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <form:form action="position/admin/edit.do" modelAttribute="position">
 	
@@ -23,13 +24,22 @@
 	<form:hidden path="version" />
 	<form:hidden path="enrol" />
 	
-	<%-- name--%>
-	<form:label path="name">
-		<spring:message code="position.name" />
+	<%-- Spanish name--%>
+	<form:label path="spanishName">
+		<spring:message code="position.spanish" />
 	</form:label>
-	<form:input path="name" />	
-	<form:errors class="error" path="name" />
+	<form:input path="spanishName" />	
+	<form:errors class="error" path="spanishName" />
 	<br><br>
+	
+	<%-- English name--%>
+	<form:label path="englishName">
+		<spring:message code="position.english" />
+	</form:label>
+	<form:input path="englishName" />	
+	<form:errors class="error" path="englishName" />
+	<br><br>
+	
 	
 	<%-- Buttons --%>
 	<security:authorize access="hasRole('ADMIN')">
