@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * converters.xml
- *
- * Copyright (C) 2019 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * converters.xml * * Copyright (C) 2019 Universidad de Sevilla * * The 
+	use of this project is hereby constrained to the conditions of the * TDG 
+	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
@@ -20,36 +14,38 @@
 	<util:list id="converters">
 		<bean class="converters.AdministratorToStringConverter" />
 		<bean class="converters.StringToAdministratorConverter" />
-		
+
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.StringToAuthorityConverter" />
-		
+
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
-		
+
 		<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.StringToActorConverter" />
-		
+
 		<bean class="converters.UrlToStringConverter" />
 		<bean class="converters.StringToUrlConverter" />
-		
+
 		<bean class="converters.BrotherhoodToStringConverter" />
 		<bean class="converters.StringToBrotherhoodConverter" />
-		
+
 		<bean class="converters.CoachToStringConverter" />
 		<bean class="converters.StringToCoachConverter" />
-		
+
 		<bean class="converters.ProcessionToStringConverter" />
 		<bean class="converters.StringToProcessionConverter" />
 
 		<bean class="converters.RequestToStringConverter" />
 		<bean class="converters.StringToRequestConverter" />
-		
+
 		<bean class="converters.PositionToStringConverter" />
 		<bean class="converters.StringToPositionConverter" />
-		
+
+
 		<bean class="converters.EnrolToStringConverter" />
 		<bean class="converters.StringToEnrolConverter" />
+
 	</util:list>
-	
+
 </beans>
