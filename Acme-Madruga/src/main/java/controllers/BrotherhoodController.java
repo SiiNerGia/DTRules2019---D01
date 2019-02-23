@@ -74,8 +74,6 @@ public class BrotherhoodController extends AbstractController {
 
 			belonging = this.brotherhoodService.findAllMemberBelongs(member);
 			belonged = this.brotherhoodService.findAllMemberBelonged(member);
-			System.out.println(belonging);
-			System.out.println(belonged);
 
 			result = new ModelAndView("brotherhood/member/list");
 			result.addObject("belonging", belonging);
