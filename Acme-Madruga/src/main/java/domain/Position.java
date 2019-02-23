@@ -36,10 +36,5 @@ public class Position extends DomainEntity {
 
 	public void setEnrol(Collection<Enrol> enrol) {
 		this.enrol = enrol;
-	}
-
-	
-	
-	
-	
+	}	
 }
