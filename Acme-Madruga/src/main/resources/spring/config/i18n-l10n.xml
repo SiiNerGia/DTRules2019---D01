@@ -29,6 +29,7 @@
 		<value>/views/procession/messages</value>
 		<value>/views/coach/messages</value>
 		<value>/views/request/messages</value>
+		<value>/views/position/messages</value>
 	</util:list>
 
 </beans>

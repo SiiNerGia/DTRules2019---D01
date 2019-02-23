@@ -44,6 +44,9 @@
 
 		<bean class="converters.RequestToStringConverter" />
 		<bean class="converters.StringToRequestConverter" />
+		
+		<bean class="converters.PositionToStringConverter" />
+		<bean class="converters.StringToPositioinConverter" />
 	</util:list>
 	
 </beans>
