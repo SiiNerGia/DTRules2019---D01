@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
+import services.MemberService;
 import utilities.Md5;
 import domain.Brotherhood;
+import domain.Member;
 import domain.Url;
 import forms.BrotherhoodForm;
 
@@ -30,6 +32,9 @@ public class BrotherhoodController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private MemberService		memberService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -47,6 +52,34 @@ public class BrotherhoodController extends AbstractController {
 			bros = this.brotherhoodService.findAll();
 			result = new ModelAndView("brotherhood/list");
 			result.addObject("brotherhoods", bros);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
+
+	// List ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
+	public ModelAndView memberList() {
+		ModelAndView result;
+		final Collection<Brotherhood> belonging;
+		final Collection<Brotherhood> belonged;
+
+		try {
+			final Member member = this.memberService.findByPrincipal();
+
+			belonging = this.brotherhoodService.findAllMemberBelongs(member);
+			belonged = this.brotherhoodService.findAllMemberBelonged(member);
+			System.out.println(belonging);
+			System.out.println(belonged);
+
+			result = new ModelAndView("brotherhood/member/list");
+			result.addObject("belonging", belonging);
+			result.addObject("belonged", belonged);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());

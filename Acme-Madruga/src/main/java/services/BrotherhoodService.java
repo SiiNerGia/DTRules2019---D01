@@ -19,6 +19,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Brotherhood;
 import domain.Coach;
+import domain.Member;
 import domain.Procession;
 import domain.Url;
 import forms.BrotherhoodForm;
@@ -134,5 +135,21 @@ public class BrotherhoodService {
 		this.validator.validate(bro, binding);
 
 		return bro;
+	}
+	public Collection<Brotherhood> findAllMemberBelongs(final Member member) {
+		final Collection<Brotherhood> bros = this.brotherhoodRepository
+			.findBrotherhoodsMemberBelongs(member.getId());
+
+		Assert.notNull(bros);
+
+		return bros;
+	}
+	public Collection<Brotherhood> findAllMemberBelonged(final Member member) {
+		final Collection<Brotherhood> bros = this.brotherhoodRepository
+			.findBrotherhoodsMemberHashBelong(member.getId());
+
+		Assert.notNull(bros);
+
+		return bros;
 	}
 }
