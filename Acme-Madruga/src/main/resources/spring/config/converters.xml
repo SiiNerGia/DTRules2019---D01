@@ -47,9 +47,12 @@
 		
 		<bean class="converters.PositionToStringConverter" />
 		<bean class="converters.StringToPositionConverter" />
+<<<<<<< Updated upstream
 		
 		<bean class="converters.EnrolToStringConverter" />
 		<bean class="converters.StringToEnrolConverter" />
+=======
+>>>>>>> Stashed changes
 	</util:list>
 	
 </beans>
