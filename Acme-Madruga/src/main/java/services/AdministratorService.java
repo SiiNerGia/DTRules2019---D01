@@ -2,7 +2,10 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,7 @@ import org.springframework.util.Assert;
 
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Procession;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
@@ -154,6 +158,15 @@ public class AdministratorService {
 
 	public Collection<Double> query4() {
 		Collection<Double> result = this.adminRepository.query4();
+		return result;
+	}
+	
+	public Collection<Procession> query5() {
+		Collection<Procession> result;
+		Calendar c= new GregorianCalendar();
+		c.add(Calendar.DATE, 30);
+		Date date = c.getTime();
+		result = this.adminRepository.query5(date);
 		return result;
 	}
 	

@@ -28,7 +28,9 @@
 <spring:message code="administrator.dashboard.email" var="emailHeader" />
 <spring:message code="administrator.brotherhood" var="brotherhoodlHeader" />
 <spring:message code="administrator.member" var="memberHeader" />
-<spring:message code="administrator.status" var="statusHeader" />
+<spring:message code="administrator.status" 	var="statusHeader" />
+<spring:message code="administrator.procession" var="processionHeader" />
+<spring:message code="administrator.moment" 	var="momentHeader" />
 
 
 <spring:message code="administrator.dashboard.query1" var="query1Header" />
@@ -131,6 +133,21 @@
 <br />
 
 <!-- Query 5  -->
+<table>
+	<caption>
+		<jstl:out value="${query5Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${processionHeader}"></jstl:out></th>
+		<th><jstl:out value="${momentHeader}"></jstl:out></th>
+	</tr>
+	<jstl:forEach items="${query5}" var="row">
+      <tr>
+        	<td>${row.title}</td>
+        	<td>${row.moment}</td>
+      </tr>
+   </jstl:forEach>
+</table>
 
 
 <!-- Query 6  -->

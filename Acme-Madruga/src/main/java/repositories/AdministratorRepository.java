@@ -4,6 +4,7 @@ package repositories;
 
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Procession;
 
 
 @Repository
@@ -30,4 +32,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	
 	@Query("select count(r1)*1.0 / (select count(r2)*1.0 from Request r2) from Request r1 group by r1.status")
 	Collection<Double> query4();
+	
+	@Query("select p from Procession p where p.moment <= ?1")
+	Collection<Procession> query5(Date date);
 }

@@ -240,7 +240,7 @@
 		<property name="ticker" value="190210-AAAAA" />
 		<property name="title" value="procession1" />
 		<property name="description" value="procession1 description"/>
-		<property name="moment" value="2019/04/14"/>
+		<property name="moment" value="2019/03/01"/>
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="requests">
 			<list>
@@ -254,7 +254,7 @@
 		<property name="ticker" value="190215-BBBBB" />
 		<property name="title" value="procession2" />
 		<property name="description" value="procession2 description"/>
-		<property name="moment" value="2019/04/15"/>
+		<property name="moment" value="2019/06/15"/>
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="requests">
 			<list>
