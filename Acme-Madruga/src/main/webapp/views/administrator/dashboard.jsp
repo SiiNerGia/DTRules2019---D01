@@ -14,9 +14,9 @@
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <spring:message code="administrator.dashboard.avg" var="avgHeader" />
@@ -144,7 +144,7 @@
 	<jstl:forEach items="${query5}" var="row">
       <tr>
         	<td>${row.title}</td>
-        	<td>${row.moment}</td>
+        	<td><fmt:formatDate value="${row.moment}" pattern="dd/MM/yyyy" /></td>
       </tr>
    </jstl:forEach>
 </table>
