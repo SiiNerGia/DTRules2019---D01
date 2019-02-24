@@ -71,6 +71,9 @@
 		<security:intercept-url pattern="/position/admin/edit.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/position/admin/delete.do" access="hasRole('ADMIN')" />
 		
+		<!--  MEMBER -->
+		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
+		
 		
 		
 		
