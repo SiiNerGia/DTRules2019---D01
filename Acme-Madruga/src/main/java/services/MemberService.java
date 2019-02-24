@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -19,35 +20,45 @@ public class MemberService {
 	// Managed repository
 	// -------------------------------------------------------------
 	@Autowired
-	private MemberRepository memberRepository;
+	private MemberRepository	memberRepository;
+
 
 	// Supporting services
 	// -------------------------------------------------------------
 
 	// CRUD methods
 	// ------------------------------------------------------------------
-	public Member findOne(int memberId) {
-		Member result = this.memberRepository.findOne(memberId);
+
+	public Member create() {
+		Member result;
+
+		result = new Member();
+
+		return result;
+
+	}
+	public Member findOne(final int memberId) {
+		final Member result = this.memberRepository.findOne(memberId);
 		Assert.notNull(result);
 		return result;
 	}
 
 	public Collection<Member> findAll() {
-		Collection<Member> result = this.memberRepository.findAll();
+		final Collection<Member> result = this.memberRepository.findAll();
 		Assert.notEmpty(result);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Member save(Member member) {
+	public Member save(final Member member) {
 		Assert.notNull(member);
-		Member result = this.memberRepository.save(member);
+		final Member result = this.memberRepository.save(member);
 
 		return result;
 	}
 
-	public void delete(Member member) {
+	public void delete(final Member member) {
 		Assert.notNull(member);
 
 		this.memberRepository.delete(member);
@@ -57,7 +68,7 @@ public class MemberService {
 	// Other methods
 	// -----------------------------------------------------------------
 
-	public Member findByUserAccount(UserAccount userAccount) {
+	public Member findByUserAccount(final UserAccount userAccount) {
 		Assert.notNull(userAccount);
 
 		Member result;

@@ -14,11 +14,7 @@
 	<%-- Hidden properties from handy worker--%>
 	<%-- 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="userAccount.Authorities" />
-	<form:hidden path="processions" />
-	<form:hidden path="coaches" />
-	<form:hidden path="establishment" />
-	<form:hidden path="pictures" /> --%>
+	
 	<%-- UserAccount--%>
 
 	<%-- username--%>
@@ -34,7 +30,7 @@
 	<br>
 
 	<%-- Middlename --%>
-	<acme:textbox code="member.middleName" path="middlename" />
+	<acme:textbox code="member.middleName" path="middleName" />
 	<br>
 
 	<%-- Surname --%>
@@ -46,7 +42,7 @@
 	<br>
 
 	<%-- Phone --%>
-	<acme:textbox code="member.phone" path="phone" />
+	<acme:textbox code="member.phone" path="phoneNumber" />
 	<br>
 
 	<%-- email --%>
@@ -82,8 +78,8 @@
 	</script>
 	<%-- Buttons --%>
 	<input type="submit" name="save"
-		value="<spring:message code="brotherhood.save"/>"
+		value="<spring:message code="member.save"/>"
 		onClick="javascript: return phoneNumberValidator()" />
 
-	<acme:cancel code="brotherhood.cancel" url="/" />
+	<acme:cancel code="member.cancel" url="/" />
 </form:form>
