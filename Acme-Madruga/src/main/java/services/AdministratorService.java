@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import domain.Administrator;
+import domain.Brotherhood;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
@@ -135,6 +136,51 @@ public class AdministratorService {
 	}
 	
 	// 12.2 Manage the catalogue of positions ---------------------------------------------------
+		
+	// 12.3 Display a dashboard with the following information-----------------------------------
+	public Object[] query1() {
+		return this.adminRepository.query1();
+	}
 
-	// 12.3 Display a dashboard with the following information-----------------------------------------------	
+	public Collection<Brotherhood> query2() {
+		Collection<Brotherhood> result = this.adminRepository.query2();
+		return result;
+	}
+
+	public Collection<Brotherhood> query3() {
+		Collection<Brotherhood> result = this.adminRepository.query3();
+		return result;
+	}
+
+//	public Object[] getAverageMinMaxStardatDeviationNumberPriceOfferedInApplications() {
+//		return this.adminRepository.getAverageMinMaxStardatDeviationNumberPriceOfferedInApplications();
+//	}
+//
+//	public Double getRatioPendingApplications() {
+//		return this.adminRepository.getRatioPendingApplications();
+//	}
+//
+//	public Double getRatioAcceptedApplications() {
+//		return this.adminRepository.getRatioAcceptedApplications();
+//	}
+//
+//	public Double getRationRejectedApplications() {
+//		return this.adminRepository.getRationRejectedApplications();
+//	}
+//
+//	public Double getRationPendingApplicationsTimeElapsed() {
+//		return this.adminRepository.getRationPendingApplicationsTimeElapsed();
+//	}
+//
+//	public Collection<Customer> getQueryC9() {
+//		final Collection<Customer> result = this.adminRepository.getQueryC9();
+//
+//		return result;
+//	}
+//	public Collection<HandyWorker> getQueryC10() {
+//		final Collection<HandyWorker> result = this.adminRepository.getQueryC10();
+//
+//		return result;
+//	}
+	
 }
