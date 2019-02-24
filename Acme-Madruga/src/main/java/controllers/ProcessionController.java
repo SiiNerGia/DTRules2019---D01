@@ -1,14 +1,13 @@
 package controllers;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Brotherhood;
 import domain.Procession;
-import forms.ProcessionForm;
 import services.BrotherhoodService;
 import services.ProcessionService;
 
@@ -34,6 +32,7 @@ public class ProcessionController extends AbstractController {
 
 	// Validator
 	@Autowired
+	@Qualifier("validator")
 	private Validator validator;
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -80,38 +79,6 @@ public class ProcessionController extends AbstractController {
 		return result;
 	}
 
-	// Save the new Procession
-	// ------------------------------------------------------------------------------------
-	// @RequestMapping(value = "brotherhood/create", method =
-	// RequestMethod.POST, params = "save")
-	// public ModelAndView save(ProcessionForm processionForm, final
-	// BindingResult binding) {
-	// ModelAndView result;
-	// Procession procession;
-	//
-	// procession = this.processionService.reconstruct(processionForm, binding);
-	// if (binding.hasErrors()) {
-	// final List<ObjectError> errors = binding.getAllErrors();
-	// for (final ObjectError e : errors)
-	// System.out.println(e.toString());
-	//
-	// result = new ModelAndView("procession/brotherhood/create");
-	// result.addObject("processionForm", processionForm);
-	// }
-	// else
-	// try {
-	// this.processionService.save(procession);
-	// result = new ModelAndView("redirect:../procession/list.do");
-	// } catch (final Throwable oops) {
-	// System.out.println(procession);
-	// System.out.println(oops.getMessage());
-	// System.out.println(oops.getClass());
-	// System.out.println(oops.getCause());
-	// result = this.createEditModelAndView(processionForm);
-	// }
-	// return result;
-	// }
-
 	// Edition -------------------------------------------------------------
 	@RequestMapping(value = "brotherhood/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int processionId) {
@@ -135,17 +102,15 @@ public class ProcessionController extends AbstractController {
 	@RequestMapping(value = "brotherhood/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Procession procession, BindingResult binding) {
 		ModelAndView result;
+		Procession constructed;
 
-		procession = this.reconstruct(procession, binding);
+		constructed = this.processionService.reconstruct(procession, binding);
 
 		if (binding.hasErrors()) {
-			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
-				System.out.println(e.toString());
 			result = this.createEditModelAndView(procession);
 		} else
 			try {
-				this.processionService.save(procession);
+				this.processionService.save(constructed);
 				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
@@ -176,26 +141,6 @@ public class ProcessionController extends AbstractController {
 
 	// Ancillary Methods
 	// -----------------------------------------------------------------------
-	public Procession reconstruct(Procession procession, BindingResult binding) {
-		Procession result;
-
-		if (procession.getId() == 0) {
-			return procession;
-		} else {
-			result = this.processionService.findOne(procession.getId());
-			result.setTitle(procession.getTitle());
-			result.setDescription(procession.getDescription());
-			result.setMoment(procession.getMoment());
-			result.setDraftMode(procession.getDraftMode());
-
-			validator.validate(result, binding);
-			if (binding.hasErrors())
-				return procession;
-		}
-
-		return result;
-	}
-
 	protected ModelAndView createEditModelAndView(final Procession procession) {
 		ModelAndView result;
 
@@ -204,29 +149,11 @@ public class ProcessionController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Procession procession, final String message) {
+	protected ModelAndView createEditModelAndView(Procession procession, String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("procession/brotherhood/edit");
 		result.addObject("procession", procession);
-		result.addObject("message", message);
-
-		return result;
-	}
-
-	protected ModelAndView createEditModelAndView(ProcessionForm processionForm) {
-		ModelAndView result;
-
-		result = this.createEditModelAndView(processionForm, null);
-
-		return result;
-	}
-
-	protected ModelAndView createEditModelAndView(ProcessionForm processionForm, final String message) {
-		ModelAndView result;
-
-		result = new ModelAndView("procession/brotherhood/create");
-		result.addObject("processionForm", processionForm);
 		result.addObject("message", message);
 
 		return result;

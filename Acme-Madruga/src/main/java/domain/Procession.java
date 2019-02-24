@@ -80,7 +80,7 @@ public class Procession extends DomainEntity {
 	}
 	
 	
-
+	@NotNull
 	public Boolean getDraftMode() {
 		return draftMode;
 	}
