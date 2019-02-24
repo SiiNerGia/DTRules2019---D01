@@ -27,4 +27,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	
 	@Query("select b1 from Brotherhood b1 where b1.enrols.size = (Select min(b2.enrols.size) from Brotherhood b2)")
 	Collection<Brotherhood> query3();
+	
+	@Query("select count(r1)*1.0 / (select count(r2)*1.0 from Request r2) from Request r1 group by r1.status")
+	Collection<Double> query4();
 }

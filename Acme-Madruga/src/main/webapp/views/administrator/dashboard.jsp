@@ -28,6 +28,7 @@
 <spring:message code="administrator.dashboard.email" var="emailHeader" />
 <spring:message code="administrator.brotherhood" var="brotherhoodlHeader" />
 <spring:message code="administrator.member" var="memberHeader" />
+<spring:message code="administrator.status" var="statusHeader" />
 
 
 <spring:message code="administrator.dashboard.query1" var="query1Header" />
@@ -106,39 +107,31 @@
 <br />
 
 <!-- Query 4  -->
-<!-- <table> -->
-<!-- 	<caption> -->
-<%-- 		<jstl:out value="${query4Header}"></jstl:out> --%>
-<!-- 	</caption> -->
-<!-- 	<tr> -->
-<%-- 		<th><jstl:out value="${avgHeader}"></jstl:out></th> --%>
-<%-- 		<th><jstl:out value="${minHeader}"></jstl:out></th> --%>
-<%-- 		<th><jstl:out value="${maxHeader}"></jstl:out></th> --%>
-<%-- 		<th><jstl:out value="${stdHeader}"></jstl:out></th> --%>
-<!-- 	</tr> -->
-
-<!-- 	<tr> -->
-<%-- 		<td><jstl:out value="${query4[0]}"></jstl:out></td> --%>
-<%-- 		<td><jstl:out value="${query4[1]}"></jstl:out></td> --%>
-<%-- 		<td><jstl:out value="${query4[2]}"></jstl:out></td> --%>
-<%-- 		<td><jstl:out value="${query4[3]}"></jstl:out></td> --%>
-<!-- 	</tr> -->
-<!-- </table> -->
-<!-- <br /> -->
+<table>
+	<caption>
+		<jstl:out value="${query4Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${ratioHeader}"></jstl:out></th>
+		<th><jstl:out value="${statusHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query4[0]}"></jstl:out></td>
+		<td><jstl:out value="Aproved"></jstl:out></td>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query4[1]}"></jstl:out></td>
+		<td><jstl:out value="Pending"></jstl:out></td>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query4[2]}"></jstl:out></td>
+		<td><jstl:out value="Rejected"></jstl:out></td>
+	</tr>
+</table>
+<br />
 
 <!-- Query 5  -->
-<!-- <table> -->
-<!-- 	<caption> -->
-<%-- 		<jstl:out value="${query5Header}"></jstl:out> --%>
-<!-- 	</caption> -->
-<!-- 	<tr> -->
-<%-- 		<th><jstl:out value="${ratioHeader}"></jstl:out></th> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
-<%-- 		<td><jstl:out value="${query5}"></jstl:out></td> --%>
-<!-- 	</tr> -->
-<!-- </table> -->
-<!-- <br /> -->
+
 
 <!-- Query 6  -->
 <!-- <table> -->

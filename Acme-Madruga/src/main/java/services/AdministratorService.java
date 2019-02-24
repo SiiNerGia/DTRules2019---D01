@@ -152,35 +152,9 @@ public class AdministratorService {
 		return result;
 	}
 
-//	public Object[] getAverageMinMaxStardatDeviationNumberPriceOfferedInApplications() {
-//		return this.adminRepository.getAverageMinMaxStardatDeviationNumberPriceOfferedInApplications();
-//	}
-//
-//	public Double getRatioPendingApplications() {
-//		return this.adminRepository.getRatioPendingApplications();
-//	}
-//
-//	public Double getRatioAcceptedApplications() {
-//		return this.adminRepository.getRatioAcceptedApplications();
-//	}
-//
-//	public Double getRationRejectedApplications() {
-//		return this.adminRepository.getRationRejectedApplications();
-//	}
-//
-//	public Double getRationPendingApplicationsTimeElapsed() {
-//		return this.adminRepository.getRationPendingApplicationsTimeElapsed();
-//	}
-//
-//	public Collection<Customer> getQueryC9() {
-//		final Collection<Customer> result = this.adminRepository.getQueryC9();
-//
-//		return result;
-//	}
-//	public Collection<HandyWorker> getQueryC10() {
-//		final Collection<HandyWorker> result = this.adminRepository.getQueryC10();
-//
-//		return result;
-//	}
+	public Collection<Double> query4() {
+		Collection<Double> result = this.adminRepository.query4();
+		return result;
+	}
 	
 }
