@@ -5,13 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import domain.Actor;
@@ -34,11 +33,11 @@ public class ProcessionService {
 	
 	// Validator
 	@Autowired
-	@Qualifier("validator")
 	private Validator				validator;
 	
 	
 	/************************************* CRUD methods ********************************/
+	
 	public Procession create() {
 		Procession result;
 		
@@ -49,6 +48,7 @@ public class ProcessionService {
 		return result;
 	}
 	
+	
 	public Procession findOne(int id) {
 		Procession result = this.processionRepository.findOne(id);
 		
@@ -57,6 +57,7 @@ public class ProcessionService {
 		return result;
 	}
 	
+	@Transactional
 	public Collection<Procession> findAll() {
 		Collection<Procession> result = this.processionRepository.findAll();
 		Assert.notNull(result);
@@ -104,23 +105,45 @@ public class ProcessionService {
 	}
 	
 	/************************************* Reconstruct ******************************************/
-	public Procession reconstruct(Procession procession, BindingResult binding) {
-		Procession result;
-		
-		if(procession.getId() == 0) {
-			result = procession;
-		} else {
-			result = this.processionRepository.findOne(procession.getId());
-			result.setTitle(procession.getTitle());
-			result.setDescription(procession.getDescription());
-			result.setMoment(procession.getMoment());
-			result.setDraftMode(procession.getDraftMode());
-			
-			validator.validate(result, binding);
-		}
-		
-		return result;
-	}
+//	public Procession reconstruct(Procession procession, BindingResult binding) {
+//		Procession result;
+//		
+//		if(procession.getId() == 0) {
+//			result = procession;
+//		} else {
+//			result = this.findOne(procession.getId());
+//			result.setTitle(procession.getTitle());
+//			result.setDescription(procession.getDescription());
+//			result.setMoment(procession.getMoment());
+//			result.setDraftMode(procession.getDraftMode());
+//			
+//			validator.validate(result, binding);
+//			if (binding.hasErrors())
+//				return procession;
+//		}
+//		
+//		return result;
+//	}
+	
+//	public Procession reconstruct(ProcessionForm form, BindingResult binding) {
+//		Procession result;
+//		
+//		if(procession.getId() == 0) {
+//			result = procession;
+//		} else {
+//			result = this.findOne(procession.getId());
+//			result.setTitle(procession.getTitle());
+//			result.setDescription(procession.getDescription());
+//			result.setMoment(procession.getMoment());
+//			result.setDraftMode(procession.getDraftMode());
+//			
+//			validator.validate(result, binding);
+//			if (binding.hasErrors())
+//				return procession;
+//		}
+//		
+//		return result;
+//	}
 	
 	
 	
