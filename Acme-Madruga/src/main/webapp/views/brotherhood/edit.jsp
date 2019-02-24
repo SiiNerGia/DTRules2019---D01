@@ -12,11 +12,11 @@
 
 	<%-- Hidden properties from handy worker--%>
 	<form:hidden path="id" />
-	<form:hidden path="version" />
+<%-- 	<form:hidden path="version" />
 	<form:hidden path="userAccount.Authorities" />
 	<form:hidden path="userAccount" />
 	<form:hidden path="processions" />
-	<form:hidden path="coaches" />
+	<form:hidden path="coaches" /> --%>
 	<form:hidden path="establishment" />
 	
 	<%-- Name --%>
