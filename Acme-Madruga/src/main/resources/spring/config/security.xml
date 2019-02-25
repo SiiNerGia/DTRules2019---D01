@@ -73,11 +73,14 @@
 		
 		<!--  MEMBER -->
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
-		
-		
-		
-		
-		
+
+
+		<!-- REQUEST -->
+		<security:intercept-url pattern="/request/list.do" access="hasAnyRole('BROTHERHOOD','MEMBER')" />
+		<security:intercept-url pattern="/request/member/**" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/request/brotherhood/**" access="hasRole('BROTHERHOOD')" />
+
+
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
