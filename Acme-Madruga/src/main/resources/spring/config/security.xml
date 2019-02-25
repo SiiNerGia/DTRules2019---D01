@@ -79,6 +79,9 @@
 		<security:intercept-url pattern="/request/member/**" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/request/brotherhood/**" access="hasRole('BROTHERHOOD')" />
 
+		<!-- FINDER -->
+		<security:intercept-url pattern="/finder/member/edit.do" access="hasRole('MEMBER')" />
+
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
