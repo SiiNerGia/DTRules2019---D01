@@ -8,13 +8,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,10 +35,6 @@ public class BrotherhoodController extends AbstractController {
 
 	@Autowired
 	private MemberService		memberService;
-
-	@Autowired
-	@Qualifier("validator")
-	private Validator			validator;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -122,7 +115,7 @@ public class BrotherhoodController extends AbstractController {
 		Brotherhood brotherhood;
 		String password;
 
-		brotherhood = this.reconstruct(brotherhoodForm, binding);
+		brotherhood = this.brotherhoodService.reconstruct(brotherhoodForm, binding);
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
@@ -182,10 +175,11 @@ public class BrotherhoodController extends AbstractController {
 
 	// SAVE ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveEdit(Brotherhood brotherhood, final BindingResult binding) {
+	public ModelAndView saveEdit(final Brotherhood prune, final BindingResult binding) {
 		ModelAndView result;
+		final Brotherhood brotherhood;
 
-		brotherhood = this.reconstruct(brotherhood, binding);
+		brotherhood = this.brotherhoodService.reconstruct(prune, binding);
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
@@ -193,7 +187,7 @@ public class BrotherhoodController extends AbstractController {
 				System.out.println(e.toString());
 
 			result = new ModelAndView("brotherhood/edit");
-			result.addObject("brotherhood", brotherhood);
+			result.addObject("brotherhood", prune);
 		}
 
 		else
@@ -320,47 +314,4 @@ public class BrotherhoodController extends AbstractController {
 	private ModelAndView forbiddenOpperation() {
 		return new ModelAndView("redirect:/");
 	}
-
-	/*** Reconstruct object, check validity and update binding ***/
-	private Brotherhood reconstruct(final BrotherhoodForm form, final BindingResult binding) {
-		final Brotherhood bro = this.brotherhoodService.create();
-
-		bro.getUserAccount().setPassword(form.getUserAccount().getPassword());
-		bro.getUserAccount().setUsername(form.getUserAccount().getUsername());
-
-		bro.setAddress(form.getAddress());
-		bro.setEmail(form.getEmail());
-		bro.setMiddleName(form.getMiddlename());
-		bro.setName(form.getName());
-		bro.setPhoneNumber(form.getPhone());
-		bro.setPhoto(form.getPhoto());
-		bro.setSurname(form.getSurname());
-		bro.setTitle(form.getTitle());
-		bro.getEstablishment().setTime(bro.getEstablishment().getTime() - 1000);
-
-		this.validator.validate(bro, binding);
-
-		return bro;
-	}
-	private Brotherhood reconstruct(final Brotherhood brotherhood, final BindingResult binding) {
-		final Brotherhood result = this.brotherhoodService.findOne(brotherhood.getId());
-
-		Assert.isTrue(this.brotherhoodService.findByPrincipal().getId() == brotherhood.getId());
-
-		result.setAddress(brotherhood.getAddress());
-		result.setEmail(brotherhood.getEmail());
-		result.setMiddleName(brotherhood.getMiddleName());
-		result.setName(brotherhood.getName());
-		result.setPhoneNumber(brotherhood.getPhoneNumber());
-		result.setPhoto(brotherhood.getPhoto());
-		result.setSurname(brotherhood.getSurname());
-		result.setTitle(brotherhood.getTitle());
-
-		this.validator.validate(result, binding);
-		if (binding.hasErrors())
-			return brotherhood;
-		else
-			return result;
-	}
-	/************************************************************************************************/
 }

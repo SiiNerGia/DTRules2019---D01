@@ -6,9 +6,12 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.BrotherhoodRepository;
 import security.Authority;
@@ -19,6 +22,7 @@ import domain.Coach;
 import domain.Member;
 import domain.Procession;
 import domain.Url;
+import forms.BrotherhoodForm;
 
 @Service
 @Transactional
@@ -27,6 +31,10 @@ public class BrotherhoodService {
 	// Manage Repository
 	@Autowired
 	private BrotherhoodRepository	brotherhoodRepository;
+
+	@Autowired
+	@Qualifier("validator")
+	private Validator				validator;
 
 
 	// CRUD methods
@@ -75,6 +83,57 @@ public class BrotherhoodService {
 
 		this.brotherhoodRepository.delete(brotherhood);
 	}
+
+	/*** Reconstruct object, check validity and update binding ***/
+	public Brotherhood reconstruct(final BrotherhoodForm form, final BindingResult binding) {
+		final Brotherhood bro = this.create();
+
+		bro.getUserAccount().setPassword(form.getUserAccount().getPassword());
+		bro.getUserAccount().setUsername(form.getUserAccount().getUsername());
+
+		bro.setAddress(form.getAddress());
+		bro.setEmail(form.getEmail());
+		bro.setMiddleName(form.getMiddlename());
+		bro.setName(form.getName());
+		bro.setPhoneNumber(form.getPhone());
+		bro.setPhoto(form.getPhoto());
+		bro.setSurname(form.getSurname());
+		bro.setTitle(form.getTitle());
+		bro.getEstablishment().setTime(bro.getEstablishment().getTime() - 1000);
+
+		this.validator.validate(bro, binding);
+
+		return bro;
+	}
+	public Brotherhood reconstruct(final Brotherhood brotherhood, final BindingResult binding) {
+		final Brotherhood result = this.create();
+		final Brotherhood temp = this.findOne(brotherhood.getId());
+
+		Assert.isTrue(this.findByPrincipal().getId() == brotherhood.getId());
+
+		result.setAddress(brotherhood.getAddress());
+		result.setEmail(brotherhood.getEmail());
+		result.setMiddleName(brotherhood.getMiddleName());
+		result.setName(brotherhood.getName());
+		result.setPhoneNumber(brotherhood.getPhoneNumber());
+		result.setPhoto(brotherhood.getPhoto());
+		result.setSurname(brotherhood.getSurname());
+		result.setTitle(brotherhood.getTitle());
+
+		result.setCoaches(temp.getCoaches());
+		result.setEnrols(temp.getEnrols());
+		result.setEstablishment(temp.getEstablishment());
+		result.setPictures(temp.getPictures());
+		result.setProcessions(temp.getProcessions());
+		result.setUserAccount(temp.getUserAccount());
+		result.setId(temp.getId());
+		result.setVersion(temp.getVersion());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
+	/************************************************************************************************/
 
 	// Other business methods
 	public Brotherhood findByPrincipal() {
