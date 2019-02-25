@@ -45,6 +45,9 @@
 
 		<bean class="converters.EnrolToStringConverter" />
 		<bean class="converters.StringToEnrolConverter" />
+		
+		<bean class="converters.StringToDropoutConverter" />
+		<bean class="converters.DropoutToStringConverter" />
 
 	</util:list>
 

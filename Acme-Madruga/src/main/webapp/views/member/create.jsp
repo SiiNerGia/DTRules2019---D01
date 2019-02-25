@@ -12,8 +12,12 @@
 <form:form action="member/create.do" modelAttribute="member">
 
 	<%-- Hidden properties from handy worker--%>
-	<%-- 	<form:hidden path="id" />
+	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="userAccount.authorities" />
+	<form:hidden path="enrols" />
+	<form:hidden path="dropouts" />
+	<form:hidden path="requests" />
 	
 	<%-- UserAccount--%>
 
@@ -78,8 +82,9 @@
 	</script>
 	<%-- Buttons --%>
 	<input type="submit" name="save"
-		value="<spring:message code="member.save"/>"
-		onClick="javascript: return phoneNumberValidator()" />
+		value="<spring:message code="member.save"/>"/>
+		<!--  onClick="javascript: return phoneNumberValidator()" -->
+		
 
 	<acme:cancel code="member.cancel" url="/" />
 </form:form>

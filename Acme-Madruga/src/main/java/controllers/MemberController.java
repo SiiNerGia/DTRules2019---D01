@@ -1,8 +1,11 @@
 
 package controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,22 +33,22 @@ public class MemberController extends AbstractController {
 		return result;
 	}
 
-	//	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	//	public ModelAndView save(@Valid final Member member, final BindingResult binding) {
-	//		ModelAndView result;
-	//
-	//		if (binding.hasErrors())
-	//			result = this.createEditModelAndView(member);
-	//		else
-	//			try {
-	//				this.memberService.save(member);
-	//				result = new ModelAndView("redirect:list.do"); //TODO: mirar a donde hay que redireccionar esto
-	//
-	//			} catch (final Throwable oops) {
-	//				result = this.createEditModelAndView(member, "member.commit.error");
-	//			}
-	//		return result;
-	//	}
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Member member, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(member);
+		else
+			try {
+				this.memberService.save(member);
+				result = new ModelAndView("redirect:/**"); //TODO: mirar a donde hay que redireccionar esto
+
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(member, "member.commit.error");
+			}
+		return result;
+	}
 
 	protected ModelAndView createEditModelAndView(final Member member) {
 		ModelAndView result;

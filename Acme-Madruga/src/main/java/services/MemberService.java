@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.MemberRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Dropout;
+import domain.Enrol;
 import domain.Member;
+import domain.Request;
 
 @Service
 @Transactional
@@ -33,6 +38,19 @@ public class MemberService {
 		Member result;
 
 		result = new Member();
+
+		final Authority authority = new Authority();
+		authority.setAuthority(Authority.MEMBER);
+
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		authorities.add(authority);
+		final UserAccount userAccount = new UserAccount();
+		userAccount.setAuthorities(authorities);
+
+		result.setDropouts(new ArrayList<Dropout>());
+		result.setEnrols(new ArrayList<Enrol>());
+		result.setRequests(new ArrayList<Request>());
+		result.setUserAccount(userAccount);
 
 		return result;
 
