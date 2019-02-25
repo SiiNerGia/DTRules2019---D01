@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 import repositories.CoachRepository;
 import repositories.RequestRepository;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
@@ -22,6 +23,9 @@ public class RequestService {
 	// Supporting services
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 	
 	
 	/************************************* CRUD methods ********************************/
@@ -112,6 +116,18 @@ public class RequestService {
 		}
 
 		Assert.isTrue(check);
+	}
+
+	public Collection<Request> findRequestByBrotherhood(int brotherhoodId){
+		Collection<Request> result = new ArrayList<Request>();
+
+		Brotherhood b = this.brotherhoodService.findOne(brotherhoodId);
+
+		for(Procession p: b.getProcessions()){
+			result.addAll(p.getRequests());
+		}
+
+		return result;
 	}
 	
 
