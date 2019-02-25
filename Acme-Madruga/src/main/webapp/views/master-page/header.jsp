@@ -46,6 +46,18 @@
 		</security:authorize>
 		
 		
+		<!-- An actor who is authenticated as a MEMBER -->
+		<security:authorize access="hasRole('MEMBER')">
+			<li><a class="fNiv"><spring:message	code="master.page.brotherhood" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="brotherhood/member/list.do"><spring:message code="master.page.brotherhood.member.list" /></a></li>				
+				</ul>
+			</li>
+			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+		</security:authorize>
+		
+		
 		<!-- An actor who is NOT authenticated -->
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv"><spring:message	code="master.page.brotherhood" /></a>
