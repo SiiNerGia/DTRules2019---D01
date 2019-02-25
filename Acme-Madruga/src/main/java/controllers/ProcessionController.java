@@ -100,21 +100,21 @@ public class ProcessionController extends AbstractController {
 
 	// Save -------------------------------------------------------------
 	@RequestMapping(value = "brotherhood/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Procession procession, BindingResult binding) {
+	public ModelAndView save(Procession pruned, BindingResult binding) {
 		ModelAndView result;
 		Procession constructed;
 
-		constructed = this.processionService.reconstruct(procession, binding);
+		constructed = this.processionService.reconstruct(pruned, binding);
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(procession);
+			result = this.createEditModelAndView(pruned);
 		} else
 			try {
 				this.processionService.save(constructed);
 				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
-				result = this.createEditModelAndView(procession, "procession.registration.error");
+				result = this.createEditModelAndView(pruned, "procession.registration.error");
 			}
 
 		return result;

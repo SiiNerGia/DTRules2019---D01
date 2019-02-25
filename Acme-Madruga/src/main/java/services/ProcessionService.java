@@ -8,7 +8,6 @@ import java.util.Date;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -106,19 +105,25 @@ public class ProcessionService {
 	}
 	
 	/************************************* Reconstruct ******************************************/
-	@Transactional(propagation = Propagation.NOT_SUPPORTED)
-	public Procession reconstruct(Procession procession, BindingResult binding) {
-		Procession result;
+	public Procession reconstruct(Procession pruned, BindingResult binding) {
+		Procession result = this.create();
+		Procession temp;
 		
-		if(procession.getId() == 0) {
-			validator.validate(procession, binding);
-			result = procession;
+		if(pruned.getId() == 0) {
+			validator.validate(pruned, binding);
+			result = pruned;
 		} else {
-			result = this.findOne(procession.getId());
-			result.setTitle(procession.getTitle());
-			result.setDescription(procession.getDescription());
-			result.setMoment(procession.getMoment());
-			result.setDraftMode(procession.getDraftMode());
+			temp = this.findOne(pruned.getId());
+			result.setId(temp.getId());
+			result.setVersion(temp.getVersion());
+			result.setBrotherhood(temp.getBrotherhood());
+			result.setTicker(temp.getTicker());
+			
+			
+			result.setTitle(pruned.getTitle());
+			result.setDescription(pruned.getDescription());
+			result.setMoment(pruned.getMoment());
+			result.setDraftMode(pruned.getDraftMode());
 			
 			validator.validate(result, binding);
 		}
