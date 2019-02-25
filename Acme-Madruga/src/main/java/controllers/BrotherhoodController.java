@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
+import services.MemberService;
+import utilities.Md5;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Url;
 import forms.BrotherhoodForm;
-import services.BrotherhoodService;
-import services.MemberService;
-import utilities.Md5;
 
 @Controller
 @RequestMapping("/brotherhood")
