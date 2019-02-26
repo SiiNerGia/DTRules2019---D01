@@ -87,10 +87,10 @@
 	<br>
 </jstl:if>
 
-<a
-	href="message/delete.do?messageID=${row.id}&messageBoxID=${messageBoxID}">
-	<spring:message code="message.delete" />
-</a>
+<a href="message/delete.do?messageID=${row.id}&messageBoxID=${messageBoxID}"> <spring:message code="message.delete" /></a>
+	<br>
+	<br>
+	
 <input type="button" name="goBack" value="<spring:message code="message.goBack"/>"
 	onclick="javascript: window.location.replace('message/list.do?messageBoxID=${messageBoxID}')" />
 

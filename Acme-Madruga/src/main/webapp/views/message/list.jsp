@@ -39,6 +39,8 @@
 <security:authorize access="isAuthenticated()">
 	<a href=message/create.do><spring:message code="message.create" /></a>
 </security:authorize>
+	<br>
+	<br>
 
 <input type="submit" name="goBack" value="<spring:message code="messageBox.goBack" />"
 		onClick="javascript: window.location.replace('messageBox/list.do')" />

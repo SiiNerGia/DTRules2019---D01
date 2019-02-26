@@ -41,7 +41,8 @@
 </display:table>
 
 <security:authorize access="isAuthenticated()">
-	<a href=messageBox/create.do><spring:message
-			code="messageBox.create" /></a>
+	<a href=messageBox/create.do><spring:message code="messageBox.create" /></a>
+	<br>
+	<br>
 	<a href=message/create.do><spring:message code="message.create" /></a>
 </security:authorize>
