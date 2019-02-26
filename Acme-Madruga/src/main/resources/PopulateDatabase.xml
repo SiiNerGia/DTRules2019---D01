@@ -100,6 +100,14 @@
 		<property name="phoneNumber" value="+34656256697" />
 		<property name="address" value="admin1 18" />
 		<property name="UserAccount" ref="userAccount1" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="admin1-Spam" />
+				<ref bean="admin1-in" />
+				<ref bean="admin1-out" />
+				<ref bean="admin1-trash" />
+			</list>
+		</property>
 	</bean>
 
 
@@ -120,6 +128,14 @@
 				<ref bean="enrol1" />
 			</list>
 		</property>
+		<property name="messageBoxes">
+			<list>
+				<ref bean="member1-in" />
+				<ref bean="member1-out" />
+				<ref bean="member1-spam" />
+				<ref bean="member1-trash" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="member2" class="domain.Member">
@@ -136,6 +152,14 @@
 		<property name="enrols">
 			<list>
 				<ref bean="enrol2" />
+			</list>
+		</property>
+		<property name="messageBoxes">
+			<list>
+				<ref bean="member2-in" />
+				<ref bean="member2-out" />
+				<ref bean="member2-spam" />
+				<ref bean="member2-trash" />
 			</list>
 		</property>
 	</bean>
@@ -159,6 +183,14 @@
 				<ref bean="enrol1" />
 			</list>
 		</property>
+		<property name="messageBoxes">
+			<list>
+				<ref bean="brotherhood1-in" />
+				<ref bean="brotherhood1-out" />
+				<ref bean="brotherhood1-spam" />
+				<ref bean="brotherhood1-trash" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="brotherhood2" class="domain.Brotherhood">
@@ -176,6 +208,14 @@
 		<property name="enrols">
 			<list>
 				<ref bean="enrol2" />
+			</list>
+		</property>
+		<property name="messageBoxes">
+			<list>
+				<ref bean="brotherhood2-in" />
+				<ref bean="brotherhood2-out" />
+				<ref bean="brotherhood2-spam" />
+				<ref bean="brotherhood2-trash" />
 			</list>
 		</property>
 	</bean>
@@ -229,7 +269,6 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<!-- <ref bean="message1" /> -->
 			</list>
 		</property>
 	</bean>
@@ -269,7 +308,6 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<!-- <ref bean="message1" /> -->
 			</list>
 		</property>
 	</bean>
@@ -310,12 +348,11 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<!-- <ref bean="message1" /> -->
 			</list>
 		</property>
 	</bean>
 
-	<bean id="brotherhood11-in" class="domain.MessageBox">
+	<bean id="brotherhood1-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -347,17 +384,16 @@
 
 	<!-- Brotherhood2 MessageBoxes-->
 	
-	<bean id="Brotherhood2-spam" class="domain.MessageBox">
+	<bean id="brotherhood2-spam" class="domain.MessageBox">
 		<property name="name" value="spam" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				<!-- <ref bean="message1" /> -->
 			</list>
 		</property>
 	</bean>
 
-	<bean id="Brotherhood2-in" class="domain.MessageBox">
+	<bean id="brotherhood2-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -367,7 +403,7 @@
 		</property>
 	</bean>
 
-	<bean id="Brotherhood2-out" class="domain.MessageBox">
+	<bean id="brotherhood2-out" class="domain.MessageBox">
 		<property name="name" value="out" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -376,7 +412,7 @@
 		</property>
 	</bean>
 
-	<bean id="Brotherhood2-trash" class="domain.MessageBox">
+	<bean id="brotherhood2-trash" class="domain.MessageBox">
 		<property name="name" value="trash" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -468,6 +504,7 @@
 		<property name="title" value="procession1" />
 		<property name="description" value="procession1 description"/>
 		<property name="moment" value="2019/03/01"/>
+		<property name="draftMode" value="false"/>
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="requests">
 			<list>
@@ -483,6 +520,7 @@
 		<property name="description" value="procession2 description"/>
 		<property name="moment" value="2019/06/15"/>
 		<property name="brotherhood" ref="brotherhood2" />
+		<property name="draftMode" value="true"/>
 		<property name="requests">
 			<list>
 				<ref bean="request2" />
