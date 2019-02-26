@@ -48,6 +48,12 @@
 		
 		<bean class="converters.StringToDropoutConverter" />
 		<bean class="converters.DropoutToStringConverter" />
+		
+		<bean class="converters.MessageBoxToStringConverter" />
+		<bean class="converters.StringToMessageBoxConverter" />
+		
+		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.StringToMessageConverter" />
 
 	</util:list>
 

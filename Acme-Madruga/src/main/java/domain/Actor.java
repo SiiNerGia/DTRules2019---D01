@@ -1,10 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -28,6 +31,8 @@ public abstract class Actor extends DomainEntity {
 	private String	email;
 	private String	phoneNumber;
 	private String	address;
+	private Boolean	isPammer;
+	private Boolean	isBanned;
 
 
 	@NotBlank
@@ -90,10 +95,32 @@ public abstract class Actor extends DomainEntity {
 	public void setAddress(final String address) {
 		this.address = address;
 	}
+	
+	
+	public Boolean getIsPammer() {
+		return isPammer;
+	}
+
+	public void setIsPammer(Boolean isPammer) {
+		this.isPammer = isPammer;
+	}
+
+	public Boolean getIsBanned() {
+		return isBanned;
+	}
+
+	public void setIsBanned(Boolean isBanned) {
+		this.isBanned = isBanned;
+	}
+
+
+
+
 
 
 	// Relationships ----------------------------------------------------------
-	private UserAccount	userAccount;
+	private UserAccount					userAccount;
+	private Collection<MessageBox>		messageBoxes;
 
 
 	@NotNull
@@ -106,6 +133,29 @@ public abstract class Actor extends DomainEntity {
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
 	}
+	
+	
+	@NotNull
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<MessageBox> getMessageBoxes() {
+		return messageBoxes;
+	}
+
+	public void setMessageBoxes(Collection<MessageBox> messageBoxes) {
+		this.messageBoxes = messageBoxes;
+	}
+	
+	
+	// Other Methods ------------------------------------------------------
+	public MessageBox getMessageBox(final String name) {
+		final MessageBox result = null;
+		for (final MessageBox box : this.getMessageBoxes())
+			if (box.getName().equals(name))
+				return box;
+		return result;
+	}
+	
 
 	@Override
 	public String toString() {

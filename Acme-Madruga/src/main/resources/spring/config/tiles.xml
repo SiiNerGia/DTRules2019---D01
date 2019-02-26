@@ -26,6 +26,8 @@
 		<value>/views/position/tiles.xml</value>
 		<value>/views/member/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
+		<value>/views/messageBox/tiles.xml</value>
+		<value>/views/message/tiles.xml</value>
 	</util:list>
 
 </beans>
