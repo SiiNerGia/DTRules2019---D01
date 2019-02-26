@@ -43,6 +43,19 @@
 					<li><a href="procession/list.do"><spring:message code="master.page.procession.list" /></a></li>				
 				</ul>
 			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.coach" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="coach/list.do"><spring:message code="master.page.coach.list" /></a></li>
+					<li><a href="coach/brotherhood/create.do"><spring:message code="master.page.coach.create" /></a></li>
+				</ul>
+			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.request" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="request/list.do"><spring:message code="master.page.request.list" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		
@@ -52,6 +65,13 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="brotherhood/member/list.do"><spring:message code="master.page.brotherhood.member.list" /></a></li>				
+				</ul>
+			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.request" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="request/list.do"><spring:message code="master.page.request.list" /></a></li>
+					<li><a href="request/member/create.do"><spring:message code="master.page.request.create" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
@@ -73,12 +93,24 @@
 					<li><a href="member/create.do"><spring:message code="master.page.member.register" /></a></li>				
 				</ul>
 			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.coach" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="coach/list.do"><spring:message code="master.page.coach.list" /></a></li>
+				</ul>
+			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
 		
 		<!-- An actor who is authenticated -->
 		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv"><spring:message	code="master.page.coach" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="coach/list.do"><spring:message code="master.page.coach.list" /></a></li>
+				</ul>
+			</li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
