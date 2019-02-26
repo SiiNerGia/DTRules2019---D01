@@ -18,8 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="messageBoxes" id="row"
-	requestURI="messageBox/list.do" pagesize="5" class="displaytag">
+<display:table name="messageBoxes" id="row" requestURI="messageBox/list.do" pagesize="5" class="displaytag">
 
 
 	<spring:message code="messageBox.name" var="nameHeader" />
@@ -41,8 +40,7 @@
 
 </display:table>
 
-<security:authorize
-	access="hasAnyRole('ADMIN', 'REFEREE', 'CUSTOMER', 'HANDYWORKER', 'SPONSOR')">
+<security:authorize access="isAuthenticated()">
 	<a href=messageBox/create.do><spring:message
 			code="messageBox.create" /></a>
 	<a href=message/create.do><spring:message code="message.create" /></a>

@@ -20,8 +20,7 @@
 
 <form:form action="message/broadcast.do" modelAttribute="mesage">
 
-	<security:authorize
-		access="hasAnyRole('ADMIN', 'REFEREE', 'CUSTOMER', 'HANDYWORKER', 'SPONSOR')">
+	<security:authorize access="isAuthenticated()">
 
 		<%-- Hidden properties from message--%>
 		<form:hidden path="id" />

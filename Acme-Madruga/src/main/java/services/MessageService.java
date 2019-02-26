@@ -81,7 +81,7 @@ public class MessageService {
 
 			if (spam) {
 				box = "spam";
-				message.getSender().setIsPammer(true);
+				message.getSender().setIsSpammer(true);
 			} else
 				box = "in";
 

@@ -85,6 +85,20 @@
 
 		<!-- FINDER -->
 		<security:intercept-url pattern="/finder/member/edit.do" access="hasRole('MEMBER')" />
+		
+		<!-- MESSAGE -->
+		<security:intercept-url pattern="/message/create.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/list.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/message/display.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/delete.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/move.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/copy.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/broadcast.do" access="hasRole('ADMIN')" />
+		
+		<!-- MESSAGEBOX -->
+		<security:intercept-url pattern="/messageBox/edit.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/messageBox/list.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/messageBox/create.do" access="isAuthenticated()" />
 
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

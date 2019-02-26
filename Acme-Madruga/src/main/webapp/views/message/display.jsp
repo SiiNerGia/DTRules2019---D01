@@ -8,14 +8,11 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
@@ -94,8 +91,7 @@
 	href="message/delete.do?messageID=${row.id}&messageBoxID=${messageBoxID}">
 	<spring:message code="message.delete" />
 </a>
-<input type="button" name="goBack"
-	value="<spring:message code="message.goBack"/>"
+<input type="button" name="goBack" value="<spring:message code="message.goBack"/>"
 	onclick="javascript: window.location.replace('message/list.do?messageBoxID=${messageBoxID}')" />
 
 <script type="text/javascript">

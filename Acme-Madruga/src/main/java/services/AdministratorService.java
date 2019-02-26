@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.MessageBox;
 import domain.Procession;
 import repositories.AdministratorRepository;
 import security.Authority;
@@ -33,25 +34,28 @@ public class AdministratorService {
 	private ConfigurationsService 	configurationsService;
 	//	@Autowired
 	//	private ActorService			actorService;
+	
+	@Autowired
+	private MessageBoxService		messageBoxService;
 
 
 
 	/************************************* CRUD methods ********************************/
 	public Administrator create() {
 		// Initialice
-		final UserAccount userAccount = new UserAccount();
-		final Collection<Authority> authorities = new ArrayList<Authority>();
-		final Authority authority = new Authority();
+		UserAccount userAccount = new UserAccount();
+		Collection<Authority> authorities = new ArrayList<Authority>();
+		Authority authority = new Authority();
 		authority.setAuthority(Authority.ADMIN);
 		authorities.add(authority);
 		userAccount.setAuthorities(authorities);
 
-		//final Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
+		Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
 
-		final Administrator admin = new Administrator();
+		Administrator admin = new Administrator();
 		admin.setUserAccount(userAccount);
-		//admin.setMessageBoxes(boxes);
-//		admin.setIsSuspicious(false);
+		admin.setMessageBoxes(boxes);
+		admin.setIsSpammer(false);
 
 		return admin;
 	}

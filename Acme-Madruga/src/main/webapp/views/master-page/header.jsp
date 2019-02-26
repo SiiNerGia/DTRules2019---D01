@@ -127,6 +127,9 @@
 						<li><a href="administrator/update.do"><spring:message code="master.page.brotherhood.edit" /></a></li>
 					</security:authorize>
 					
+					<!-- MessageBox -->
+					<li><a href="messageBox/list.do"><spring:message code="master.page.messageBox.list" /></a></li>
+					
 					<!-- LOGOUT -->
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>

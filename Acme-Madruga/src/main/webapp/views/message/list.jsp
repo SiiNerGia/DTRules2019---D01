@@ -36,9 +36,8 @@
 
 </display:table>
 
-<security:authorize access="hasAnyRole('ADMIN', 'REFEREE', 'CUSTOMER', 'HANDYWORKER', 'SPONSOR')">
+<security:authorize access="isAuthenticated()">
 	<a href=message/create.do><spring:message code="message.create" /></a>
-	
 </security:authorize>
 
 <input type="submit" name="goBack" value="<spring:message code="messageBox.goBack" />"
