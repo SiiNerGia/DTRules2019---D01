@@ -179,6 +179,233 @@
 			</list>
 		</property>
 	</bean>
+	
+	
+	<!-- MessageBoxes *************************************************************************** -->
+	
+	<!-- Admin MessageBoxes-->
+	<bean id="admin1-Spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="admin1-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="admin1-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="admin1-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Member1 MessageBoxes-->
+	<bean id="member1-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<!-- <ref bean="message1" /> -->
+			</list>
+		</property>
+	</bean>
+
+	<bean id="member1-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="member1-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="member1-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Member2 MessageBoxes-->
+	<bean id="member2-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<!-- <ref bean="message1" /> -->
+			</list>
+		</property>
+	</bean>
+
+	<bean id="member2-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="member2-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="member2-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- Brotherhood1 MessageBoxes-->
+	<bean id="brotherhood1-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<!-- <ref bean="message1" /> -->
+			</list>
+		</property>
+	</bean>
+
+	<bean id="brotherhood11-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="brotherhood1-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="brotherhood1-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<!-- Brotherhood2 MessageBoxes-->
+	
+	<bean id="Brotherhood2-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<!-- <ref bean="message1" /> -->
+			</list>
+		</property>
+	</bean>
+
+	<bean id="Brotherhood2-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="Brotherhood2-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="Brotherhood2-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+
+	<!-- Messages *************************************************************************** -->
+	<bean id="message1" class="domain.Message">
+		<property name="sender" ref="member1" />
+		<property name="recipients">
+			<list>
+				<ref bean="member2" />
+			</list>
+		</property>
+		<property name="moment" value="01/01/2019 00:00" />
+		<property name="subject" value="subject example" />
+		<property name="body" value="body example" />
+		<property name="priority" value="LOW" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="member1-out" />
+				<ref bean="member2-in" />
+			</list>
+		</property>
+	</bean>
+	
 
 
 	<!-- Coaches ******************************************************** -->

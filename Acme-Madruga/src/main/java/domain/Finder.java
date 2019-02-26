@@ -84,11 +84,12 @@ public class Finder extends DomainEntity {
 	public Collection<Procession> getProcessions() {
 		return this.processions;
 	}
-
-	public void setFixUpTasks(final Collection<Procession> processions) {
+	
+	public void setProcessions(Collection<Procession> processions) {
 		this.processions = processions;
 	}
 
+	
 	@Override
 	public String toString() {
 		return "Finder [Number of results: " + this.getProcessions().size() + "]";
