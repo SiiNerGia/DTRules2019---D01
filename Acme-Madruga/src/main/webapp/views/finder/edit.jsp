@@ -11,6 +11,8 @@
 	
 	<%-- Hidden properties from finder--%>
 	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="lastUpdate" />
 	
 	<%-- keyword--%>
 	<acme:textbox code="finder.keyword" path="keyword" />
