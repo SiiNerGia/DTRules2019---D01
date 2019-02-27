@@ -60,25 +60,31 @@ public class FinderController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Finder finder, final BindingResult binding) {
 		ModelAndView result;
+		Finder saved;
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			for (final ObjectError e : errors) {
 				System.out.println(e.toString());
+			}
 			result = this.createEditModelAndView(finder);
 
-		} else
+		} else {
 			try {
-				this.finderService.checkChanges(finder);
-				System.out.println("Exito");
-				result = new ModelAndView("redirect:/finder/member/result.do");
+				saved = this.finderService.checkChanges(finder);
+
+				result = new ModelAndView("procession/list");
+				result.addObject("processions", saved.getProcessions());
+				result.addObject("requestURI", "finder/member/result.do");
 			} catch (final Throwable oops) {
 				System.out.println(finder);
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
 				System.out.println(oops.getCause());
+				oops.printStackTrace();
 				result = this.createEditModelAndView(finder);
 			}
+		}
 		return result;
 	}
 

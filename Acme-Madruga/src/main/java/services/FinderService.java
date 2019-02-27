@@ -83,13 +83,12 @@ public class FinderService {
 	// in the specified time
 	public Finder checkChanges(final Finder finder) {
 		final Finder old = this.findOne(finder.getId());
-		if (/* finder.getArea() != old.getArea() || */finder.getMinDate() != old.getMinDate() || finder.getKeyword() != old.getKeyword() || finder.getMaxDate() != old.getMaxDate()) {
+		if (/* finder.getArea() != old.getArea() || */(finder.getMinDate() != old.getMinDate()) || (finder.getKeyword() != old.getKeyword()) || (finder.getMaxDate() != old.getMaxDate())) {
 
-			System.out.println("Hay cambios");
-			return this.updateResults(finder);
+			final Finder saved = this.updateResults(finder);
+			return saved;
 
 		} else {
-			System.out.println("Sin cambios");
 			finder.setProcessions(this.getResults(finder));
 			return finder;
 		}
@@ -100,38 +99,40 @@ public class FinderService {
 		final Calendar siguienteActualizacion = Calendar.getInstance();
 		siguienteActualizacion.setTime(finder.getLastUpdate());
 		final Calendar actual = Calendar.getInstance();
-		System.out.println("Mirando si ha pasado el tiempo cache");
+
 		siguienteActualizacion.add(Calendar.HOUR, this.configurationsService.getConfiguration().getCacheTime());
 
-		if (actual.after(siguienteActualizacion))
-			System.out.println("Ha pasado el tiempo");
-		this.updateResults(finder);
+		if (actual.after(siguienteActualizacion)) {
+			this.updateResults(finder);
+		}
 		return finder.getProcessions();
 	}
 
 	public Finder updateResults(final Finder finder) {
-		System.out.println("Actualizando resultados");
 		Assert.notNull(finder);
 		final ArrayList<Procession> result = new ArrayList<Procession>(this.processionService.findAll());
 
-		if (finder.getMinDate() != null)
+		if (finder.getMinDate() != null) {
 			result.retainAll(this.finderRepository.filterByMinDate(finder.getMinDate()));
+		}
 
-		if (finder.getMaxDate() != null)
+		if (finder.getMaxDate() != null) {
 			result.retainAll(this.finderRepository.filterByMaxDate(finder.getMaxDate()));
+		}
 
-		if (finder.getKeyword() != null)
+		if (finder.getKeyword() != null) {
 			result.retainAll(this.finderRepository.filterByKeyword("%" + finder.getKeyword() + "%"));
+		}
 
 		//		if (finder.getArea() != null)
 		//			result.retainAll(this.finderRepository.filterByArea(finder.getArea().getId()));
 
-		if (result.size() > this.configurationsService.getConfiguration().getFinderMaxResult())
+		if (result.size() > this.configurationsService.getConfiguration().getFinderMaxResult()) {
 			finder.setProcessions(result.subList(0, this.configurationsService.getConfiguration().getFinderMaxResult() - 1));
-		else
+		} else {
 			finder.setProcessions(result);
+		}
 		finder.setLastUpdate(new Date());
-		System.out.println("Nuevos datos cargados, guardando y volviendo");
 		return this.save(finder);
 	}
 }
