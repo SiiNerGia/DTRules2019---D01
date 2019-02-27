@@ -2,8 +2,10 @@
 package controllers.brotherhood;
 
 import controllers.AbstractController;
+import domain.Brotherhood;
 import domain.Coach;
 import domain.Request;
+import domain.Url;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.BrotherhoodService;
 import services.CoachService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -121,6 +124,80 @@ public class CoachBrotherhoodController extends AbstractController {
 		return result;
 	}
 
+
+	// Picture  ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/addPicture", method = RequestMethod.GET)
+	public ModelAndView addPicture(@RequestParam final int coachId) {
+		ModelAndView result;
+		final Url url;
+
+		try {
+			url = new Url();
+			result = new ModelAndView("coach/brotherhood/addPicture");
+			result.addObject("url", url);
+			result.addObject("coachId", coachId);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/deletePicture", method = RequestMethod.GET)
+	public ModelAndView deletePicture(@RequestParam final String link, @RequestParam final int coachId) {
+		ModelAndView result;
+		try {
+			final Coach c = this.coachService.findOne(coachId);
+			for (final Url picture : c.getPictures())
+				if (picture.getLink().equals(link)) {
+					c.getPictures().remove(picture);
+					break;
+				}
+			result = this.createEditModelAndView(c);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
+
+	// SAVE ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/addPicture", method = RequestMethod.POST, params = "save")
+	public ModelAndView savePicture(@RequestParam final int coachId, @Valid final Url url, final BindingResult binding) {
+		ModelAndView result;
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+
+			result = new ModelAndView("coach/brotherhood/addPicture");
+			result.addObject("url", url);
+			result.addObject("coachId", coachId);
+		}
+
+		else
+			try {
+				Coach c = this.coachService.findOne(coachId);
+				c.getPictures().add(url);
+				c = this.coachService.save(c);
+				result = this.createEditModelAndView(c);
+			} catch (final Throwable oops) {
+				System.out.println(url);
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = new ModelAndView("coach/brotherhood/addPicture");
+				result.addObject("url", url);
+				result.addObject("coachId", coachId);
+			}
+		return result;
+	}
 
 	// Ancillary methods -----------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Coach coach) {

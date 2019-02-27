@@ -21,9 +21,9 @@
 		<put-attribute name="body" value="/views/coach/list.jsp" />
 	</definition>
 
-	<definition name="coach/display" extends="master.page">
-		<put-attribute name="title" value="Display Float" />
-		<put-attribute name="body" value="/views/coach/display.jsp" />
+	<definition name="coach/brotherhood/addPicture" extends="master.page">
+		<put-attribute name="title" value="Add picture" />
+		<put-attribute name="body" value="/views/coach/addPicture.jsp" />
 	</definition>
 	
 </tiles-definitions>

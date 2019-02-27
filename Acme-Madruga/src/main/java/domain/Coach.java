@@ -1,11 +1,13 @@
 package domain;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.Valid;
+import java.util.Collection;
 
 
 @Entity
@@ -16,7 +18,7 @@ public class Coach extends DomainEntity {
 
     private String				title;
     private String              description;
-    private String              picture;
+    private Collection<Url>     pictures;
 
 
     // Getters & setters
@@ -39,13 +41,14 @@ public class Coach extends DomainEntity {
         this.description=description;
     }
 
-    @URL
-    public String getPicture(){
-        return this.picture;
+    @ElementCollection
+    @Valid
+    public Collection<Url> getPictures() {
+        return this.pictures;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setPictures(final Collection<Url> pictures) {
+        this.pictures = pictures;
     }
 
 }

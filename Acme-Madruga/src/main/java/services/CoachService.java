@@ -1,7 +1,9 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import domain.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +38,8 @@ public class CoachService {
 		// Principal must be a Brotherhood
 		principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Brotherhood.class, principal);
+
+		result.setPictures(new ArrayList<Url>());
 		
 		return result;
 	}

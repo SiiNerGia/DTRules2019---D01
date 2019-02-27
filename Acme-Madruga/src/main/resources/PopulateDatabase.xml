@@ -447,7 +447,6 @@
 	<bean id="coach1" class="domain.Coach">
 		<property name="title" value="Title Coach 1" />
 		<property name="description" value="Description Coach 1" />
-		<property name="picture" value="http://www.instagram.com" />
 	</bean>
 
 

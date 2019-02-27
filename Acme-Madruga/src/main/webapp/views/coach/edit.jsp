@@ -25,8 +25,28 @@
     <br>
 
     <%-- picture --%>
-    <acme:textbox code="coach.picture" path="picture" />
-    <br>
+	<jstl:if test="${not empty coach.pictures}">
+		<jstl:if test="${coach.id!=0}">
+			<display:table name="coach.pictures"  id="row" >
+				<spring:message code="coach.picture" var="pictureNameHeader" />
+				<display:column title="${pictureNameHeader}" sortable="false" >
+					<img src="${row.link}" width="50%" height="200"/>
+				</display:column>
+
+				<spring:message code="coach.pictures.delete" var="deleteHeader" />
+				<display:column title="${deleteHeader}">
+					<a href="coach/brotherhood/deletePicture.do?link=${row.link}"><spring:message code="coach.picture.delete"/></a>
+				</display:column>
+
+				<display:caption><spring:message code="coach.pictures"/></display:caption>
+			</display:table>
+		</jstl:if>
+	</jstl:if>
+	<br>
+	<a href="coach/brotherhood/addPicture.do?coachId=${coach.id}">
+		<spring:message code="coach.picture.create"/>
+	</a>
+	<br>
 
 	<%-- Buttons --%>
 	<input type="submit" name="save"
