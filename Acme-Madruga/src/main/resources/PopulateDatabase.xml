@@ -117,6 +117,7 @@
 		<property name="surname" value="member1" />
 		<property name="email" value="member1@mail.com"/>
 		<property name="UserAccount" ref="userAccount5" />
+		<property name="finder" ref="finder1" />
 		<property name="requests">
 			<list>
 				<ref bean="request1" />
@@ -143,6 +144,7 @@
 		<property name="surname" value="member2" />
 		<property name="email" value="member2@mail.com"/>
 		<property name="UserAccount" ref="userAccount6" />
+		<property name="finder" ref="finder2" />
 		<property name="requests">
 			<list>
 				<ref bean="request3" />
@@ -549,6 +551,15 @@
 				<ref bean="President" />
 			</list>
 		</property>
+	</bean>
+
+	<!-- finder *************************************************************************** -->
+	<bean id="finder1" class="domain.Finder">
+		<property name="lastUpdate" value="01/01/2000" />
+	</bean>
+
+	<bean id="finder2" class="domain.Finder">
+		<property name="lastUpdate" value="01/01/2000" />
 	</bean>
 	
 	

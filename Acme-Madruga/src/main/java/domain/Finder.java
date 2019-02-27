@@ -84,14 +84,8 @@ public class Finder extends DomainEntity {
 	public Collection<Procession> getProcessions() {
 		return this.processions;
 	}
-	
-	public void setProcessions(Collection<Procession> processions) {
-		this.processions = processions;
-	}
 
-	
-	@Override
-	public String toString() {
-		return "Finder [Number of results: " + this.getProcessions().size() + "]";
+	public void setProcessions(final Collection<Procession> processions) {
+		this.processions = processions;
 	}
 }
