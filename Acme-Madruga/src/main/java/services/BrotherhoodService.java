@@ -13,6 +13,11 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.BrotherhoodRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import domain.Area;
 import domain.Brotherhood;
 import domain.Coach;
 import domain.Member;
@@ -20,10 +25,6 @@ import domain.MessageBox;
 import domain.Procession;
 import domain.Url;
 import forms.BrotherhoodForm;
-import repositories.BrotherhoodRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -32,7 +33,7 @@ public class BrotherhoodService {
 	// Manage Repository
 	@Autowired
 	private BrotherhoodRepository	brotherhoodRepository;
-	
+
 	@Autowired
 	private MessageBoxService		messageBoxService;
 
@@ -51,8 +52,8 @@ public class BrotherhoodService {
 		authority.setAuthority(Authority.BROTHERHOOD);
 		authorities.add(authority);
 		userAccount.setAuthorities(authorities);
-		
-		Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
+
+		final Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
 
 		result.setUserAccount(userAccount);
 		result.setEstablishment(new Date());
@@ -185,5 +186,9 @@ public class BrotherhoodService {
 		Assert.notNull(bros);
 
 		return bros;
+	}
+
+	public Brotherhood findBrotherhoodByArea(final Area area) {
+		return this.brotherhoodRepository.findBrotherhoodByArea(area.getId());
 	}
 }
