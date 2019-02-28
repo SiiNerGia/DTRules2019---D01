@@ -27,6 +27,7 @@
 		<form:hidden path="moment" />
 		<form:hidden path="messageBoxes" />
 		<form:hidden path="recipients" />
+		<form:hidden path="isNotification" />
 
 
 		<%-- Subject --%>
@@ -62,8 +63,7 @@
 
 
 		<%-- Buttons --%>
-		<input type="submit" name="send"
-			value="<spring:message code="message.send"/>" />
+		<input type="submit" name="send" value="<spring:message code="message.send"/>" />
 
 		<input type="button" name="cancel"
 			value="<spring:message code="message.cancel" />"

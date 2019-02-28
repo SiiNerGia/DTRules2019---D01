@@ -29,6 +29,7 @@ public class Message extends DomainEntity {
 	private String				subject;
 	private String				body;
 	private String				priority;
+	private Boolean				isNotification;		
 	private Collection<String>	tags;
 
 
@@ -70,6 +71,14 @@ public class Message extends DomainEntity {
 
 	public void setPriority(final String priority) {
 		this.priority = priority;
+	}
+	
+	public Boolean getIsNotification() {
+		return isNotification;
+	}
+
+	public void setIsNotification(Boolean isNotification) {
+		this.isNotification = isNotification;
 	}
 
 	@ElementCollection(targetClass = String.class)

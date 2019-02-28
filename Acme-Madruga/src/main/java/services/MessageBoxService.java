@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.MessageBoxRepository;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Message;
 import domain.MessageBox;
+import repositories.MessageBoxRepository;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -89,14 +89,14 @@ public class MessageBoxService {
 
 	// Other methods
 
-	public Collection<MessageBox> findAllByActor(final int actorID) {
+	public Collection<MessageBox> findAllByActor(int actorID) {
 		final Collection<MessageBox> result = this.messageBoxRepository.findAllByActor(actorID);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public MessageBox findOneByActorAndName(final int actorID, final String name) {
+	public MessageBox findOneByActorAndName(int actorID, String name) {
 		Assert.notNull(name);
 		final MessageBox result = this.messageBoxRepository.findOneByActorAndName(actorID, name);
 		Assert.notNull(result);
@@ -104,12 +104,13 @@ public class MessageBoxService {
 		return result;
 	}
 	public Collection<MessageBox> createSystemMessageBox() {
-		final Collection<MessageBox> result = new ArrayList<MessageBox>();
-		final Collection<Message> messages = new ArrayList<Message>();
-		final MessageBox in = new MessageBox();
-		final MessageBox out = new MessageBox();
-		final MessageBox trash = new MessageBox();
-		final MessageBox spam = new MessageBox();
+		Collection<MessageBox> result = new ArrayList<MessageBox>();
+		Collection<Message> messages = new ArrayList<Message>();
+		MessageBox in = new MessageBox();
+		MessageBox out = new MessageBox();
+		MessageBox trash = new MessageBox();
+		MessageBox spam = new MessageBox();
+		MessageBox notification = new MessageBox();
 
 		in.setName("in");
 		in.setMessages(messages);
@@ -126,16 +127,22 @@ public class MessageBoxService {
 		spam.setName("spam");
 		spam.setMessages(messages);
 		spam.setIsSystemBox(true);
+		
+		notification.setName("notification");
+		notification.setMessages(messages);
+		notification.setIsSystemBox(true);
 
 		result.add(in);
 		result.add(out);
 		result.add(trash);
 		result.add(spam);
+		result.add(notification);
 
 		this.messageBoxRepository.save(in);
 		this.messageBoxRepository.save(out);
 		this.messageBoxRepository.save(trash);
 		this.messageBoxRepository.save(spam);
+		this.messageBoxRepository.save(notification);
 
 		return result;
 	}

@@ -107,6 +107,7 @@
 				<ref bean="admin1-in" />
 				<ref bean="admin1-out" />
 				<ref bean="admin1-trash" />
+				<ref bean="admin1-notification" />
 			</list>
 		</property>
 	</bean>
@@ -139,6 +140,7 @@
 				<ref bean="member1-out" />
 				<ref bean="member1-spam" />
 				<ref bean="member1-trash" />
+				<ref bean="member1-notification" />
 			</list>
 		</property>
 	</bean>
@@ -168,6 +170,7 @@
 				<ref bean="member2-out" />
 				<ref bean="member2-spam" />
 				<ref bean="member2-trash" />
+				<ref bean="member2-notification" />
 			</list>
 		</property>
 	</bean>
@@ -199,6 +202,7 @@
 				<ref bean="brotherhood1-out" />
 				<ref bean="brotherhood1-spam" />
 				<ref bean="brotherhood1-trash" />
+				<ref bean="brotherhood1-notification" />
 			</list>
 		</property>
 	</bean>
@@ -227,6 +231,7 @@
 				<ref bean="brotherhood2-out" />
 				<ref bean="brotherhood2-spam" />
 				<ref bean="brotherhood2-trash" />
+				<ref bean="brotherhood2-notification" />
 			</list>
 		</property>
 	</bean>
@@ -235,16 +240,6 @@
 	<!-- MessageBoxes *************************************************************************** -->
 	
 	<!-- Admin MessageBoxes-->
-	<bean id="admin1-Spam" class="domain.MessageBox">
-		<property name="name" value="spam" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-				
-			</list>
-		</property>
-	</bean>
-
 	<bean id="admin1-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -262,6 +257,26 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="admin1-Spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="admin1-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
 
 	<bean id="admin1-trash" class="domain.MessageBox">
 		<property name="name" value="trash" />
@@ -274,15 +289,6 @@
 
 
 	<!-- Member1 MessageBoxes-->
-	<bean id="member1-spam" class="domain.MessageBox">
-		<property name="name" value="spam" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-			</list>
-		</property>
-	</bean>
-
 	<bean id="member1-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -300,6 +306,25 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="member1-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="member1-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
 
 	<bean id="member1-trash" class="domain.MessageBox">
 		<property name="name" value="trash" />
@@ -312,15 +337,6 @@
 
 
 	<!-- Member2 MessageBoxes-->
-	<bean id="member2-spam" class="domain.MessageBox">
-		<property name="name" value="spam" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-			</list>
-		</property>
-	</bean>
-
 	<bean id="member2-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -338,6 +354,25 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="member2-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="member2-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
 
 	<bean id="member2-trash" class="domain.MessageBox">
 		<property name="name" value="trash" />
@@ -349,17 +384,7 @@
 	</bean>
 	
 	
-	
 	<!-- Brotherhood1 MessageBoxes-->
-	<bean id="brotherhood1-spam" class="domain.MessageBox">
-		<property name="name" value="spam" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-			</list>
-		</property>
-	</bean>
-
 	<bean id="brotherhood1-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -379,6 +404,25 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="brotherhood1-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="brotherhood1-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				
+			</list>
+		</property>
+	</bean>
 
 	<bean id="brotherhood1-trash" class="domain.MessageBox">
 		<property name="name" value="trash" />
@@ -388,20 +432,9 @@
 			</list>
 		</property>
 	</bean>
-
-
+	
 
 	<!-- Brotherhood2 MessageBoxes-->
-	
-	<bean id="brotherhood2-spam" class="domain.MessageBox">
-		<property name="name" value="spam" />
-		<property name="isSystemBox" value="true" />
-		<property name="messages">
-			<list>
-			</list>
-		</property>
-	</bean>
-
 	<bean id="brotherhood2-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -417,6 +450,24 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="brotherhood2-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="brotherhood2-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>	
 			</list>
 		</property>
 	</bean>

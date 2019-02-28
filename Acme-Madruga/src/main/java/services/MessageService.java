@@ -82,7 +82,9 @@ public class MessageService {
 			if (spam) {
 				box = "spam";
 				message.getSender().setIsSpammer(true);
-			} else
+			} else if (message.getIsNotification())
+				box = "notification";
+			else
 				box = "in";
 
 			if (sender != null)

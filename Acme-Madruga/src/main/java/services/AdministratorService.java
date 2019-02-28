@@ -79,7 +79,7 @@ public class AdministratorService {
 		UserAccount userAccount;
 
 		if (admin.getId() == 0) {
-			// admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
+			 admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			if (!admin.getPhoneNumber().startsWith("+")) {
 				final String countryCode = this.configurationsService.getConfiguration().getCountryCode();
 				final String phoneNumer = admin.getPhoneNumber();
@@ -129,8 +129,7 @@ public class AdministratorService {
 		return result;
 	}
 
-	// 12.1 Create user accounts for new
-	// administrators---------------------------------------------------
+	// 12.1 Create user accounts for new administrators---------------------------------------------------
 	public Administrator registerNewAdmin(final Administrator admin) {
 		Administrator principal;
 
@@ -145,11 +144,9 @@ public class AdministratorService {
 		return this.adminRepository.save(admin);
 	}
 
-	// 12.2 Manage the catalogue of positions
-	// ---------------------------------------------------
+	// 12.2 Manage the catalogue of positions ---------------------------------------------------
 
-	// 12.3 Display a dashboard with the following
-	// information-----------------------------------
+	// 12.3 Display a dashboard with the following information-----------------------------------
 	public Object[] query1() {
 		return this.adminRepository.query1();
 	}
@@ -189,7 +186,7 @@ public class AdministratorService {
 		return this.actorService.findSpammers();
 	}
 
-	// 38.3 Ban an actor ----------------------------------------------------------------
+	// 28.5 Ban an actor ----------------------------------------------------------------
 	public Actor banAnActor(Actor actor) {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getIsSpammer());
@@ -206,7 +203,7 @@ public class AdministratorService {
 
 	}
 
-	// 38.4 Unbans an actor, which means that his or her user account is re-activated
+	// 28.6 Unbans an actor, which means that his or her user account is re-activated
 	public Actor unBanAnActor(Actor actor) {
 		Assert.notNull(actor);
 		// Assert.notNull(actor.getUsername());

@@ -126,6 +126,7 @@ public class MessageController extends AbstractController {
 		Message mesage;
 
 		mesage = this.messageService.create();
+		mesage.setIsNotification(true);
 
 		result = new ModelAndView("message/broadcast");
 		result.addObject("mesage", mesage);

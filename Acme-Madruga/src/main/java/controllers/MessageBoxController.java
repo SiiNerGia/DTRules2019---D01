@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
-import services.MessageBoxService;
 import domain.Actor;
 import domain.MessageBox;
+import services.ActorService;
+import services.MessageBoxService;
 
 @Controller
 @RequestMapping("/messageBox")
@@ -88,7 +88,7 @@ public class MessageBoxController extends AbstractController {
 
 	// Save -------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final MessageBox messageBox, final BindingResult binding) {
+	public ModelAndView save(@Valid MessageBox messageBox, BindingResult binding) {
 		ModelAndView result;
 		MessageBox msgBox;
 		if (binding.hasErrors())

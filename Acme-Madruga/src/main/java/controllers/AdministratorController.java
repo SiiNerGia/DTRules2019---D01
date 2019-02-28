@@ -34,6 +34,7 @@ import domain.Brotherhood;
 import domain.Procession;
 import services.ActorService;
 import services.AdministratorService;
+import services.MessageBoxService;
 import utilities.Md5;
 
 @Controller
@@ -45,6 +46,9 @@ public class AdministratorController extends AbstractController {
 	
 	@Autowired
 	private ActorService 			actorService;
+	
+	@Autowired
+	private MessageBoxService		messageBoxService;
 	
 	
 
@@ -92,7 +96,7 @@ public class AdministratorController extends AbstractController {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			// admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
+			 admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			result = new ModelAndView("administrator/create");
 			result.addObject("administrator", admin);
 		} else
