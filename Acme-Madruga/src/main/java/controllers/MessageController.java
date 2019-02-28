@@ -148,6 +148,7 @@ public class MessageController extends AbstractController {
 		} else
 			try {
 				Collection<Actor> recipients = this.actorService.findAll();
+				recipients.remove(this.actorService.findByPrincipal());
 				mesage.setRecipients(recipients);
 				this.messageService.save(mesage);
 				int messageBoxID = this.actorService.findByPrincipal().getMessageBox("out").getId();
