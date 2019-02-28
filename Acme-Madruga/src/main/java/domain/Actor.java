@@ -25,6 +25,7 @@ public abstract class Actor extends DomainEntity {
 	// Attributes -------------------------------------------------------------
 
 	private String	name;
+	private String	username;
 	private String	middleName;
 	private String	surname;
 	private String	photo;
@@ -42,6 +43,14 @@ public abstract class Actor extends DomainEntity {
 
 	public void setName(final String name) {
 		this.name = name;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getMiddleName() {

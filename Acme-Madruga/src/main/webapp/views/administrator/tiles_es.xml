@@ -31,9 +31,9 @@
 		<put-attribute name="body" value="/views/administrator/dashboard.jsp" />
 	</definition>
 	
-	<definition name="administrator/suspicious" extends="master.page">	
+	<definition name="administrator/spammers" extends="master.page">	
 		<put-attribute name="title" value="Lista de Actores sospechosos" />
-		<put-attribute name="body" value="/views/administrator/suspicious.jsp" />
+		<put-attribute name="body" value="/views/administrator/spammers.jsp" />
 	</definition>
 	
 	<definition name="administrator/update" extends="master.page">	

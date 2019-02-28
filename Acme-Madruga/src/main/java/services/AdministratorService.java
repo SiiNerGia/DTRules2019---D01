@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
 import domain.MessageBox;
@@ -27,20 +28,21 @@ public class AdministratorService {
 
 	// Manage Repository
 	@Autowired
-	private AdministratorRepository	adminRepository;
+	private AdministratorRepository adminRepository;
 
 	// Supporting services
 	@Autowired
-	private ConfigurationsService 	configurationsService;
-	//	@Autowired
-	//	private ActorService			actorService;
-	
+	private ConfigurationsService configurationsService;
+
 	@Autowired
-	private MessageBoxService		messageBoxService;
+	private ActorService actorService;
 
+	@Autowired
+	private MessageBoxService messageBoxService;
 
-
-	/************************************* CRUD methods ********************************/
+	/*************************************
+	 * CRUD methods
+	 ********************************/
 	public Administrator create() {
 		// Initialice
 		UserAccount userAccount = new UserAccount();
@@ -77,7 +79,7 @@ public class AdministratorService {
 		UserAccount userAccount;
 
 		if (admin.getId() == 0) {
-			//admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
+			// admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			if (!admin.getPhoneNumber().startsWith("+")) {
 				final String countryCode = this.configurationsService.getConfiguration().getCountryCode();
 				final String phoneNumer = admin.getPhoneNumber();
@@ -100,11 +102,10 @@ public class AdministratorService {
 		Assert.isTrue(admin.getId() != 0);
 		this.adminRepository.delete(admin);
 	}
-	
-	
-	
 
-	/************************************* Other business methods********************************/
+	/*************************************
+	 * Other business methods
+	 ********************************/
 	public Administrator findByPrincipal() {
 		Administrator result;
 		UserAccount userAccount;
@@ -128,7 +129,8 @@ public class AdministratorService {
 		return result;
 	}
 
-	// 12.1 Create user accounts for new administrators---------------------------------------------------
+	// 12.1 Create user accounts for new
+	// administrators---------------------------------------------------
 	public Administrator registerNewAdmin(final Administrator admin) {
 		Administrator principal;
 
@@ -142,10 +144,12 @@ public class AdministratorService {
 		// Saves admin in the databese
 		return this.adminRepository.save(admin);
 	}
-	
-	// 12.2 Manage the catalogue of positions ---------------------------------------------------
-		
-	// 12.3 Display a dashboard with the following information-----------------------------------
+
+	// 12.2 Manage the catalogue of positions
+	// ---------------------------------------------------
+
+	// 12.3 Display a dashboard with the following
+	// information-----------------------------------
 	public Object[] query1() {
 		return this.adminRepository.query1();
 	}
@@ -164,14 +168,58 @@ public class AdministratorService {
 		Collection<Double> result = this.adminRepository.query4();
 		return result;
 	}
-	
+
 	public Collection<Procession> query5() {
 		Collection<Procession> result;
-		Calendar c= new GregorianCalendar();
+		Calendar c = new GregorianCalendar();
 		c.add(Calendar.DATE, 30);
 		Date date = c.getTime();
 		result = this.adminRepository.query5(date);
 		return result;
 	}
-	
+
+	// 28.2 Spammers actors--------------------------------------------------------------------
+	public Collection<Actor> getSuspiciousActors() {
+		Administrator principal;
+
+		// Make sure that the principal is an Admin
+		principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		return this.actorService.findSpammers();
+	}
+
+	// 38.3 Ban an actor ----------------------------------------------------------------
+	public Actor banAnActor(Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(actor.getIsSpammer());
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		actor.setUsername(actor.getUserAccount().getUsername());
+		actor.getUserAccount().setUsername(null);
+		actor.setIsBanned(true);
+
+		return this.actorService.save(actor);
+
+	}
+
+	// 38.4 Unbans an actor, which means that his or her user account is re-activated
+	public Actor unBanAnActor(Actor actor) {
+		Assert.notNull(actor);
+		// Assert.notNull(actor.getUsername());
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		actor.getUserAccount().setUsername(actor.getUsername());
+		actor.setIsBanned(false);
+
+		return this.actorService.save(actor);
+
+	}
+
 }

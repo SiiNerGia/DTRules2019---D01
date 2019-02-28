@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
 import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
 
 @Service
 @Transactional
@@ -80,5 +80,9 @@ public class ActorService {
 		Assert.notNull(username);
 
 		return this.actorRepository.findByUserName(username);
+	}
+	
+	public Collection<Actor> findSpammers() {
+		return this.actorRepository.findSpammers();
 	}
 }

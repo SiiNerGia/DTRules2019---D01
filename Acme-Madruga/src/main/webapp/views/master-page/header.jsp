@@ -30,7 +30,8 @@
 					<li><a href="administrator/list.do"><spring:message code="master.page.administrator.list" /></a></li>
 					<li><a href="position/admin/list.do"><spring:message code="master.page.position.list" /></a></li>
 					<li><a href="administrator/dashboard.do"><spring:message code="master.page.dashboard" /></a></li>
-					<li><a href="message/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>					
+					<li><a href="message/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>
+					<li><a href="administrator/spammers.do"><spring:message code="master.page.administrator.spammers" /></a></li>					
 				</ul>
 			</li>
 		</security:authorize>

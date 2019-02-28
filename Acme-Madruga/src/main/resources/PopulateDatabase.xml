@@ -94,6 +94,7 @@
 	<!-- Administrators *************************************************************************** -->
 	<bean id="admin1" class="domain.Administrator">
 		<property name="name" value="admin" />
+		<property name="username" value="admin" />
 		<property name="middleName" value="middlename1" />
 		<property name="surname" value="surname1" />
 		<property name="email" value="admin1@gmail.com" />
@@ -114,10 +115,12 @@
 	<!-- Members ****************************************************************************************-->
 	<bean id="member1" class="domain.Member">
 		<property name="name" value="member1" />
+		<property name="username" value="member1" />
 		<property name="surname" value="member1" />
 		<property name="email" value="member1@mail.com"/>
 		<property name="UserAccount" ref="userAccount5" />
 		<property name="finder" ref="finder1" />
+		<property name="isSpammer" value="true" />
 	
 		<property name="requests">
 			<list>
@@ -142,10 +145,12 @@
 	
 	<bean id="member2" class="domain.Member">
 		<property name="name" value="member2" />
+		<property name="username" value="member2" />
 		<property name="surname" value="member2" />
 		<property name="email" value="member2@mail.com"/>
 		<property name="UserAccount" ref="userAccount6" />
 		<property name="finder" ref="finder2" />
+		<property name="isSpammer" value="true" />
 		<property name="requests">
 			<list>
 				<ref bean="request3" />
@@ -171,11 +176,13 @@
 	<!-- Brotherhoods ****************************************************************************************-->
 	<bean id="brotherhood1" class="domain.Brotherhood">
 		<property name="name" value="brotherhood1" />
+		<property name="username" value="brotherhood1" />
 		<property name="surname" value="brotherhood1" />
 		<property name="email" value="broterhood1@mail.com"/>
 		<property name="title" value="brotherhood1"/>
 		<property name="establishment" value="2019/01/30" />
 		<property name="UserAccount" ref="userAccount2" />
+		<property name="isSpammer" value="true" />
 		<property name="coaches">
 			<list>
 				<ref bean="coach1" />
@@ -198,6 +205,7 @@
 	
 	<bean id="brotherhood2" class="domain.Brotherhood">
 		<property name="name" value="brotherhood2" />
+		<property name="username" value="brotherhood2" />
 		<property name="surname" value="brotherhood2" />
 		<property name="email" value="broterhood2@mail.com"/>
 		<property name="title" value="brotherhood2"/>
