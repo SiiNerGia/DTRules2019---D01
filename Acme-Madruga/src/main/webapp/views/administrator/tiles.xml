@@ -65,21 +65,21 @@
 	</definition>
 	
 	
-	<!-- SCORE WORD -->
+	<!-- POLARITY WORDS -->
 	
-	<definition name="administrator/config/scoreWord/list" extends="master.page">	
+	<definition name="administrator/config/polarityWords/list" extends="master.page">	
 		<put-attribute name="title" value="Manage Words Lists" />
-		<put-attribute name="body" value="/views/administrator/config/scoreWord/list.jsp" />
+		<put-attribute name="body" value="/views/administrator/config/polarityWords/list.jsp" />
 	</definition>
 	
-	<definition name="administrator/config/scoreWord/add" extends="master.page">	
+	<definition name="administrator/config/polarityWords/add" extends="master.page">	
 		<put-attribute name="title" value="Add Word" />
-		<put-attribute name="body" value="/views/administrator/config/scoreWord/add.jsp" />
+		<put-attribute name="body" value="/views/administrator/config/polarityWords/add.jsp" />
 	</definition>
 	
-	<definition name="administrator/config/scoreWord/edit" extends="master.page">	
+	<definition name="administrator/config/polarityWords/edit" extends="master.page">	
 		<put-attribute name="title" value="Update Word" />
-		<put-attribute name="body" value="/views/administrator/config/scoreWord/edit.jsp" />
+		<put-attribute name="body" value="/views/administrator/config/polarityWords/edit.jsp" />
 	</definition>
 	
 	
@@ -98,24 +98,6 @@
 	<definition name="administrator/config/spam/edit" extends="master.page">	
 		<put-attribute name="title" value="Edit Spam Word" />
 		<put-attribute name="body" value="/views/administrator/config/spam/edit.jsp" />
-	</definition>
-	
-	
-	<!-- BRAND -->
-	
-	<definition name="administrator/config/brand/list" extends="master.page">	
-		<put-attribute name="title" value="Credit Card Brand List" />
-		<put-attribute name="body" value="/views/administrator/config/brand/list.jsp" />
-	</definition>
-	
-	<definition name="administrator/config/brand/add" extends="master.page">	
-		<put-attribute name="title" value="Add Brand" />
-		<put-attribute name="body" value="/views/administrator/config/brand/add.jsp" />
-	</definition>
-	
-	<definition name="administrator/config/brand/edit" extends="master.page">	
-		<put-attribute name="title" value="Credit Card Brand List" />
-		<put-attribute name="body" value="/views/administrator/config/brand/edit.jsp" />
 	</definition>
 	
 	

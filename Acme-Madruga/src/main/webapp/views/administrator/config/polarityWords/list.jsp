@@ -18,7 +18,7 @@
 
 <!-- Listing Grid -->
 
-<b><spring:message code="config.positiveWords"/>
+<b><spring:message code="config.positiveWords"/></b>
 <display:table name="positiveWords" id="row" requestURI="${ requestURI }" class="displaytag">
 
 	<!-- Word -->
@@ -28,24 +28,24 @@
 	<!-- Edit word link -->
 	<spring:message code="admin.edit.word" var="editHeader" />
 	<display:column title="${editHeader}">
-		<a href="administrator/config/scoreWord/editPositiveWord.do?word=${ row }&index=${ row_rowNum}"><spring:message code="admin.edit.word" /></a>
+		<a href="administrator/config/polarityWords/editPositiveWord.do?word=${ row }&index=${ row_rowNum}"><spring:message code="admin.edit.word" /></a>
 	</display:column>
 	
 	<!-- Remove word link -->
 	<spring:message code="admin.remove.word" var="removeHeader" />
 	<display:column title="${removeHeader}">
-		<a href="administrator/config/scoreWord/removePositiveWord.do?word=${ row }"><spring:message code="admin.remove.word" /></a>
+		<a href="administrator/config/polarityWords/removePositiveWord.do?word=${ row }"><spring:message code="admin.remove.word" /></a>
 	</display:column>
 
 </display:table>
 
 
 <!-- Action link -->
-<a href=administrator/config/scoreWord/addPositiveWord.do><spring:message code="admin.addWord" /></a>
+<a href=administrator/config/polarityWords/addPositiveWord.do><spring:message code="admin.addWord" /></a>
 <br><br>
 
 
-<b><spring:message code="config.negativeWords"/>
+<b><spring:message code="config.negativeWords"/></b>
 <display:table name="negativeWords" id="row" requestURI="${ requestURI }" class="displaytag">
 
 	<!-- Word -->
@@ -55,19 +55,19 @@
 	<!-- Edit word link -->
 	<spring:message code="admin.edit.word" var="editHeader" />
 	<display:column title="${editHeader}">
-		<a href="administrator/config/scoreWord/editNegativeWord.do?word=${ row }&index=${ row_rowNum}"><spring:message code="admin.edit.word" /></a>
+		<a href="administrator/config/polarityWords/editNegativeWord.do?word=${ row }&index=${ row_rowNum}"><spring:message code="admin.edit.word" /></a>
 	</display:column>
 	
 	<!-- Remove word link -->
 	<spring:message code="admin.remove.word" var="removeHeader" />
 	<display:column title="${removeHeader}">
-		<a href="administrator/config/scoreWord/removeNegativeWord.do?word=${ row }"><spring:message code="admin.remove.word" /></a>
+		<a href="administrator/config/polarityWords/removeNegativeWord.do?word=${ row }"><spring:message code="admin.remove.word" /></a>
 	</display:column>
 
 </display:table>
 
 <!-- Action link -->
-<a href=administrator/config/scoreWord/addNegativeWord.do><spring:message code="admin.addWord" /></a>
+<a href=administrator/config/polarityWords/addNegativeWord.do><spring:message code="admin.addWord" /></a>
 <br><br>
 
 

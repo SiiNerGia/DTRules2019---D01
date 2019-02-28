@@ -17,24 +17,23 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
+<!-- modelAttribute="configurations" -->
+
 <form:form action="${ action }" >
-	
-	<%-- Hidden form field--%>
-	<input type="hidden" name="index" value="${ index }">
 	
 	
 	<%-- Add word --%>
 	<spring:message code="admin.addWord" />
-	<br>
-	<input name="word" value="${ word }" />
+	<input name="word" />
 	<br>
 	<br>
 
 
 	<%-- Buttons --%>
-	<input type="submit" name="save" value="<spring:message code="note.add"/>" />
+	<input type="submit" name="save" value="<spring:message code="administrator.add"/>" />
+	
 	
 	<input type="button" name="cancel" value="<spring:message code="administrator.cancel" />"
-		   onClick="javascript: window.location.replace('administrator/config/scoreWord/list.do')" />
+		   onClick="javascript: window.location.replace('administrator/config/polarityWords/list.do')" />
 
 </form:form>

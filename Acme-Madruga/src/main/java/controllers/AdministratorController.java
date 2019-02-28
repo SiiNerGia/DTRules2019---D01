@@ -34,6 +34,7 @@ import domain.Brotherhood;
 import domain.Procession;
 import services.ActorService;
 import services.AdministratorService;
+import services.ConfigurationsService;
 import services.MessageBoxService;
 import utilities.Md5;
 
@@ -49,6 +50,9 @@ public class AdministratorController extends AbstractController {
 	
 	@Autowired
 	private MessageBoxService		messageBoxService;
+	
+	@Autowired
+	private ConfigurationsService	configurationsService;
 	
 	
 
@@ -239,6 +243,186 @@ public class AdministratorController extends AbstractController {
 	// Ancillary methods -----------------------------------------------------------------------
 	private ModelAndView forbiddenOpperation() {
 		return new ModelAndView("redirect:/");
+	}
+	
+	/**
+	 * 
+	 * Manage polarity Words ****************************************************************************
+	 */
+
+	// List Words-------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/list", method = RequestMethod.GET)
+	public ModelAndView wordList() {
+		ModelAndView result;
+		Collection<String> positiveWords;
+		Collection<String> negativeWords;
+
+		positiveWords = this.configurationsService.getConfiguration().getPositiveWords();
+		negativeWords = this.configurationsService.getConfiguration().getNegativeWords();
+
+		result = new ModelAndView("administrator/config/polarityWords/list");
+		result.addObject("requestURI", "administrator/config/polarityWords/list.do");
+		result.addObject("positiveWords", positiveWords);
+		result.addObject("negativeWords", negativeWords);
+
+		return result;
+	}
+
+	// Add  + Words GET-------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/addPositiveWord", method = RequestMethod.GET)
+	public ModelAndView addPosWord() {
+		ModelAndView result;
+
+		result = new ModelAndView("administrator/config/polarityWords/add");
+		result.addObject("action", "administrator/config/polarityWords/addPositiveWord.do");
+		return result;
+	}
+
+	// Add + Word SAVE ------------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/addPositiveWord", method = RequestMethod.POST, params = "save")
+	public ModelAndView addPosWord(@RequestParam("word") final String word) {
+		ModelAndView result;
+
+		try {
+			// Add the word and update configurations
+			this.administratorService.addPositiveWord(word);
+		} catch (final Exception e) {
+			result = new ModelAndView("administrator/config/polarityWords/add");
+			result.addObject("action", "administrator/config/polarityWords/addPositiveWord.do");
+			result.addObject("message", "config.field.error");
+			return result;
+		}
+
+		result = this.wordList();
+
+		return result;
+	}
+
+	// Edit word GET ------------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/editPositiveWord", method = RequestMethod.GET)
+	public ModelAndView editPosWord(@RequestParam("word") final String word, @RequestParam("index") final int index) {
+		ModelAndView result;
+
+		result = new ModelAndView("administrator/config/polarityWords/edit");
+		result.addObject("action", "administrator/config/polarityWords/editPositiveWord.do");
+
+		result.addObject("word", word);
+		result.addObject("index", index);
+
+		return result;
+	}
+
+	// Edit word SAVE ------------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/editPositiveWord", method = RequestMethod.POST, params = "save")
+	public ModelAndView editPosWordPost(@RequestParam("word") final String word, @RequestParam("index") final int index) {
+		ModelAndView result;
+
+		try {
+			// Add the word and update configurations
+			this.administratorService.editPositiveWord(word, index - 1);
+		} catch (final Exception e) {
+			e.printStackTrace();
+			result = new ModelAndView("administrator/config/polarityWords/edit");
+			result.addObject("action", "administrator/config/polarityWords/editPositiveWord.do");
+
+			result.addObject("word", word);
+			result.addObject("index", index);
+
+			result.addObject("message", "config.field.error");
+
+			return result;
+		}
+
+		result = this.wordList();
+
+		return result;
+	}
+
+	// Remove positive word ------------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/removePositiveWord", method = RequestMethod.GET)
+	public ModelAndView removePosWord(@RequestParam("word") final String word) {
+
+		this.administratorService.removePositiveWord(word);
+
+		return this.wordList();
+	}
+
+	// Add  - Words GET-------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/addNegativeWord", method = RequestMethod.GET)
+	public ModelAndView addNegativeWord() {
+		ModelAndView result;
+
+		result = new ModelAndView("administrator/config/polarityWords/add");
+		result.addObject("action", "administrator/config/polarityWords/addNegativeWord.do");
+		return result;
+	}
+
+	// Add  - Words POS-------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/addNegativeWord", method = RequestMethod.POST, params = "save")
+	public ModelAndView addNegativeWord(@RequestParam("word") final String word) {
+		ModelAndView result;
+
+		try {
+			// Add the word and update configurations
+			this.administratorService.addNegativeWord(word);
+		} catch (final Exception e) {
+			result = new ModelAndView("administrator/config/polarityWords/add");
+			result.addObject("action", "administrator/config/polarityWords/addNegativeWord.do");
+			result.addObject("message", "config.field.error");
+			return result;
+		}
+
+		result = this.wordList();
+
+		return result;
+	}
+
+	// Edit word GET ------------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/editNegativeWord", method = RequestMethod.GET)
+	public ModelAndView editNegWord(@RequestParam("word") final String word, @RequestParam("index") final int index) {
+		ModelAndView result;
+
+		result = new ModelAndView("administrator/config/polarityWords/edit");
+		result.addObject("action", "administrator/config/polarityWords/editNegativeWord.do");
+
+		result.addObject("word", word);
+		result.addObject("index", index);
+
+		return result;
+	}
+
+	// Edit word SAVE ------------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/editNegativeWord", method = RequestMethod.POST, params = "save")
+	public ModelAndView editNegWordPost(@RequestParam("word") final String word, @RequestParam("index") final int index) {
+		ModelAndView result;
+
+		try {
+			// Add the word and update configurations
+			this.administratorService.editNegativeWord(word, index - 1);
+		} catch (final Exception e) {
+			e.printStackTrace();
+			result = new ModelAndView("administrator/config/polarityWords/edit");
+			result.addObject("action", "administrator/config/polarityWords/editNegativeWord.do");
+
+			result.addObject("word", word);
+			result.addObject("index", index);
+
+			result.addObject("message", "config.field.error");
+
+			return result;
+		}
+
+		result = this.wordList();
+
+		return result;
+	}
+
+	// Remove negative word ------------------------------------------------------------------
+	@RequestMapping(value = "/config/polarityWords/removeNegativeWord", method = RequestMethod.GET)
+	public ModelAndView removeNegWord(@RequestParam("word") final String word) {
+
+		this.administratorService.removeNegativeWord(word);
+		return this.wordList();
 	}
 
 }
