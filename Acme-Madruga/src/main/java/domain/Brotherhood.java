@@ -8,6 +8,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +31,7 @@ public class Brotherhood extends Actor {
 	// Relationships ----------------------------------------------------------
 	private Collection<Enrol>		enrols;
 	private Collection<Procession>	processions;
-	// private Area area;
+	private Area					area;
 	private Collection<Coach>		coaches;
 
 
@@ -97,15 +98,15 @@ public class Brotherhood extends Actor {
 		this.coaches = coaches;
 	}
 
-	// @Valid
-	// @ManyToOne(optional=true)
-	// public Area getArea() {
-	// return this.area;
-	// }
-	//
-	// public void setArea(final Area area) {
-	// this.area = area;
-	// }
+	@Valid
+	@ManyToOne(optional = true)
+	public Area getArea() {
+		return this.area;
+	}
+
+	public void setArea(final Area area) {
+		this.area = area;
+	}
 
 	@Override
 	public String toString() {
