@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Dropout;
+import domain.Enrol;
+import domain.Member;
+import domain.MessageBox;
+import domain.Request;
 import repositories.MemberRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Dropout;
-import domain.Enrol;
-import domain.Member;
-import domain.Request;
 
 @Service
 @Transactional
@@ -30,6 +31,8 @@ public class MemberService {
 
 	// Supporting services
 	// -------------------------------------------------------------
+	@Autowired
+	private MessageBoxService		messageBoxService;
 
 	// CRUD methods
 	// ------------------------------------------------------------------
@@ -46,11 +49,14 @@ public class MemberService {
 		authorities.add(authority);
 		final UserAccount userAccount = new UserAccount();
 		userAccount.setAuthorities(authorities);
+		
+		Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
 
 		result.setDropouts(new ArrayList<Dropout>());
 		result.setEnrols(new ArrayList<Enrol>());
 		result.setRequests(new ArrayList<Request>());
 		result.setUserAccount(userAccount);
+		result.setMessageBoxes(boxes);
 
 		return result;
 
