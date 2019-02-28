@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
-import services.MessageBoxService;
-import services.MessageService;
 import domain.Actor;
 import domain.Message;
 import domain.MessageBox;
+import services.ActorService;
+import services.MessageBoxService;
+import services.MessageService;
 
 @Controller
 @RequestMapping("/message")
@@ -75,22 +75,26 @@ public class MessageController extends AbstractController {
 			}
 		});
 	}
+	
+	
+	
 	// List -------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int messageBoxID) {
+	public ModelAndView list(@RequestParam int messageBoxID) {
 		final ModelAndView result;
 		Collection<Message> messages;
 		MessageBox msgBox;
 
 		try {
-			final Actor principal = this.actorService.findByPrincipal();
+			Actor principal = this.actorService.findByPrincipal();
 			msgBox = this.messageBoxService.findOne(messageBoxID);
 			Assert.isTrue(principal.getMessageBoxes().contains(msgBox));
-
 		} catch (final Exception e) {
 			result = this.forbiddenOperation();
 			return result;
 		}
+		
+		
 		messages = this.messageService.findAllByMessageBox(messageBoxID);
 
 		result = new ModelAndView("message/list");
@@ -100,6 +104,9 @@ public class MessageController extends AbstractController {
 
 		return result;
 	}
+	
+	
+	
 	// Create -----------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -128,21 +135,21 @@ public class MessageController extends AbstractController {
 
 	// Send Broadcast  -------------------------------------------------------------
 	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "send")
-	public ModelAndView sendBroadcast(@ModelAttribute("mesage") @Valid final Message mesage, final BindingResult binding) {
+	public ModelAndView sendBroadcast(@ModelAttribute("mesage") @Valid Message mesage, BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			List<ObjectError> errors = binding.getAllErrors();
+			for (ObjectError e : errors)
 				System.out.println(e.toString());
 			result = new ModelAndView("message/broadcast");
 			result.addObject("mesage", mesage);
 		} else
 			try {
-				final Collection<Actor> recipients = this.actorService.findAll();
+				Collection<Actor> recipients = this.actorService.findAll();
 				mesage.setRecipients(recipients);
 				this.messageService.save(mesage);
-				final int messageBoxID = this.actorService.findByPrincipal().getMessageBox("out").getId();
+				int messageBoxID = this.actorService.findByPrincipal().getMessageBox("out").getId();
 				result = new ModelAndView("redirect:list.do?messageBoxID=" + messageBoxID + "");
 			} catch (final Throwable oops) {
 				result = new ModelAndView("message/broadcast");
@@ -172,14 +179,14 @@ public class MessageController extends AbstractController {
 
 	// Display ---------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int messageID, @RequestParam final int messageBoxID) {
+	public ModelAndView display(@RequestParam int messageID, @RequestParam int messageBoxID) {
 		ModelAndView result;
 		Message message;
 		MessageBox msgBox;
 		Collection<MessageBox> actorBoxes;
 
 		try {
-			final Actor principal = this.actorService.findByPrincipal();
+			Actor principal = this.actorService.findByPrincipal();
 			msgBox = this.messageBoxService.findOne(messageBoxID);
 			message = this.messageService.findOne(messageID);
 			Assert.isTrue(principal.getMessageBoxes().contains(msgBox));
@@ -189,7 +196,7 @@ public class MessageController extends AbstractController {
 			return result;
 		}
 
-		final Collection<MessageBox> messageBoxes = new ArrayList<MessageBox>();
+		Collection<MessageBox> messageBoxes = new ArrayList<MessageBox>();
 		message = this.messageService.findOne(messageID);
 		actorBoxes = this.messageBoxService.findAllByActor(this.actorService.findByPrincipal().getId());
 		for (final MessageBox b : actorBoxes)

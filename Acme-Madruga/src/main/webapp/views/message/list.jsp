@@ -23,10 +23,10 @@
 	<display:column property="subject" title="${subjectHeader}" />
 
 	<spring:message code="message.sender" var="senderHeader" />
-	<display:column property="sender.name" title="${senderHeader}" sortable="true" />
+	<display:column property="sender.name" title="${senderHeader}" />
 	
 	<spring:message code="message.priority" var="priorityHeader" />
-	<display:column property="priority" title="${priorityHeader}" sortable="true" />
+	<display:column property="priority" title="${priorityHeader}" />
 	
 	<!-- Display -->
 	<display:column>

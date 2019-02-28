@@ -118,6 +118,7 @@
 		<property name="email" value="member1@mail.com"/>
 		<property name="UserAccount" ref="userAccount5" />
 		<property name="finder" ref="finder1" />
+	
 		<property name="requests">
 			<list>
 				<ref bean="request1" />
@@ -241,7 +242,6 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				
 			</list>
 		</property>
 	</bean>
@@ -425,20 +425,20 @@
 
 	<!-- Messages *************************************************************************** -->
 	<bean id="message1" class="domain.Message">
-		<property name="sender" ref="member1" />
+		<property name="sender" ref="brotherhood1" />
 		<property name="recipients">
 			<list>
-				<ref bean="member2" />
+				<ref bean="brotherhood2" />
 			</list>
 		</property>
-		<property name="moment" value="01/01/2019 00:00" />
+		<property name="moment" value="2019/02/12 00:00" />
 		<property name="subject" value="subject example" />
 		<property name="body" value="body example" />
 		<property name="priority" value="LOW" />
 		<property name="messageBoxes">
 			<list>
-				<ref bean="member1-out" />
-				<ref bean="member2-in" />
+				<ref bean="brotherhood1-out" />
+				<ref bean="brotherhood2-in" />
 			</list>
 		</property>
 	</bean>
