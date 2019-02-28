@@ -148,9 +148,9 @@ public abstract class Actor extends DomainEntity {
 	
 	
 	// Other Methods ------------------------------------------------------
-	public MessageBox getMessageBox(final String name) {
-		final MessageBox result = null;
-		for (final MessageBox box : this.getMessageBoxes())
+	public MessageBox getMessageBox(String name) {
+			MessageBox result = null;
+		for (MessageBox box : this.getMessageBoxes())
 			if (box.getName().equals(name))
 				return box;
 		return result;

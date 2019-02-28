@@ -58,10 +58,10 @@ public class MessageService {
 		return result;
 	}
 
-	public Message save(final Message message) {
+	public Message save(Message message) {
 		Assert.notNull(message);
 		Assert.notNull(LoginService.getPrincipal());
-		final Message result;
+		Message result;
 		Actor sender = null;
 
 		if (message.getId() == 0) {
@@ -72,12 +72,12 @@ public class MessageService {
 				message.setSender(sender);
 			}
 
-			final Collection<Actor> recipients = message.getRecipients();
+			Collection<Actor> recipients = message.getRecipients();
 			Assert.notNull(recipients);
 			Assert.notEmpty(recipients);
 
-			final Boolean spam = this.checkSpam(message);
-			final String box;
+			Boolean spam = this.checkSpam(message);
+			String box;
 
 			if (spam) {
 				box = "spam";
@@ -88,7 +88,7 @@ public class MessageService {
 			if (sender != null)
 				message.getMessageBoxes().add(sender.getMessageBox("out"));
 
-			for (final Actor recipient : recipients)
+			for (Actor recipient : recipients)
 				message.getMessageBoxes().add(recipient.getMessageBox(box));
 
 			result = this.messageRepository.save(message);
@@ -96,7 +96,7 @@ public class MessageService {
 			if (sender != null)
 				sender.getMessageBox("out").addMessage(result);
 
-			for (final Actor recipient : recipients)
+			for (Actor recipient : recipients)
 				recipient.getMessageBox(box).addMessage(result);
 
 		} else
@@ -194,18 +194,18 @@ public class MessageService {
 	}
 	// Aux methods
 
-	private Boolean checkSpam(final Message message) {
+	private Boolean checkSpam(Message message) {
 		Boolean spam = false;
 
-		final Configurations configuration = this.configurationsService.getConfiguration();
-		final Collection<String> spamWords = configuration.getSpamWords();
-		for (final String word : spamWords)
+		Configurations configuration = this.configurationsService.getConfiguration();
+		Collection<String> spamWords = configuration.getSpamWords();
+		for (String word : spamWords)
 			if (message.getSubject().contains(word)) {
 				spam = true;
 				break;
 			}
 		if (!spam)
-			for (final String word : spamWords)
+			for (String word : spamWords)
 				if (message.getBody().contains(word)) {
 					spam = true;
 					break;
@@ -214,8 +214,8 @@ public class MessageService {
 		return spam;
 	}
 
-	public Collection<Message> findAllByMessageBox(final int messageBoxID) {
-		final Collection<Message> result = this.messageRepository.findByMessageBox(messageBoxID);
+	public Collection<Message> findAllByMessageBox(int messageBoxID) {
+		Collection<Message> result = this.messageRepository.findByMessageBox(messageBoxID);
 		Assert.notNull(result);
 
 		return result;
