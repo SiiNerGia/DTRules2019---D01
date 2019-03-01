@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="area/administrator/create" extends="master.page">
+		<put-attribute name="title" value="Crear Area" />
+		<put-attribute name="body" value="/views/area/edit.jsp" />
+	</definition>
+
+	<definition name="area/administrator/edit" extends="master.page">
+		<put-attribute name="title" value="Editar Area" />
+		<put-attribute name="body" value="/views/area/edit.jsp" />
+	</definition>
+
+	<definition name="area/administrator/list" extends="master.page">
+		<put-attribute name="title" value="Lista de Areas" />
+		<put-attribute name="body" value="/views/area/list.jsp" />
+	</definition>
+
+	<definition name="area/administrator/addPicture" extends="master.page">
+		<put-attribute name="title" value="Añadir Imagen" />
+		<put-attribute name="body" value="/views/area/addPicture.jsp" />
+	</definition>
+	
+</tiles-definitions>
