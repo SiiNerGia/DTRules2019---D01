@@ -77,15 +77,20 @@ public class MessageService {
 			Assert.notEmpty(recipients);
 
 			Boolean spam = this.checkSpam(message);
+			Boolean notification = message.getIsNotification();
+			System.out.println(notification);
 			String box;
 
 			if (spam) {
 				box = "spam";
 				message.getSender().setIsSpammer(true);
-			} else if (message.getIsNotification())
+			} 
+			
+			if (notification) {
 				box = "notification";
-			else
+			} else {
 				box = "in";
+			}
 
 			if (sender != null)
 				message.getMessageBoxes().add(sender.getMessageBox("out"));
@@ -222,4 +227,12 @@ public class MessageService {
 
 		return result;
 	}
+	
+	public Collection<Message> findAllBySender(int senderID) {
+		Collection<Message> result = this.messageRepository.findAllBySender(senderID);
+		Assert.notNull(result);
+
+		return result;
+	}
+	
 }

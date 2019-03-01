@@ -33,6 +33,7 @@
 					<li><a href="message/broadcast.do"><spring:message code="master.page.administrator.broadcast" /></a></li>
 					<li><a href="administrator/spammers.do"><spring:message code="master.page.administrator.spammers" /></a></li>					
 					<li><a href="administrator/config/polarityWords/list.do"><spring:message code="master.page.administrator.polarity.words" /></a></li>
+					<li><a href="administrator/score.do"><spring:message code="master.page.administrator.score" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

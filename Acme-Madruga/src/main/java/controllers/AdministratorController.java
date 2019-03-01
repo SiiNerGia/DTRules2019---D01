@@ -43,18 +43,16 @@ import utilities.Md5;
 public class AdministratorController extends AbstractController {
 
 	@Autowired
-	private AdministratorService 	administratorService;
-	
+	private AdministratorService administratorService;
+
 	@Autowired
-	private ActorService 			actorService;
-	
+	private ActorService actorService;
+
 	@Autowired
-	private MessageBoxService		messageBoxService;
-	
+	private MessageBoxService messageBoxService;
+
 	@Autowired
-	private ConfigurationsService	configurationsService;
-	
-	
+	private ConfigurationsService configurationsService;
 
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
@@ -100,7 +98,7 @@ public class AdministratorController extends AbstractController {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			 admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
+			admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			result = new ModelAndView("administrator/create");
 			result.addObject("administrator", admin);
 		} else
@@ -187,7 +185,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Spammer list -------------------------------------------------------------
+	// Spammer list
+	// -------------------------------------------------------------
 	@RequestMapping(value = "/spammers", method = RequestMethod.GET)
 	public ModelAndView suspiciousList() {
 		ModelAndView result;
@@ -202,7 +201,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Ban -----------------------------------------------------------------------------------
+	// Ban
+	// -----------------------------------------------------------------------------------
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
 	public ModelAndView ban(@RequestParam int actorId) {
 		ModelAndView result;
@@ -221,7 +221,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Unban -----------------------------------------------------------------------------------
+	// Unban
+	// -----------------------------------------------------------------------------------
 	@RequestMapping(value = "/unban", method = RequestMethod.GET)
 	public ModelAndView unban(@RequestParam int actorId) {
 		ModelAndView result;
@@ -239,15 +240,56 @@ public class AdministratorController extends AbstractController {
 
 		return result;
 	}
-	
-	// Ancillary methods -----------------------------------------------------------------------
+
+	// Ancillary methods
+	// -----------------------------------------------------------------------
 	private ModelAndView forbiddenOpperation() {
 		return new ModelAndView("redirect:/");
 	}
 	
 	/**
 	 * 
-	 * Manage polarity Words ****************************************************************************
+	 * POLARITY SCORE ****************************************************************************
+	 */
+
+	// Score list -------------------------------------------------------------------
+	@RequestMapping(value = "/score", method = RequestMethod.GET)
+	public ModelAndView scoreList() {
+		ModelAndView result;
+		Collection<Actor> users;
+
+		users = this.actorService.findAll();
+		users.remove(this.administratorService.findByPrincipal());
+
+		result = new ModelAndView("administrator/score");
+		result.addObject("users", users);
+		result.addObject("requestURI", "administrator/score.do");
+
+		return result;
+	}
+
+	// Score Compute -------------------------------------------------------------------
+	@RequestMapping(value = "/computeScore", method = RequestMethod.GET)
+	public ModelAndView computeScoreList() {
+		ModelAndView result;
+		Collection<Actor> users;
+
+		this.administratorService.computeAllScores();
+
+		users = this.actorService.findAll();
+		users.remove(this.administratorService.findByPrincipal());
+
+		result = new ModelAndView("administrator/score");
+		result.addObject("users", users);
+		// result.addObject("requestURI", "administrator/score.do");
+
+		return result;
+	}
+
+	/**
+	 * 
+	 * Manage polarity Words
+	 * ****************************************************************************
 	 */
 
 	// List Words-------------------------------------------------------------
@@ -268,7 +310,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Add  + Words GET-------------------------------------------------------------
+	// Add + Words
+	// GET-------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/addPositiveWord", method = RequestMethod.GET)
 	public ModelAndView addPosWord() {
 		ModelAndView result;
@@ -278,7 +321,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Add + Word SAVE ------------------------------------------------------------------
+	// Add + Word SAVE
+	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/addPositiveWord", method = RequestMethod.POST, params = "save")
 	public ModelAndView addPosWord(@RequestParam("word") final String word) {
 		ModelAndView result;
@@ -298,7 +342,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Edit word GET ------------------------------------------------------------------
+	// Edit word GET
+	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/editPositiveWord", method = RequestMethod.GET)
 	public ModelAndView editPosWord(@RequestParam("word") final String word, @RequestParam("index") final int index) {
 		ModelAndView result;
@@ -312,9 +357,11 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Edit word SAVE ------------------------------------------------------------------
+	// Edit word SAVE
+	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/editPositiveWord", method = RequestMethod.POST, params = "save")
-	public ModelAndView editPosWordPost(@RequestParam("word") final String word, @RequestParam("index") final int index) {
+	public ModelAndView editPosWordPost(@RequestParam("word") final String word,
+			@RequestParam("index") final int index) {
 		ModelAndView result;
 
 		try {
@@ -338,7 +385,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Remove positive word ------------------------------------------------------------------
+	// Remove positive word
+	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/removePositiveWord", method = RequestMethod.GET)
 	public ModelAndView removePosWord(@RequestParam("word") final String word) {
 
@@ -347,7 +395,8 @@ public class AdministratorController extends AbstractController {
 		return this.wordList();
 	}
 
-	// Add  - Words GET-------------------------------------------------------------
+	// Add - Words
+	// GET-------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/addNegativeWord", method = RequestMethod.GET)
 	public ModelAndView addNegativeWord() {
 		ModelAndView result;
@@ -357,7 +406,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Add  - Words POS-------------------------------------------------------------
+	// Add - Words
+	// POS-------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/addNegativeWord", method = RequestMethod.POST, params = "save")
 	public ModelAndView addNegativeWord(@RequestParam("word") final String word) {
 		ModelAndView result;
@@ -377,7 +427,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Edit word GET ------------------------------------------------------------------
+	// Edit word GET
+	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/editNegativeWord", method = RequestMethod.GET)
 	public ModelAndView editNegWord(@RequestParam("word") final String word, @RequestParam("index") final int index) {
 		ModelAndView result;
@@ -391,9 +442,11 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Edit word SAVE ------------------------------------------------------------------
+	// Edit word SAVE
+	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/editNegativeWord", method = RequestMethod.POST, params = "save")
-	public ModelAndView editNegWordPost(@RequestParam("word") final String word, @RequestParam("index") final int index) {
+	public ModelAndView editNegWordPost(@RequestParam("word") final String word,
+			@RequestParam("index") final int index) {
 		ModelAndView result;
 
 		try {
@@ -417,7 +470,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Remove negative word ------------------------------------------------------------------
+	// Remove negative word
+	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/removeNegativeWord", method = RequestMethod.GET)
 	public ModelAndView removeNegWord(@RequestParam("word") final String word) {
 

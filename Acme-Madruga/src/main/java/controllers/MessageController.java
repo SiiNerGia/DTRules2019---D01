@@ -36,14 +36,13 @@ import services.MessageService;
 public class MessageController extends AbstractController {
 
 	@Autowired
-	private MessageService		messageService;
+	private MessageService messageService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private MessageBoxService	messageBoxService;
-
+	private MessageBoxService messageBoxService;
 
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
@@ -60,7 +59,7 @@ public class MessageController extends AbstractController {
 				Integer id = null;
 
 				if (element instanceof String && !((String) element).equals(""))
-					//From the JSP 'element' will be a String
+					// From the JSP 'element' will be a String
 					try {
 						id = Integer.parseInt((String) element);
 					} catch (final NumberFormatException e) {
@@ -68,16 +67,14 @@ public class MessageController extends AbstractController {
 						e.printStackTrace();
 					}
 				else if (element instanceof Integer)
-					//From the database 'element' will be a Long
+					// From the database 'element' will be a Long
 					id = (Integer) element;
 
 				return id != null ? MessageController.this.actorService.findOne(id) : null;
 			}
 		});
 	}
-	
-	
-	
+
 	// List -------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam int messageBoxID) {
@@ -93,8 +90,7 @@ public class MessageController extends AbstractController {
 			result = this.forbiddenOperation();
 			return result;
 		}
-		
-		
+
 		messages = this.messageService.findAllByMessageBox(messageBoxID);
 
 		result = new ModelAndView("message/list");
@@ -104,9 +100,7 @@ public class MessageController extends AbstractController {
 
 		return result;
 	}
-	
-	
-	
+
 	// Create -----------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -114,12 +108,14 @@ public class MessageController extends AbstractController {
 		Message mesage;
 
 		mesage = this.messageService.create();
+		mesage.setIsNotification(false);
 		result = this.createModelAndView(mesage);
 
 		return result;
 	}
 
-	// Create Broadcast ------------------------------------------------------------------------
+	// Create Broadcast
+	// ------------------------------------------------------------------------
 	@RequestMapping(value = "/broadcast", method = RequestMethod.GET)
 	public ModelAndView broadcast() {
 		ModelAndView result;
@@ -134,7 +130,8 @@ public class MessageController extends AbstractController {
 		return result;
 	}
 
-	// Send Broadcast  -------------------------------------------------------------
+	// Send Broadcast
+	// -------------------------------------------------------------
 	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "send")
 	public ModelAndView sendBroadcast(@ModelAttribute("mesage") @Valid Message mesage, BindingResult binding) {
 		ModelAndView result;
@@ -166,12 +163,16 @@ public class MessageController extends AbstractController {
 	public ModelAndView save(@ModelAttribute("mesage") @Valid final Message mesage, final BindingResult binding) {
 		ModelAndView result;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {	
+			List<ObjectError> errors = binding.getAllErrors();
+			for (ObjectError e : errors)
+				System.out.println(e.toString());
 			result = this.createModelAndView(mesage);
+		}
 		else
 			try {
 				this.messageService.save(mesage);
-				final int messageBoxID = this.actorService.findByPrincipal().getMessageBox("out").getId();
+				int messageBoxID = this.actorService.findByPrincipal().getMessageBox("out").getId();
 				result = new ModelAndView("redirect:list.do?messageBoxID=" + messageBoxID + "");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(mesage, "message.commit.error");
@@ -246,7 +247,8 @@ public class MessageController extends AbstractController {
 
 	// Move ------------------------------------------------------
 	@RequestMapping(value = "/move", method = RequestMethod.GET)
-	public ModelAndView move(@RequestParam final int messageID, @RequestParam final int srcBoxID, @RequestParam final int destBoxID) {
+	public ModelAndView move(@RequestParam final int messageID, @RequestParam final int srcBoxID,
+			@RequestParam final int destBoxID) {
 		ModelAndView result;
 		MessageBox srcBox;
 		MessageBox destBox;
@@ -279,7 +281,8 @@ public class MessageController extends AbstractController {
 
 	// Copy ------------------------------------------------------
 	@RequestMapping(value = "/copy", method = RequestMethod.GET)
-	public ModelAndView copy(@RequestParam final int messageID, @RequestParam final int srcBoxID, @RequestParam final int destBoxID) {
+	public ModelAndView copy(@RequestParam final int messageID, @RequestParam final int srcBoxID,
+			@RequestParam final int destBoxID) {
 		ModelAndView result;
 		MessageBox srcBox;
 		MessageBox destBox;
@@ -309,6 +312,7 @@ public class MessageController extends AbstractController {
 
 		return result;
 	}
+
 	// Ancillary methods ------------------------------------------------------
 	protected ModelAndView createModelAndView(final Message mesage) {
 		ModelAndView result;

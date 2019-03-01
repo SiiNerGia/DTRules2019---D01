@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2019 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -89,7 +83,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 	<!-- Administrators *************************************************************************** -->
 	<bean id="admin1" class="domain.Administrator">
@@ -113,16 +107,16 @@
 	</bean>
 
 
-	<!-- Members ****************************************************************************************-->
+	<!-- Members **************************************************************************************** -->
 	<bean id="member1" class="domain.Member">
 		<property name="name" value="member1" />
 		<property name="username" value="member1" />
 		<property name="surname" value="member1" />
-		<property name="email" value="member1@mail.com"/>
+		<property name="email" value="member1@mail.com" />
 		<property name="UserAccount" ref="userAccount5" />
 		<property name="finder" ref="finder1" />
 		<property name="isSpammer" value="true" />
-	
+
 		<property name="requests">
 			<list>
 				<ref bean="request1" />
@@ -144,12 +138,12 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="member2" class="domain.Member">
 		<property name="name" value="member2" />
 		<property name="username" value="member2" />
 		<property name="surname" value="member2" />
-		<property name="email" value="member2@mail.com"/>
+		<property name="email" value="member2@mail.com" />
 		<property name="UserAccount" ref="userAccount6" />
 		<property name="finder" ref="finder2" />
 		<property name="isSpammer" value="true" />
@@ -176,13 +170,13 @@
 	</bean>
 
 
-	<!-- Brotherhoods ****************************************************************************************-->
+	<!-- Brotherhoods **************************************************************************************** -->
 	<bean id="brotherhood1" class="domain.Brotherhood">
 		<property name="name" value="brotherhood1" />
 		<property name="username" value="brotherhood1" />
 		<property name="surname" value="brotherhood1" />
-		<property name="email" value="broterhood1@mail.com"/>
-		<property name="title" value="brotherhood1"/>
+		<property name="email" value="broterhood1@mail.com" />
+		<property name="title" value="brotherhood1" />
 		<property name="establishment" value="2019/01/30" />
 		<property name="UserAccount" ref="userAccount2" />
 		<property name="isSpammer" value="true" />
@@ -206,13 +200,13 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="brotherhood2" class="domain.Brotherhood">
 		<property name="name" value="brotherhood2" />
 		<property name="username" value="brotherhood2" />
 		<property name="surname" value="brotherhood2" />
-		<property name="email" value="broterhood2@mail.com"/>
-		<property name="title" value="brotherhood2"/>
+		<property name="email" value="broterhood2@mail.com" />
+		<property name="title" value="brotherhood2" />
 		<property name="establishment" value="2019/02/10" />
 		<property name="UserAccount" ref="userAccount4" />
 		<property name="coaches">
@@ -235,11 +229,11 @@
 			</list>
 		</property>
 	</bean>
-	
-	
+
+
 	<!-- MessageBoxes *************************************************************************** -->
-	
-	<!-- Admin MessageBoxes-->
+
+	<!-- Admin MessageBoxes -->
 	<bean id="admin1-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -257,23 +251,23 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="admin1-Spam" class="domain.MessageBox">
 		<property name="name" value="spam" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				
+
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="admin1-notification" class="domain.MessageBox">
 		<property name="name" value="notification" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				
+
 			</list>
 		</property>
 	</bean>
@@ -288,7 +282,7 @@
 	</bean>
 
 
-	<!-- Member1 MessageBoxes-->
+	<!-- Member1 MessageBoxes -->
 	<bean id="member1-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -306,7 +300,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="member1-spam" class="domain.MessageBox">
 		<property name="name" value="spam" />
 		<property name="isSystemBox" value="true" />
@@ -315,13 +309,13 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="member1-notification" class="domain.MessageBox">
 		<property name="name" value="notification" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				
+
 			</list>
 		</property>
 	</bean>
@@ -336,7 +330,7 @@
 	</bean>
 
 
-	<!-- Member2 MessageBoxes-->
+	<!-- Member2 MessageBoxes -->
 	<bean id="member2-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -354,7 +348,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="member2-spam" class="domain.MessageBox">
 		<property name="name" value="spam" />
 		<property name="isSystemBox" value="true" />
@@ -363,13 +357,13 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="member2-notification" class="domain.MessageBox">
 		<property name="name" value="notification" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				
+
 			</list>
 		</property>
 	</bean>
@@ -382,15 +376,15 @@
 			</list>
 		</property>
 	</bean>
-	
-	
-	<!-- Brotherhood1 MessageBoxes-->
+
+
+	<!-- Brotherhood1 MessageBoxes -->
 	<bean id="brotherhood1-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				
+
 			</list>
 		</property>
 	</bean>
@@ -404,7 +398,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="brotherhood1-spam" class="domain.MessageBox">
 		<property name="name" value="spam" />
 		<property name="isSystemBox" value="true" />
@@ -413,13 +407,13 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="brotherhood1-notification" class="domain.MessageBox">
 		<property name="name" value="notification" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-				
+
 			</list>
 		</property>
 	</bean>
@@ -432,9 +426,9 @@
 			</list>
 		</property>
 	</bean>
-	
 
-	<!-- Brotherhood2 MessageBoxes-->
+
+	<!-- Brotherhood2 MessageBoxes -->
 	<bean id="brotherhood2-in" class="domain.MessageBox">
 		<property name="name" value="in" />
 		<property name="isSystemBox" value="true" />
@@ -453,7 +447,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="brotherhood2-spam" class="domain.MessageBox">
 		<property name="name" value="spam" />
 		<property name="isSystemBox" value="true" />
@@ -462,12 +456,12 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="brotherhood2-notification" class="domain.MessageBox">
 		<property name="name" value="notification" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
-			<list>	
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -480,7 +474,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 	<!-- Messages *************************************************************************** -->
 	<bean id="message1" class="domain.Message">
@@ -501,7 +495,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 
 
 	<!-- Coaches ******************************************************** -->
@@ -527,7 +521,7 @@
 	</bean>
 
 
-	<!-- Request ****************************************************************************************-->
+	<!-- Request **************************************************************************************** -->
 	<bean id="request1" class="domain.Request">
 		<property name="status" value="APPROVED" />
 		<property name="assignedRow" value="2" />
@@ -557,13 +551,15 @@
 		<property name="procession" ref="procession2" />
 	</bean>
 
-	<!-- Processions ****************************************************************************************-->
+	<!-- Processions **************************************************************************************** -->
 	<bean id="procession1" class="domain.Procession">
 		<property name="ticker" value="190210-AAAAA" />
 		<property name="title" value="procession1" />
-		<property name="description" value="procession1 description"/>
-		<property name="moment" value="2019/12/01"/>
-		<property name="draftMode" value="false"/>
+		<property name="description" value="procession1 description" />
+
+		<property name="moment" value="2019/12/01" />
+
+		<property name="draftMode" value="false" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="requests">
 			<list>
@@ -572,14 +568,14 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="procession2" class="domain.Procession">
 		<property name="ticker" value="190215-BBBBB" />
 		<property name="title" value="procession2" />
-		<property name="description" value="procession2 description"/>
-		<property name="moment" value="2019/06/15"/>
+		<property name="description" value="procession2 description" />
+		<property name="moment" value="2019/06/15" />
 		<property name="brotherhood" ref="brotherhood2" />
-		<property name="draftMode" value="true"/>
+		<property name="draftMode" value="true" />
 		<property name="requests">
 			<list>
 				<ref bean="request2" />
@@ -589,9 +585,9 @@
 	</bean>
 
 
-	<!-- Enrol ****************************************************************************************-->
+	<!-- Enrol **************************************************************************************** -->
 	<bean id="enrol1" class="domain.Enrol">
-		<property name="moment" value="2019/02/19"/>
+		<property name="moment" value="2019/02/19" />
 		<property name="member" ref="member1" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="positions">
@@ -602,7 +598,7 @@
 	</bean>
 
 	<bean id="enrol2" class="domain.Enrol">
-		<property name="moment" value="2019/02/19"/>
+		<property name="moment" value="2019/02/19" />
 		<property name="member" ref="member2" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="positions">
@@ -620,12 +616,12 @@
 	<bean id="finder2" class="domain.Finder">
 		<property name="lastUpdate" value="01/01/2000" />
 	</bean>
-	
-	
-	<!-- Positions default ****************************************************************************************-->
+
+
+	<!-- Positions default **************************************************************************************** -->
 	<bean id="President" class="domain.Position">
-		<property name="spanishName" value="Presidente"/>
-		<property name="englishName" value="President"/>
+		<property name="spanishName" value="Presidente" />
+		<property name="englishName" value="President" />
 		<property name="enrol">
 			<list>
 				<ref bean="enrol1" />
@@ -633,38 +629,38 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="Vice President" class="domain.Position">
-		<property name="spanishName" value="Vicepresidente"/>
-		<property name="englishName" value="Vice President"/>
-	</bean>
-	
-	<bean id="Secretary" class="domain.Position">
-		<property name="spanishName" value="Secretario"/>
-		<property name="englishName" value="Secretary"/>
-	</bean>
-	
-	<bean id="Treasurer" class="domain.Position">
-		<property name="spanishName" value="Tesorero"/>
-		<property name="englishName" value="Treasurer"/>
-	</bean>
-	
-	<bean id="Historian" class="domain.Position">
-		<property name="spanishName" value="Historiador"/>
-		<property name="englishName" value="Historian"/>
-	</bean>
-	
-	<bean id="Fundraiser" class="domain.Position">
-		<property name="spanishName" value="Promotor"/>
-		<property name="englishName" value="Fundraiser"/>
-	</bean>
-	
-	<bean id="Officer" class="domain.Position">
-		<property name="spanishName" value="Vocal"/>
-		<property name="englishName" value="Officer"/>
+		<property name="spanishName" value="Vicepresidente" />
+		<property name="englishName" value="Vice President" />
 	</bean>
 
-	
+	<bean id="Secretary" class="domain.Position">
+		<property name="spanishName" value="Secretario" />
+		<property name="englishName" value="Secretary" />
+	</bean>
+
+	<bean id="Treasurer" class="domain.Position">
+		<property name="spanishName" value="Tesorero" />
+		<property name="englishName" value="Treasurer" />
+	</bean>
+
+	<bean id="Historian" class="domain.Position">
+		<property name="spanishName" value="Historiador" />
+		<property name="englishName" value="Historian" />
+	</bean>
+
+	<bean id="Fundraiser" class="domain.Position">
+		<property name="spanishName" value="Promotor" />
+		<property name="englishName" value="Fundraiser" />
+	</bean>
+
+	<bean id="Officer" class="domain.Position">
+		<property name="spanishName" value="Vocal" />
+		<property name="englishName" value="Officer" />
+	</bean>
+
+
 	<!-- configurations *************************************************************************** -->
 	<bean id="configurations" class="domain.Configurations">
 		<property name="cacheTime" value="1" />
@@ -719,5 +715,5 @@
 		</property>
 	</bean>
 
-	
+
 </beans>

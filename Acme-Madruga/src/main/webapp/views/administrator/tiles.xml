@@ -57,7 +57,7 @@
 		<put-attribute name="body" value="/views/administrator/config/aliveConfig/edit.jsp" />
 	</definition>
 	
-	<!-- SCORE -->
+	<!-- POLARITY SCORE -->
 	
 	<definition name="administrator/score" extends="master.page">	
 		<put-attribute name="title" value="Users scores" />
