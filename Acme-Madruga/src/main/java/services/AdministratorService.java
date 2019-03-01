@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Message;
 import domain.MessageBox;
 import domain.Procession;
 import repositories.AdministratorRepository;
@@ -39,6 +40,9 @@ public class AdministratorService {
 
 	@Autowired
 	private MessageBoxService messageBoxService;
+
+	@Autowired
+	private MessageService messageService;
 
 	/*************************************
 	 * CRUD methods
@@ -79,7 +83,7 @@ public class AdministratorService {
 		UserAccount userAccount;
 
 		if (admin.getId() == 0) {
-			 admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
+			admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			if (!admin.getPhoneNumber().startsWith("+")) {
 				final String countryCode = this.configurationsService.getConfiguration().getCountryCode();
 				final String phoneNumer = admin.getPhoneNumber();
@@ -129,7 +133,8 @@ public class AdministratorService {
 		return result;
 	}
 
-	// 12.1 Create user accounts for new administrators---------------------------------------------------
+	// 12.1 Create user accounts for new
+	// administrators---------------------------------------------------
 	public Administrator registerNewAdmin(final Administrator admin) {
 		Administrator principal;
 
@@ -144,9 +149,11 @@ public class AdministratorService {
 		return this.adminRepository.save(admin);
 	}
 
-	// 12.2 Manage the catalogue of positions ---------------------------------------------------
+	// 12.2 Manage the catalogue of positions
+	// ---------------------------------------------------
 
-	// 12.3 Display a dashboard with the following information-----------------------------------
+	// 12.3 Display a dashboard with the following
+	// information-----------------------------------
 	public Object[] query1() {
 		return this.adminRepository.query1();
 	}
@@ -175,7 +182,8 @@ public class AdministratorService {
 		return result;
 	}
 
-	// 28.2 Spammers actors--------------------------------------------------------------------
+	// 28.2 Spammers
+	// actors--------------------------------------------------------------------
 	public Collection<Actor> getSuspiciousActors() {
 		Administrator principal;
 
@@ -186,7 +194,8 @@ public class AdministratorService {
 		return this.actorService.findSpammers();
 	}
 
-	// 28.5 Ban an actor ----------------------------------------------------------------
+	// 28.5 Ban an actor
+	// ----------------------------------------------------------------
 	public Actor banAnActor(Actor actor) {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getIsSpammer());
@@ -203,7 +212,8 @@ public class AdministratorService {
 
 	}
 
-	// 28.6 Unbans an actor, which means that his or her user account is re-activated
+	// 28.6 Unbans an actor, which means that his or her user account is
+	// re-activated
 	public Actor unBanAnActor(Actor actor) {
 		Assert.notNull(actor);
 		// Assert.notNull(actor.getUsername());
@@ -218,10 +228,60 @@ public class AdministratorService {
 		return this.actorService.save(actor);
 
 	}
-	
+
+	// 50.1 Launch process that computes all customer and handyWorker scores
+	public void computeAllScores() {
+
+		Collection<Actor> actors;
+		Collection<Message> messages;
+
+		// Make sure that the principal is an Admin
+		final Actor principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+		
+		actors = this.actorService.findAll();
+		actors.remove(principal);
+
+		for (Actor actor : actors) {
+			messages = this.messageService.findAllBySender(actor.getId());
+			actor.setScore(this.computeScore(messages));
+			this.actorService.save(actor);
+		}
+	}
+
+	private Double computeScore(Collection<Message> messages) {
+		final Collection<String> positiveWords = this.configurationsService.getConfiguration().getPositiveWords();
+		final Collection<String> negativeWords = this.configurationsService.getConfiguration().getNegativeWords();
+
+		Double positiveWordsValue = 0.0;
+		Double negativeWordsValue = 0.0;
+
+		for (Message message : messages) {
+			for (String positiveWord : positiveWords) {
+				if (message.getBody().contains(positiveWord) || message.getSubject().contains(positiveWord)) {
+					positiveWordsValue += 1.0;
+				}
+			}
+			for (String negativeWord : negativeWords) {
+				if (message.getBody().contains(negativeWord) || message.getSubject().contains(negativeWord)) {
+					negativeWordsValue += 1.0;
+				}
+			}
+
+		}
+
+		// check for NaN values
+		if (positiveWordsValue + negativeWordsValue == 0 || positiveWordsValue - negativeWordsValue == 0)
+			return 0.0;
+		else
+			return (positiveWordsValue - negativeWordsValue) / (positiveWordsValue + negativeWordsValue);
+
+	}
+
 	/**
 	 * 
-	 * 50.2 Manage polarity Word ****************************************************************************
+	 * 50.2 Manage polarity Word
+	 * ****************************************************************************
 	 */
 
 	// 50.2 Manage the lists of positive and negative words
@@ -275,7 +335,8 @@ public class AdministratorService {
 		Assert.notNull(index);
 		Assert.isTrue(this.configurationsService.getConfiguration().getPositiveWords().contains(word) != true);
 
-		final ArrayList<String> words = new ArrayList<String>(this.configurationsService.getConfiguration().getPositiveWords());
+		final ArrayList<String> words = new ArrayList<String>(
+				this.configurationsService.getConfiguration().getPositiveWords());
 		words.set(index, word);
 
 		this.configurationsService.getConfiguration().setPositiveWords(words);
@@ -320,7 +381,8 @@ public class AdministratorService {
 		Assert.notNull(index);
 		Assert.isTrue(this.configurationsService.getConfiguration().getNegativeWords().contains(word) != true);
 
-		final ArrayList<String> words = new ArrayList<String>(this.configurationsService.getConfiguration().getNegativeWords());
+		final ArrayList<String> words = new ArrayList<String>(
+				this.configurationsService.getConfiguration().getNegativeWords());
 		words.set(index, word);
 
 		this.configurationsService.getConfiguration().setNegativeWords(words);

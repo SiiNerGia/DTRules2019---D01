@@ -28,6 +28,7 @@
 		<form:hidden path="sender" />
 		<form:hidden path="moment" />
 		<form:hidden path="messageBoxes" />
+		<form:hidden path="isNotification" />
 
 
 		<%-- Subject --%>
