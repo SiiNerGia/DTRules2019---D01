@@ -8,16 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
+import repositories.MemberRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Dropout;
 import domain.Enrol;
 import domain.Member;
 import domain.MessageBox;
 import domain.Request;
-import repositories.MemberRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
+import forms.MemberForm;
 
 @Service
 @Transactional
@@ -28,11 +31,15 @@ public class MemberService {
 	@Autowired
 	private MemberRepository	memberRepository;
 
-
 	// Supporting services
 	// -------------------------------------------------------------
+
 	@Autowired
-	private MessageBoxService		messageBoxService;
+	private MessageBoxService	messageBoxService;
+
+	@Autowired
+	private FinderService		finderService;
+
 
 	// CRUD methods
 	// ------------------------------------------------------------------
@@ -49,9 +56,10 @@ public class MemberService {
 		authorities.add(authority);
 		final UserAccount userAccount = new UserAccount();
 		userAccount.setAuthorities(authorities);
-		
-		Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
 
+		final Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
+
+		result.setFinder(this.finderService.create());
 		result.setDropouts(new ArrayList<Dropout>());
 		result.setEnrols(new ArrayList<Enrol>());
 		result.setRequests(new ArrayList<Request>());
@@ -89,8 +97,38 @@ public class MemberService {
 
 	}
 
+
 	// Other methods
 	// -----------------------------------------------------------------
+
+	@Autowired
+	private Validator	validator;
+
+
+	public Member reconstruct(final MemberForm memberForm, final BindingResult binding) {
+		final Member result = this.create();
+
+		result.setAddress(memberForm.getAddress());
+		result.setDropouts(memberForm.getDropouts());
+		result.setEmail(memberForm.getEmail());
+		result.setEnrols(memberForm.getEnrols());
+		result.setFinder(memberForm.getFinder());
+		result.setMessageBoxes(memberForm.getMessageBoxes());
+		result.setMiddleName(memberForm.getMiddleName());
+		result.setName(memberForm.getName());
+		result.setPhoneNumber(memberForm.getPhoneNumber());
+		result.setPhoto(memberForm.getPhoto());
+		result.setRequests(memberForm.getRequests());
+		result.setSurname(memberForm.getSurname());
+		result.setIsBanned(memberForm.getIsBanned());
+		result.setIsSpammer(memberForm.getIsSpammer());
+		result.setUserAccount(memberForm.getUserAccount());
+		result.setUsername(memberForm.getUsername());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
 
 	public Member findByUserAccount(final UserAccount userAccount) {
 		Assert.notNull(userAccount);

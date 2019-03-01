@@ -18,7 +18,9 @@
 	<form:hidden path="enrols" />
 	<form:hidden path="dropouts" />
 	<form:hidden path="requests" />
-	
+	<form:hidden path="finder" />
+	<form:hidden path="messageBoxes" />
+
 	<%-- UserAccount--%>
 
 	<%-- username--%>
@@ -82,9 +84,9 @@
 	</script>
 	<%-- Buttons --%>
 	<input type="submit" name="save"
-		value="<spring:message code="member.save"/>"/>
-		<!--  onClick="javascript: return phoneNumberValidator()" -->
-		
+		value="<spring:message code="member.save"/>" />
+	<!--  onClick="javascript: return phoneNumberValidator()" -->
+
 
 	<acme:cancel code="member.cancel" url="/" />
 </form:form>

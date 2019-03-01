@@ -45,15 +45,18 @@
 
 		<bean class="converters.EnrolToStringConverter" />
 		<bean class="converters.StringToEnrolConverter" />
-		
+
 		<bean class="converters.StringToDropoutConverter" />
 		<bean class="converters.DropoutToStringConverter" />
-		
+
 		<bean class="converters.MessageBoxToStringConverter" />
 		<bean class="converters.StringToMessageBoxConverter" />
-		
+
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
+
+		<bean class="converters.FinderToStringConverter" />
+		<bean class="converters.StringToFinderConverter" />
 
 	</util:list>
 
