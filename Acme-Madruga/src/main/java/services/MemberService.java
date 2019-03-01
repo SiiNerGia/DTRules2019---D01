@@ -107,23 +107,20 @@ public class MemberService {
 
 	public Member reconstruct(final MemberForm memberForm, final BindingResult binding) {
 		final Member result = this.create();
+		result.getUserAccount().setPassword(memberForm.getUserAccount().getPassword());
+		result.getUserAccount().setUsername(memberForm.getUserAccount().getUsername());
+		result.setUsername(memberForm.getUserAccount().getUsername());
 
 		result.setAddress(memberForm.getAddress());
-		result.setDropouts(memberForm.getDropouts());
+
 		result.setEmail(memberForm.getEmail());
-		result.setEnrols(memberForm.getEnrols());
-		result.setFinder(memberForm.getFinder());
-		result.setMessageBoxes(memberForm.getMessageBoxes());
+
 		result.setMiddleName(memberForm.getMiddleName());
 		result.setName(memberForm.getName());
 		result.setPhoneNumber(memberForm.getPhoneNumber());
 		result.setPhoto(memberForm.getPhoto());
-		result.setRequests(memberForm.getRequests());
+
 		result.setSurname(memberForm.getSurname());
-		result.setIsBanned(memberForm.getIsBanned());
-		result.setIsSpammer(memberForm.getIsSpammer());
-		result.setUserAccount(memberForm.getUserAccount());
-		result.setUsername(memberForm.getUsername());
 
 		this.validator.validate(result, binding);
 
@@ -152,7 +149,6 @@ public class MemberService {
 
 		return result;
 	}
-
 	public Member findOneByUsername(final String username) {
 		Assert.notNull(username);
 

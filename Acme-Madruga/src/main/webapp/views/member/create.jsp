@@ -9,9 +9,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="member/create.do" modelAttribute="member">
+<form:form action="member/create.do" modelAttribute="memberForm">
 
-	<%-- Hidden properties from handy worker--%>
+	<%-- Hidden properties from handy worker
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="userAccount.authorities" />
@@ -20,7 +20,7 @@
 	<form:hidden path="requests" />
 	<form:hidden path="finder" />
 	<form:hidden path="messageBoxes" />
-
+--%>
 	<%-- UserAccount--%>
 
 	<%-- username--%>

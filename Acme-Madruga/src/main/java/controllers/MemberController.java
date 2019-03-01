@@ -23,6 +23,25 @@ public class MemberController extends AbstractController {
 	private MemberService	memberService;
 
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		MemberForm memberForm;
+
+		try {
+			//Se crea un memberform vacio
+			memberForm = new MemberForm();
+			result = new ModelAndView("member/create");
+			result.addObject("memberForm", memberForm);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final MemberForm memberForm, final BindingResult binding) {
 		ModelAndView result;
@@ -77,5 +96,9 @@ public class MemberController extends AbstractController {
 
 		return result;
 
+	}
+
+	private ModelAndView forbiddenOpperation() {
+		return new ModelAndView("redirect:/");
 	}
 }
