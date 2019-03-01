@@ -218,5 +218,126 @@ public class AdministratorService {
 		return this.actorService.save(actor);
 
 	}
+	
+	/**
+	 * 
+	 * 50.2 Manage polarity Word ****************************************************************************
+	 */
+
+	// 50.2 Manage the lists of positive and negative words
+	public Collection<String> getPositiveWords() {
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		final Collection<String> result = this.configurationsService.getConfiguration().getPositiveWords();
+		Assert.notNull(result);
+		Assert.notEmpty(result);
+
+		return result;
+	}
+
+	public Collection<String> getNegativeWords() {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		final Collection<String> result = this.configurationsService.getConfiguration().getNegativeWords();
+		Assert.notNull(result);
+		Assert.notEmpty(result);
+
+		return result;
+	}
+
+	public void addPositiveWord(final String word) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(word != "");
+		Assert.isTrue(this.configurationsService.getConfiguration().getPositiveWords().contains(word) != true);
+
+		this.configurationsService.getConfiguration().getPositiveWords().add(word);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
+
+	public void editPositiveWord(final String word, final Integer index) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(word != "");
+		Assert.notNull(index);
+		Assert.isTrue(this.configurationsService.getConfiguration().getPositiveWords().contains(word) != true);
+
+		final ArrayList<String> words = new ArrayList<String>(this.configurationsService.getConfiguration().getPositiveWords());
+		words.set(index, word);
+
+		this.configurationsService.getConfiguration().setPositiveWords(words);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
+
+	public void removePositiveWord(final String word) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(this.configurationsService.getConfiguration().getPositiveWords().contains(word));
+
+		this.configurationsService.getConfiguration().getPositiveWords().remove(word);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
+
+	public void addNegativeWord(final String word) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(word != "");
+		Assert.isTrue(this.configurationsService.getConfiguration().getNegativeWords().contains(word) != true);
+
+		this.configurationsService.getConfiguration().getNegativeWords().add(word);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
+
+	public void editNegativeWord(final String word, final Integer index) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(word != "");
+		Assert.notNull(index);
+		Assert.isTrue(this.configurationsService.getConfiguration().getNegativeWords().contains(word) != true);
+
+		final ArrayList<String> words = new ArrayList<String>(this.configurationsService.getConfiguration().getNegativeWords());
+		words.set(index, word);
+
+		this.configurationsService.getConfiguration().setNegativeWords(words);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
+
+	public void removeNegativeWord(final String word) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(this.configurationsService.getConfiguration().getNegativeWords().contains(word));
+
+		this.configurationsService.getConfiguration().getNegativeWords().remove(word);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
 
 }
