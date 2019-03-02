@@ -21,16 +21,15 @@
 	<spring:message code="administrator.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" sortable="true" />
 	
+	<spring:message code="administrator.surname" var="surnameHeader" />
+	<display:column property="surname" title="${surnameHeader}" />
+	
 	<spring:message code="administrator.email" var="emailHeader" />
 	<display:column property="email" title="${emailHeader}" />
-
-	
 
 	<spring:message code="administrator.score" var="scoreHeader" />
 	<display:column property="score" title="${scoreHeader}" format="{0,number,0.00}" />
 	
-	
-
 </display:table>
 
 <security:authorize access="hasRole('ADMIN')">

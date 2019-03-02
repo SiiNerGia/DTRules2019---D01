@@ -115,7 +115,7 @@
 		<property name="email" value="member1@mail.com" />
 		<property name="UserAccount" ref="userAccount5" />
 		<property name="finder" ref="finder1" />
-		<property name="isSpammer" value="true" />
+		<property name="isSpammer" value="false" />
 
 		<property name="requests">
 			<list>
@@ -146,7 +146,7 @@
 		<property name="email" value="member2@mail.com" />
 		<property name="UserAccount" ref="userAccount6" />
 		<property name="finder" ref="finder2" />
-		<property name="isSpammer" value="true" />
+		<property name="isSpammer" value="false" />
 		<property name="requests">
 			<list>
 				<ref bean="request3" />
@@ -179,7 +179,7 @@
 		<property name="title" value="brotherhood1" />
 		<property name="establishment" value="2019/01/30" />
 		<property name="UserAccount" ref="userAccount2" />
-		<property name="isSpammer" value="true" />
+		<property name="isSpammer" value="false" />
 		<property name="coaches">
 			<list>
 				<ref bean="coach1" />

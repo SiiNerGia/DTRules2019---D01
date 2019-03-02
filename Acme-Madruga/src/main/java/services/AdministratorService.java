@@ -182,10 +182,40 @@ public class AdministratorService {
 		return result;
 	}
 
-	// 28.2 Spammers
-	// actors--------------------------------------------------------------------
-	public Collection<Actor> getSuspiciousActors() {
-		Administrator principal;
+	// 28.2 Spammers procedure--------------------------------------------------------------------
+	public void computeSpammers() {
+		Actor principal;
+		Collection<Message> messages;
+		int spamMessages;
+		Collection<Actor> users = this.actorService.findAll();
+		Collection<String> spamWords = this.configurationsService.getConfiguration().getSpamWords();
+
+		// Make sure that the principal is an Admin
+		principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		for (Actor user : users) {
+			spamMessages = 0;
+			messages = this.messageService.findAllBySender(user.getId());
+			System.out.println(messages);
+			if (messages != null && !messages.isEmpty()) { // puede ser null
+				for (Message message : messages) {
+					for (String spamWord : spamWords) {
+						if (message.getBody().contains(spamWord) || message.getSubject().contains(spamWord)) {
+							spamMessages++;
+						}
+					}
+				}
+			}
+			if (spamMessages != 0 && spamMessages >= messages.size() * 0.1) {
+				user.setIsSpammer(true);
+			}
+		}
+	}
+
+	// 28.2 Spammers actors--------------------------------------------------------------------
+	public Collection<Actor> getSpammers() {
+		Actor principal;
 
 		// Make sure that the principal is an Admin
 		principal = this.findByPrincipal();
@@ -229,7 +259,7 @@ public class AdministratorService {
 
 	}
 
-	// 50.1 Launch process that computes all customer and handyWorker scores
+	// 50.1 Launch process that computes all actors polarity score
 	public void computeAllScores() {
 
 		Collection<Actor> actors;
@@ -238,7 +268,7 @@ public class AdministratorService {
 		// Make sure that the principal is an Admin
 		final Actor principal = this.findByPrincipal();
 		Assert.isInstanceOf(Administrator.class, principal);
-		
+
 		actors = this.actorService.findAll();
 		actors.remove(principal);
 

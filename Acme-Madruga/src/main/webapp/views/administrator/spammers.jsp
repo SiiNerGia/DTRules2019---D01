@@ -15,24 +15,19 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="suspicious" id="row" requestURI="administrator/suspicious.do" pagesize="5" class="displaytag">
+<display:table name="suspicious" id="row" requestURI="${requestURI}" pagesize="5" class="displaytag">
 
 	<spring:message code="administrator.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" />
 
 	<spring:message code="administrator.surname" var="surnameHeader" />
 	<display:column property="surname" title="${surnameHeader}" />
+	
+	<spring:message code="administrator.email" var="emailHeader" />
+	<display:column property="email" title="${emailHeader}" />
 
-	<spring:message code="administrator.username" var="usernameHeader" />
-	<display:column property="userAccount.username"
-		title="${usernameHeader}" />
-
-	<spring:message code="administrator.password" var="passwordHeader" />
-	<display:column property="userAccount.password"
-		title="${passwordHeader}" />
 
 	<spring:message code="administrator.ban" var="banHeader" />
-
 	<display:column title="${banHeader}">
 		<jstl:if test="${!row.isBanned}">
 			<a href="administrator/ban.do?actorId=${row.id}"><spring:message code="administrator.ban" /></a>
@@ -41,7 +36,6 @@
 
 
 	<spring:message code="administrator.unban" var="unbanHeader" />
-
 	<display:column title="${unbanHeader}">
 		<jstl:if test="${row.isBanned}">
 			<a href="administrator/unban.do?actorId=${row.id}"><spring:message code="administrator.unban" /></a>
@@ -50,3 +44,7 @@
 
 
 </display:table>
+<br>
+<br>
+
+<a href=administrator/computeSpammers.do><spring:message code="administrator.launchSpammers" /></a>

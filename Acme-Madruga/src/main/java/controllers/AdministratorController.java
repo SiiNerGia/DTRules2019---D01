@@ -185,20 +185,34 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Spammer list
-	// -------------------------------------------------------------
+	/**
+	 * 
+	 * SPAM
+	 * ****************************************************************************
+	 */
+
+	// Spammer list ---------------------------------------------------------------------
 	@RequestMapping(value = "/spammers", method = RequestMethod.GET)
 	public ModelAndView suspiciousList() {
 		ModelAndView result;
 		Collection<Actor> suspicious;
 
-		suspicious = this.administratorService.getSuspiciousActors();
+		suspicious = this.administratorService.getSpammers();
 
 		result = new ModelAndView("administrator/spammers");
 		result.addObject("suspicious", suspicious);
 		result.addObject("requestURI", "administrator/spammers.do");
 
 		return result;
+	}
+
+	// Compute Spammers -------------------------------------------------------------------
+	@RequestMapping(value = "/computeSpammers", method = RequestMethod.GET)
+	public ModelAndView computeSpammers() {
+
+		this.administratorService.computeSpammers();
+
+		return this.suspiciousList();
 	}
 
 	// Ban
@@ -246,13 +260,15 @@ public class AdministratorController extends AbstractController {
 	private ModelAndView forbiddenOpperation() {
 		return new ModelAndView("redirect:/");
 	}
-	
+
 	/**
 	 * 
-	 * POLARITY SCORE ****************************************************************************
+	 * POLARITY SCORE
+	 * ****************************************************************************
 	 */
 
-	// Score list -------------------------------------------------------------------
+	// Score list
+	// -------------------------------------------------------------------
 	@RequestMapping(value = "/score", method = RequestMethod.GET)
 	public ModelAndView scoreList() {
 		ModelAndView result;
@@ -268,7 +284,8 @@ public class AdministratorController extends AbstractController {
 		return result;
 	}
 
-	// Score Compute -------------------------------------------------------------------
+	// Score Compute
+	// -------------------------------------------------------------------
 	@RequestMapping(value = "/computeScore", method = RequestMethod.GET)
 	public ModelAndView computeScoreList() {
 		ModelAndView result;

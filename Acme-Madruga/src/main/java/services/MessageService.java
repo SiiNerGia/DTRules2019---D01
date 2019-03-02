@@ -78,12 +78,12 @@ public class MessageService {
 
 			Boolean spam = this.checkSpam(message);
 			Boolean notification = message.getIsNotification();
-			System.out.println(notification);
+
 			String box;
 
 			if (spam) {
 				box = "spam";
-				message.getSender().setIsSpammer(true);
+				//message.getSender().setIsSpammer(true);
 			} 
 			
 			if (notification) {
