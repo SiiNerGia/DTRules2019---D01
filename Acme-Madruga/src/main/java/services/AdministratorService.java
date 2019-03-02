@@ -197,7 +197,6 @@ public class AdministratorService {
 		for (Actor user : users) {
 			spamMessages = 0;
 			messages = this.messageService.findAllBySender(user.getId());
-			System.out.println(messages);
 			if (messages != null && !messages.isEmpty()) { // puede ser null
 				for (Message message : messages) {
 					for (String spamWord : spamWords) {
