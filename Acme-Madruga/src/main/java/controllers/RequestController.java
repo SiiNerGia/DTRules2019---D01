@@ -1,44 +1,37 @@
 
 package controllers;
 
-import domain.Brotherhood;
-import domain.Member;
-import domain.Request;
-import domain.Url;
-import forms.BrotherhoodForm;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import services.BrotherhoodService;
 import services.MemberService;
 import services.RequestService;
-import utilities.Md5;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import domain.Request;
 
 @Controller
 @RequestMapping("/request")
 public class RequestController extends AbstractController {
 
 	@Autowired
-	private RequestService requestService;
+	private RequestService		requestService;
 
 	@Autowired
-	private MemberService	memberService;
+	private MemberService		memberService;
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -57,10 +50,10 @@ public class RequestController extends AbstractController {
 
 		try {
 
-			if(memberService.findByPrincipal()!=null){
+			if (this.memberService.findByPrincipal() != null) {
 				requests = this.memberService.findByPrincipal().getRequests();
-			}else if(brotherhoodService.findByPrincipal()!=null){
-				requests = this.requestService.findRequestByBrotherhood(brotherhoodService.findByPrincipal().getId());
+			} else if (this.brotherhoodService.findByPrincipal() != null) {
+				requests = this.requestService.findRequestByBrotherhood(this.brotherhoodService.findByPrincipal().getId());
 			}
 			result = new ModelAndView("request/list");
 			result.addObject("requests", requests);
@@ -73,7 +66,6 @@ public class RequestController extends AbstractController {
 
 		return result;
 	}
-
 
 	// Create ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/member/create", method = RequestMethod.GET)
@@ -95,14 +87,13 @@ public class RequestController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			for (final ObjectError e : errors) {
 				System.out.println(e.toString());
+			}
 
 			result = new ModelAndView("request/member/create");
 			result.addObject("request", request);
-		}
-
-		else
+		} else {
 			try {
 				this.requestService.save(request);
 				result = new ModelAndView("request/list");
@@ -113,11 +104,13 @@ public class RequestController extends AbstractController {
 				System.out.println(oops.getCause());
 				result = this.createEditModelAndView(request);
 
-				if (oops instanceof DataIntegrityViolationException)
+				if (oops instanceof DataIntegrityViolationException) {
 					result = this.createEditModelAndView(request, "request.commit.username");
-				else
+				} else {
 					result = this.createEditModelAndView(request, "request.commit.error");
+				}
 			}
+		}
 		return result;
 	}
 
@@ -147,14 +140,13 @@ public class RequestController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			for (final ObjectError e : errors) {
 				System.out.println(e.toString());
+			}
 
 			result = new ModelAndView("request/member/create");
 			result.addObject("request", request);
-		}
-
-		else
+		} else {
 			try {
 				this.requestService.save(request);
 				result = new ModelAndView("request/list");
@@ -165,17 +157,19 @@ public class RequestController extends AbstractController {
 				System.out.println(oops.getCause());
 				result = this.createEditModelAndView(request);
 
-				if (oops instanceof DataIntegrityViolationException)
+				if (oops instanceof DataIntegrityViolationException) {
 					result = this.createEditModelAndView(request, "request.commit.username");
-				else
+				} else {
 					result = this.createEditModelAndView(request, "request.commit.error");
+				}
 			}
+		}
 		return result;
 	}
 
 	// Delete --------------------------------------------------------------------------------------
 	@RequestMapping(value = "/member/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam int requestId) {
+	public ModelAndView delete(@RequestParam final int requestId) {
 		ModelAndView result;
 
 		try {
@@ -188,7 +182,6 @@ public class RequestController extends AbstractController {
 
 		return result;
 	}
-
 
 	// Ancillary methods -----------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Request request) {

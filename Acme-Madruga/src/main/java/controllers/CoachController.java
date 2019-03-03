@@ -1,33 +1,25 @@
 
 package controllers;
 
-import domain.Coach;
-import domain.Request;
+import java.util.Collection;
+
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import services.BrotherhoodService;
-import services.CoachService;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import services.CoachService;
+import domain.Coach;
 
 @Controller
 @RequestMapping("/coach")
 public class CoachController extends AbstractController {
 
 	@Autowired
-	private CoachService coachService;
+	private CoachService	coachService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)

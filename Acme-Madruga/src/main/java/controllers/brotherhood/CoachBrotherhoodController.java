@@ -1,11 +1,10 @@
 
 package controllers.brotherhood;
 
-import controllers.AbstractController;
-import domain.Brotherhood;
-import domain.Coach;
-import domain.Request;
-import domain.Url;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,20 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import services.BrotherhoodService;
 import services.CoachService;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import controllers.AbstractController;
+import domain.Coach;
+import domain.Url;
 
 @Controller
 @RequestMapping("/coach/brotherhood")
 public class CoachBrotherhoodController extends AbstractController {
 
 	@Autowired
-	private CoachService coachService;
+	private CoachService		coachService;
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -41,7 +39,6 @@ public class CoachBrotherhoodController extends AbstractController {
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
 		return new ModelAndView("redirect:/");
 	}
-
 
 	// Create ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -63,14 +60,13 @@ public class CoachBrotherhoodController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			for (final ObjectError e : errors) {
 				System.out.println(e.toString());
+			}
 
 			result = new ModelAndView("coach/brotherhood/create");
 			result.addObject("coach", coach);
-		}
-
-		else
+		} else {
 			try {
 				this.coachService.save(coach);
 				result = new ModelAndView("coach/list");
@@ -81,11 +77,13 @@ public class CoachBrotherhoodController extends AbstractController {
 				System.out.println(oops.getCause());
 				result = this.createEditModelAndView(coach);
 
-				if (oops instanceof DataIntegrityViolationException)
+				if (oops instanceof DataIntegrityViolationException) {
 					result = this.createEditModelAndView(coach, "coach.commit.username");
-				else
+				} else {
 					result = this.createEditModelAndView(coach, "coach.commit.error");
+				}
 			}
+		}
 		return result;
 	}
 
@@ -110,7 +108,7 @@ public class CoachBrotherhoodController extends AbstractController {
 
 	// Delete --------------------------------------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam int coachId) {
+	public ModelAndView delete(@RequestParam final int coachId) {
 		ModelAndView result;
 
 		try {
@@ -123,7 +121,6 @@ public class CoachBrotherhoodController extends AbstractController {
 
 		return result;
 	}
-
 
 	// Picture  ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/addPicture", method = RequestMethod.GET)
@@ -151,11 +148,12 @@ public class CoachBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		try {
 			final Coach c = this.coachService.findOne(coachId);
-			for (final Url picture : c.getPictures())
+			for (final Url picture : c.getPictures()) {
 				if (picture.getLink().equals(link)) {
 					c.getPictures().remove(picture);
 					break;
 				}
+			}
 			result = this.createEditModelAndView(c);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
@@ -173,15 +171,14 @@ public class CoachBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			for (final ObjectError e : errors) {
 				System.out.println(e.toString());
+			}
 
 			result = new ModelAndView("coach/brotherhood/addPicture");
 			result.addObject("url", url);
 			result.addObject("coachId", coachId);
-		}
-
-		else
+		} else {
 			try {
 				Coach c = this.coachService.findOne(coachId);
 				c.getPictures().add(url);
@@ -196,6 +193,7 @@ public class CoachBrotherhoodController extends AbstractController {
 				result.addObject("url", url);
 				result.addObject("coachId", coachId);
 			}
+		}
 		return result;
 	}
 
@@ -217,7 +215,6 @@ public class CoachBrotherhoodController extends AbstractController {
 
 		return result;
 	}
-
 
 	private ModelAndView forbiddenOpperation() {
 		return new ModelAndView("redirect:/");

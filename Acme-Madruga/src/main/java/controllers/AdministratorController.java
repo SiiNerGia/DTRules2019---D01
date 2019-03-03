@@ -28,31 +28,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Actor;
-import domain.Administrator;
-import domain.Brotherhood;
-import domain.Procession;
 import services.ActorService;
 import services.AdministratorService;
 import services.ConfigurationsService;
 import services.MessageBoxService;
 import utilities.Md5;
+import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
+import domain.Member;
+import domain.Procession;
 
 @Controller
 @RequestMapping("/administrator")
 public class AdministratorController extends AbstractController {
 
 	@Autowired
-	private AdministratorService administratorService;
+	private AdministratorService	administratorService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private MessageBoxService messageBoxService;
+	private MessageBoxService		messageBoxService;
 
 	@Autowired
-	private ConfigurationsService configurationsService;
+	private ConfigurationsService	configurationsService;
+
 
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
@@ -96,12 +98,13 @@ public class AdministratorController extends AbstractController {
 		String password;
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			for (final ObjectError e : errors) {
 				System.out.println(e.toString());
+			}
 			admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			result = new ModelAndView("administrator/create");
 			result.addObject("administrator", admin);
-		} else
+		} else {
 			try {
 				password = Md5.encodeMd5(admin.getUserAccount().getPassword());
 				admin.getUserAccount().setPassword(password);
@@ -110,13 +113,14 @@ public class AdministratorController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = new ModelAndView("administrator/create");
 				result.addObject("administrator", admin);
-				if (oops instanceof DataIntegrityViolationException)
+				if (oops instanceof DataIntegrityViolationException) {
 					result.addObject("message", "admin.duplicated.username");
-				else {
+				} else {
 					System.out.println(oops.getCause().toString());
 					result.addObject("message", "admin.registration.error");
 				}
 			}
+		}
 		return result;
 	}
 
@@ -140,11 +144,12 @@ public class AdministratorController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			for (final ObjectError e : errors) {
 				System.out.println(e.toString());
+			}
 			result = new ModelAndView("administrator/update");
 			result.addObject("administrator", admin);
-		} else
+		} else {
 			try {
 				this.administratorService.save(admin);
 				result = new ModelAndView("redirect:list.do");
@@ -153,6 +158,7 @@ public class AdministratorController extends AbstractController {
 				result.addObject("administrator", admin);
 				result.addObject("message", "administrator.commit.error");
 			}
+		}
 		return result;
 	}
 
@@ -162,11 +168,11 @@ public class AdministratorController extends AbstractController {
 		ModelAndView result;
 
 		// Queries
-		Object[] query1 = this.administratorService.query1();
-		Collection<Brotherhood> query2 = this.administratorService.query2();
-		Collection<Brotherhood> query3 = this.administratorService.query3();
-		Collection<Double> query4 = this.administratorService.query4();
-		Collection<Procession> query5 = this.administratorService.query5();
+		final Object[] query1 = this.administratorService.query1();
+		final Collection<Brotherhood> query2 = this.administratorService.query2();
+		final Collection<Brotherhood> query3 = this.administratorService.query3();
+		final Collection<Double> query4 = this.administratorService.query4();
+		final Collection<Procession> query5 = this.administratorService.query5();
 		// final Double query6 = this.administratorService.query6();
 		final Collection<Member> query7 = this.administratorService.query7();
 		// final Double query8 = this.administratorService.query8();
@@ -218,7 +224,7 @@ public class AdministratorController extends AbstractController {
 	// Ban
 	// -----------------------------------------------------------------------------------
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
-	public ModelAndView ban(@RequestParam int actorId) {
+	public ModelAndView ban(@RequestParam final int actorId) {
 		ModelAndView result;
 		Actor actor = null;
 
@@ -238,7 +244,7 @@ public class AdministratorController extends AbstractController {
 	// Unban
 	// -----------------------------------------------------------------------------------
 	@RequestMapping(value = "/unban", method = RequestMethod.GET)
-	public ModelAndView unban(@RequestParam int actorId) {
+	public ModelAndView unban(@RequestParam final int actorId) {
 		ModelAndView result;
 		Actor actor = null;
 
@@ -377,8 +383,7 @@ public class AdministratorController extends AbstractController {
 	// Edit word SAVE
 	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/editPositiveWord", method = RequestMethod.POST, params = "save")
-	public ModelAndView editPosWordPost(@RequestParam("word") final String word,
-			@RequestParam("index") final int index) {
+	public ModelAndView editPosWordPost(@RequestParam("word") final String word, @RequestParam("index") final int index) {
 		ModelAndView result;
 
 		try {
@@ -462,8 +467,7 @@ public class AdministratorController extends AbstractController {
 	// Edit word SAVE
 	// ------------------------------------------------------------------
 	@RequestMapping(value = "/config/polarityWords/editNegativeWord", method = RequestMethod.POST, params = "save")
-	public ModelAndView editNegWordPost(@RequestParam("word") final String word,
-			@RequestParam("index") final int index) {
+	public ModelAndView editNegWordPost(@RequestParam("word") final String word, @RequestParam("index") final int index) {
 		ModelAndView result;
 
 		try {
