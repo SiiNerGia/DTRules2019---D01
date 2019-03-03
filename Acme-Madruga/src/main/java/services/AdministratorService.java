@@ -182,6 +182,10 @@ public class AdministratorService {
 		return result;
 	}
 
+	public Collection<Member> query7() {
+		return this.adminRepository.query7();
+	}
+
 	// 28.2 Spammers procedure--------------------------------------------------------------------
 	public void computeSpammers() {
 		Actor principal;

@@ -35,5 +35,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	
 	@Query("select p from Procession p where p.moment <= ?1")
 	Collection<Procession> query5(Date date);
-	
+
+	@Query("select m from Member m join m.requests r where 0.1 <= (((count(r) where r.status='APPROVED')*1.0) / (count(r)*1.0))")
+	Collection<Member> query7();
 }

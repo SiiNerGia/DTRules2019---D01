@@ -165,18 +165,18 @@
 <!-- <br /> -->
 
 <!-- Query 7  -->
-<!-- <table> -->
-<!-- 	<caption> -->
+<table>
+	<caption>
 <%-- 		<jstl:out value="${query7Header}"></jstl:out> --%>
-<!-- 	</caption> -->
-<!-- 	<tr> -->
+	</caption>
+ 	<tr>
 <%-- 		<th><jstl:out value="${ratioHeader}"></jstl:out></th> --%>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
+ 	</tr>
+ 	<tr>
 <%-- 		<td><jstl:out value="${query7}"></jstl:out></td> --%>
-<!-- 	</tr> -->
-<!-- </table> -->
-<!-- <br /> -->
+	</tr>
+</table>
+<br />
 
 <!-- Query 8  -->
 <!-- <table> -->
@@ -191,11 +191,3 @@
 <!-- 	</tr> -->
 <!-- </table> -->
 <!-- <br /> -->
-
-
-
-
-
-
-
-
