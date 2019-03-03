@@ -148,7 +148,10 @@ public class RequestController extends AbstractController {
 			result.addObject("request", request);
 		} else {
 			try {
+				/*** Descomentar cuando el metodo funcione, comprobar que se manda la notificacion ***/
+				//final Request old = this.requestService.findOne(request.getId());
 				this.requestService.save(request);
+				//this.requestService.automaticNotification(request, old);
 				result = new ModelAndView("request/list");
 			} catch (final Throwable oops) {
 				System.out.println(request);
