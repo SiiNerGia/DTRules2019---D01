@@ -28,18 +28,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
+import domain.Position;
+import domain.Procession;
 import services.ActorService;
 import services.AdministratorService;
 import services.ConfigurationsService;
 import services.MessageBoxService;
 import services.PositionService;
 import utilities.Md5;
-import domain.Actor;
-import domain.Administrator;
-import domain.Brotherhood;
-import domain.Member;
-import domain.Position;
-import domain.Procession;
+
 
 @Controller
 @RequestMapping("/administrator")
@@ -175,7 +175,7 @@ public class AdministratorController extends AbstractController {
 		final Collection<Double> query4 = this.administratorService.query4();
 		final Collection<Procession> query5 = this.administratorService.query5();
 		// final Double query6 = this.administratorService.query6();
-		final Collection<Member> query7 = this.administratorService.query7();
+		//final Collection<Member> query7 = this.administratorService.query7();
 
 		final Collection<Position> query8a = this.positionService.findAll();
 		final Collection<Integer> query8b = null;
@@ -190,8 +190,38 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query3", query3);
 		result.addObject("query4", query4);
 		result.addObject("query5", query5);
-		// result.addObject("query6", query6);
-		result.addObject("query7", query7);
+
+		// result.addObject("query7", query7);
+		// result.addObject("query8", query8);
+		
+		// Charts
+		
+//		int[] values = this.administratorService.querySpammersGetValues();
+//		
+//		PieOptions options = new PieOptions();
+//		options.setResponsive(true).setTitle(new Title()
+//								   .setText("Spammers Pie")
+//								   .setDisplay(true));
+//		
+//		PieDataset dataset = new PieDataset().setData(values)
+//											 .addBackgroundColors(Color.RED, Color.BLUE)
+//											 .setBorderWidth(4)
+//											 .setBorderColor(Color.BLACK);
+//		
+//		PieData data = new PieData().addLabels("Spammers", "Not Spammers")
+//									.addDataset(dataset);
+//		String pieChart = new PieChart(data, options).toJson();
+//		
+//		result.addObject("pieChart", pieChart);
+		
+		int spammers = this.administratorService.queryGetSpammers();
+		int notSpammers = this.administratorService.queryGetNotSpammers();
+		
+		
+		result.addObject("spammers", spammers);
+		result.addObject("notSpammers", notSpammers);
+		
+		//result.addObject("query7", query7);
 
 		result.addObject("query8a", query8a);
 		result.addObject("query8b", query8b);

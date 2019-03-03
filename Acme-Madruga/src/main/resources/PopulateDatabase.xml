@@ -209,6 +209,7 @@
 		<property name="title" value="brotherhood2" />
 		<property name="establishment" value="2019/02/10" />
 		<property name="UserAccount" ref="userAccount4" />
+		<property name="isSpammer" value="false" />
 		<property name="coaches">
 			<list>
 				<ref bean="coach2" />

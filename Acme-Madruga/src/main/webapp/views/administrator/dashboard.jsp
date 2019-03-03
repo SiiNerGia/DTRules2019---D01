@@ -48,7 +48,48 @@
 <!--  Custom table style -->
 <head>
 <link rel="stylesheet" href="styles/tablas.css" type="text/css">
+<link rel="stylesheet" href="styles/charts.css" type="text/css">
 </head>
+
+
+
+<!-- Charts -->
+<div class="chart-container">
+	<div class="pie-chart-container">
+		<canvas id="pie-chartcanvas-1"></canvas>
+	</div>
+</div>
+
+<script>
+$(document).ready(function () {
+	var ctx1 = $("#pie-chartcanvas-1");
+	
+	var data1 = {
+		labels: ["Spammers", "Not Spammers"],
+		datasets: [
+			{
+				label: "Acme-Madruga",
+				data: [${spammers}, ${notSpammers}],
+				backgroundColor: [
+					"#0000FF",
+					"#FF0000"
+				],
+				borderColor: ["#000000"],
+				borderWidth: [1]
+			}
+		]
+	};
+	
+	
+	var chart1 = new Chart(ctx1, {
+		type: "pie",
+		data: data1,
+		options: {}
+	});
+});
+
+
+</script>
 
 
 <!-- C level -->
@@ -167,6 +208,33 @@
 <!-- <br /> -->
 
 <!-- Query 7  -->
+<<<<<<< HEAD
+<!-- <table> -->
+<!-- 	<caption> -->
+<%-- <%-- 		<jstl:out value="${query7Header}"></jstl:out> --%> --%>
+<!-- 	</caption> -->
+<!--  	<tr> -->
+<%-- <%-- 		<th><jstl:out value="${ratioHeader}"></jstl:out></th> --%> --%>
+<!--  	</tr> -->
+<!--  	<tr> -->
+<%-- <%-- 		<td><jstl:out value="${query7}"></jstl:out></td> --%> --%>
+<!-- 	</tr> -->
+<!-- </table> -->
+<!-- <br /> -->
+||||||| merged common ancestors
+<table>
+	<caption>
+<%-- 		<jstl:out value="${query7Header}"></jstl:out> --%>
+	</caption>
+ 	<tr>
+<%-- 		<th><jstl:out value="${ratioHeader}"></jstl:out></th> --%>
+ 	</tr>
+ 	<tr>
+<%-- 		<td><jstl:out value="${query7}"></jstl:out></td> --%>
+	</tr>
+</table>
+<br />
+=======
 <table>
 	<caption>
 <<<<<<< HEAD
@@ -189,6 +257,7 @@
 	</tr>
 </table>
 <br />
+>>>>>>> cb548d2798899181f679b77f7a3f7543d8ebb84b
 
 <!-- Query 8  -->
 <<<<<<< HEAD
@@ -203,6 +272,23 @@
 <%-- 		<td><jstl:out value="${query8}"></jstl:out></td> --%>
 <!-- 	</tr> -->
 <!-- </table> -->
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <br /> -->
+||||||| merged common ancestors
+<!-- <br /> -->
+=======
 <!-- <br /> -->
 =======
 <table>
@@ -224,3 +310,4 @@
  </table>
 <br />
 >>>>>>> 871bb354ac7e8bcbc760e1deb608c79b1a734e16
+>>>>>>> cb548d2798899181f679b77f7a3f7543d8ebb84b

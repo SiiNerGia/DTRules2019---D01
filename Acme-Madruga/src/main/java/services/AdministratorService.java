@@ -12,17 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
+import domain.Message;
+import domain.MessageBox;
+import domain.Procession;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
-import domain.Administrator;
-import domain.Brotherhood;
-import domain.Member;
-import domain.Message;
-import domain.MessageBox;
-import domain.Procession;
 
 @Service
 @Transactional
@@ -183,10 +182,31 @@ public class AdministratorService {
 		result = this.adminRepository.query5(date);
 		return result;
 	}
-
-	public Collection<Member> query7() {
-		return this.adminRepository.query7();
+	
+	
+	
+	
+	
+	// Chart Queries
+	public int[] querySpammersGetValues(){
+		int[] values = new int[2];
+		
+		values[0] = this.adminRepository.getAllSpammers();
+		values[1] = this.adminRepository.getAllNotSpammers();
+		return values;
 	}
+	
+	public int queryGetSpammers(){
+		return this.adminRepository.getAllSpammers();
+	}
+	
+	public int queryGetNotSpammers(){
+		return this.adminRepository.getAllNotSpammers();
+	}
+
+//	public Collection<Member> query7() {
+//		return this.adminRepository.query7();
+//	}
 
 	public Integer query8(final Integer id) {
 		return this.adminRepository.query8(id);
