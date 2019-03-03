@@ -15,6 +15,7 @@ import repositories.MemberRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Brotherhood;
 import domain.Dropout;
 import domain.Enrol;
 import domain.Member;
@@ -153,5 +154,11 @@ public class MemberService {
 		Assert.notNull(username);
 
 		return this.memberRepository.findByUserName(username);
+	}
+
+	public Collection<Member> findByBrotherhood(final Brotherhood brotherhood) {
+		final Collection<Member> result = this.memberRepository.findByBrotherhood(brotherhood.getId());
+		Assert.notNull(result);
+		return result;
 	}
 }
