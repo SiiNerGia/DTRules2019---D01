@@ -190,8 +190,6 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query4", query4);
 		result.addObject("query5", query5);
 
-		// result.addObject("query7", query7);
-		// result.addObject("query8", query8);
 		
 		// Charts
 		
