@@ -32,11 +32,13 @@ import services.ActorService;
 import services.AdministratorService;
 import services.ConfigurationsService;
 import services.MessageBoxService;
+import services.PositionService;
 import utilities.Md5;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
 import domain.Member;
+import domain.Position;
 import domain.Procession;
 
 @Controller
@@ -48,6 +50,9 @@ public class AdministratorController extends AbstractController {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private PositionService			positionService;
 
 	@Autowired
 	private MessageBoxService		messageBoxService;
@@ -98,13 +103,12 @@ public class AdministratorController extends AbstractController {
 		String password;
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors) {
+			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			}
 			admin.setMessageBoxes(this.messageBoxService.createSystemMessageBox());
 			result = new ModelAndView("administrator/create");
 			result.addObject("administrator", admin);
-		} else {
+		} else
 			try {
 				password = Md5.encodeMd5(admin.getUserAccount().getPassword());
 				admin.getUserAccount().setPassword(password);
@@ -113,14 +117,13 @@ public class AdministratorController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = new ModelAndView("administrator/create");
 				result.addObject("administrator", admin);
-				if (oops instanceof DataIntegrityViolationException) {
+				if (oops instanceof DataIntegrityViolationException)
 					result.addObject("message", "admin.duplicated.username");
-				} else {
+				else {
 					System.out.println(oops.getCause().toString());
 					result.addObject("message", "admin.registration.error");
 				}
 			}
-		}
 		return result;
 	}
 
@@ -144,12 +147,11 @@ public class AdministratorController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors) {
+			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			}
 			result = new ModelAndView("administrator/update");
 			result.addObject("administrator", admin);
-		} else {
+		} else
 			try {
 				this.administratorService.save(admin);
 				result = new ModelAndView("redirect:list.do");
@@ -158,14 +160,13 @@ public class AdministratorController extends AbstractController {
 				result.addObject("administrator", admin);
 				result.addObject("message", "administrator.commit.error");
 			}
-		}
 		return result;
 	}
 
 	// Dashboard -----------------------------------------------------------
 	@RequestMapping("/dashboard")
 	public ModelAndView dashboard() {
-		ModelAndView result;
+		final ModelAndView result;
 
 		// Queries
 		final Object[] query1 = this.administratorService.query1();
@@ -175,7 +176,12 @@ public class AdministratorController extends AbstractController {
 		final Collection<Procession> query5 = this.administratorService.query5();
 		// final Double query6 = this.administratorService.query6();
 		final Collection<Member> query7 = this.administratorService.query7();
-		// final Double query8 = this.administratorService.query8();
+
+		final Collection<Position> query8a = this.positionService.findAll();
+		final Collection<Integer> query8b = null;
+
+		for (final Position p : query8a)
+			query8b.add(this.administratorService.query8(p.getId()));
 
 		result = new ModelAndView("administrator/dashboard");
 
@@ -186,11 +192,12 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query5", query5);
 		// result.addObject("query6", query6);
 		result.addObject("query7", query7);
-		// result.addObject("query8", query8);
+
+		result.addObject("query8a", query8a);
+		result.addObject("query8b", query8b);
 
 		return result;
 	}
-
 	/**
 	 * 
 	 * SPAM

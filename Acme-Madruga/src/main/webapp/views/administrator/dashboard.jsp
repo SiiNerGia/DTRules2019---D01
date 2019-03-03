@@ -31,6 +31,8 @@
 <spring:message code="administrator.status" 	var="statusHeader" />
 <spring:message code="administrator.procession" var="processionHeader" />
 <spring:message code="administrator.moment" 	var="momentHeader" />
+<spring:message code="administrator.position" 	var="positionHeader" />
+<spring:message code="administrator.enrols" 	var="enrolsHeader" />
 
 
 <spring:message code="administrator.dashboard.query1" var="query1Header" />
@@ -167,6 +169,7 @@
 <!-- Query 7  -->
 <table>
 	<caption>
+<<<<<<< HEAD
 <%-- 		<jstl:out value="${query7Header}"></jstl:out> --%>
 	</caption>
  	<tr>
@@ -174,11 +177,21 @@
  	</tr>
  	<tr>
 <%-- 		<td><jstl:out value="${query7}"></jstl:out></td> --%>
+=======
+ 		<jstl:out value="${query7Header}"></jstl:out>
+	</caption>
+ 	<tr>
+ 		<th><jstl:out value="${memberHeader}"></jstl:out></th>
+ 	</tr>
+ 	<tr>
+ 		<td><jstl:out value="${query7}"></jstl:out></td>
+>>>>>>> 871bb354ac7e8bcbc760e1deb608c79b1a734e16
 	</tr>
 </table>
 <br />
 
 <!-- Query 8  -->
+<<<<<<< HEAD
 <!-- <table> -->
 <!-- 	<caption> -->
 <%-- 		<jstl:out value="${query8Header}"></jstl:out> --%>
@@ -191,3 +204,23 @@
 <!-- 	</tr> -->
 <!-- </table> -->
 <!-- <br /> -->
+=======
+<table>
+	<caption>
+ 		<jstl:out value="${query8Header}"></jstl:out>
+ 	</caption>
+ 	<tr> 
+ 		<th><jstl:out value="${positionHeader}"></jstl:out></th>
+ 	</tr> 
+ 	<tr>
+ 		<td><jstl:out value="${query8a}"></jstl:out></td>
+ 	</tr>
+ 	<tr> 
+ 		<th><jstl:out value="${enrolsHeader}"></jstl:out></th>
+ 	</tr> 
+ 	<tr>
+ 		<td><jstl:out value="${query8b}"></jstl:out></td>
+ 	</tr>
+ </table>
+<br />
+>>>>>>> 871bb354ac7e8bcbc760e1deb608c79b1a734e16
