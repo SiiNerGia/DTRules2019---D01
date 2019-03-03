@@ -208,9 +208,9 @@ public class AdministratorService {
 //		return this.adminRepository.query7();
 //	}
 
-	public Integer query8(final Integer id) {
-		return this.adminRepository.query8(id);
-	}
+//	public Integer query8(final Integer id) {
+//		return this.adminRepository.query8(id);
+//	}
 
 	// 28.2 Spammers procedure--------------------------------------------------------------------
 	public void computeSpammers() {

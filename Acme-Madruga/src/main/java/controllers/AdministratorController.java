@@ -31,7 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
-import domain.Position;
 import domain.Procession;
 import services.ActorService;
 import services.AdministratorService;
@@ -177,11 +176,11 @@ public class AdministratorController extends AbstractController {
 		// final Double query6 = this.administratorService.query6();
 		//final Collection<Member> query7 = this.administratorService.query7();
 
-		final Collection<Position> query8a = this.positionService.findAll();
-		final Collection<Integer> query8b = null;
-
-		for (final Position p : query8a)
-			query8b.add(this.administratorService.query8(p.getId()));
+//		final Collection<Position> query8a = this.positionService.findAll();
+//		final Collection<Integer> query8b = null;
+//
+//		for (final Position p : query8a)
+//			query8b.add(this.administratorService.query8(p.getId()));
 
 		result = new ModelAndView("administrator/dashboard");
 
@@ -223,8 +222,8 @@ public class AdministratorController extends AbstractController {
 		
 		//result.addObject("query7", query7);
 
-		result.addObject("query8a", query8a);
-		result.addObject("query8b", query8b);
+//		result.addObject("query8a", query8a);
+//		result.addObject("query8b", query8b);
 
 		return result;
 	}
