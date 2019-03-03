@@ -12,16 +12,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Actor;
-import domain.Administrator;
-import domain.Brotherhood;
-import domain.Message;
-import domain.MessageBox;
-import domain.Procession;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
+import domain.Member;
+import domain.Message;
+import domain.MessageBox;
+import domain.Procession;
 
 @Service
 @Transactional
@@ -29,36 +30,37 @@ public class AdministratorService {
 
 	// Manage Repository
 	@Autowired
-	private AdministratorRepository adminRepository;
+	private AdministratorRepository	adminRepository;
 
 	// Supporting services
 	@Autowired
-	private ConfigurationsService configurationsService;
+	private ConfigurationsService	configurationsService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private MessageBoxService messageBoxService;
+	private MessageBoxService		messageBoxService;
 
 	@Autowired
-	private MessageService messageService;
+	private MessageService			messageService;
+
 
 	/*************************************
 	 * CRUD methods
 	 ********************************/
 	public Administrator create() {
 		// Initialice
-		UserAccount userAccount = new UserAccount();
-		Collection<Authority> authorities = new ArrayList<Authority>();
-		Authority authority = new Authority();
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		final Authority authority = new Authority();
 		authority.setAuthority(Authority.ADMIN);
 		authorities.add(authority);
 		userAccount.setAuthorities(authorities);
 
-		Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
+		final Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
 
-		Administrator admin = new Administrator();
+		final Administrator admin = new Administrator();
 		admin.setUserAccount(userAccount);
 		admin.setMessageBoxes(boxes);
 		admin.setIsSpammer(false);
@@ -159,27 +161,31 @@ public class AdministratorService {
 	}
 
 	public Collection<Brotherhood> query2() {
-		Collection<Brotherhood> result = this.adminRepository.query2();
+		final Collection<Brotherhood> result = this.adminRepository.query2();
 		return result;
 	}
 
 	public Collection<Brotherhood> query3() {
-		Collection<Brotherhood> result = this.adminRepository.query3();
+		final Collection<Brotherhood> result = this.adminRepository.query3();
 		return result;
 	}
 
 	public Collection<Double> query4() {
-		Collection<Double> result = this.adminRepository.query4();
+		final Collection<Double> result = this.adminRepository.query4();
 		return result;
 	}
 
 	public Collection<Procession> query5() {
 		Collection<Procession> result;
-		Calendar c = new GregorianCalendar();
+		final Calendar c = new GregorianCalendar();
 		c.add(Calendar.DATE, 30);
-		Date date = c.getTime();
+		final Date date = c.getTime();
 		result = this.adminRepository.query5(date);
 		return result;
+	}
+
+	public Collection<Member> query7() {
+		return this.adminRepository.query7();
 	}
 
 	// 28.2 Spammers procedure--------------------------------------------------------------------
@@ -187,26 +193,26 @@ public class AdministratorService {
 		Actor principal;
 		Collection<Message> messages;
 		int spamMessages;
-		Collection<Actor> users = this.actorService.findAll();
-		Collection<String> spamWords = this.configurationsService.getConfiguration().getSpamWords();
+		final Collection<Actor> users = this.actorService.findAll();
+		final Collection<String> spamWords = this.configurationsService.getConfiguration().getSpamWords();
 
 		// Make sure that the principal is an Admin
 		principal = this.findByPrincipal();
 		Assert.isInstanceOf(Administrator.class, principal);
 
-		for (Actor user : users) {
+		for (final Actor user : users) {
 			spamMessages = 0;
 			messages = this.messageService.findAllBySender(user.getId());
-			if (messages != null && !messages.isEmpty()) { // puede ser null
-				for (Message message : messages) {
-					for (String spamWord : spamWords) {
+			if ((messages != null) && !messages.isEmpty()) { // puede ser null
+				for (final Message message : messages) {
+					for (final String spamWord : spamWords) {
 						if (message.getBody().contains(spamWord) || message.getSubject().contains(spamWord)) {
 							spamMessages++;
 						}
 					}
 				}
 			}
-			if (spamMessages != 0 && spamMessages >= messages.size() * 0.1) {
+			if ((spamMessages != 0) && (spamMessages >= (messages.size() * 0.1))) {
 				user.setIsSpammer(true);
 			}
 		}
@@ -225,7 +231,7 @@ public class AdministratorService {
 
 	// 28.5 Ban an actor
 	// ----------------------------------------------------------------
-	public Actor banAnActor(Actor actor) {
+	public Actor banAnActor(final Actor actor) {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getIsSpammer());
 
@@ -243,7 +249,7 @@ public class AdministratorService {
 
 	// 28.6 Unbans an actor, which means that his or her user account is
 	// re-activated
-	public Actor unBanAnActor(Actor actor) {
+	public Actor unBanAnActor(final Actor actor) {
 		Assert.notNull(actor);
 		// Assert.notNull(actor.getUsername());
 
@@ -271,27 +277,27 @@ public class AdministratorService {
 		actors = this.actorService.findAll();
 		actors.remove(principal);
 
-		for (Actor actor : actors) {
+		for (final Actor actor : actors) {
 			messages = this.messageService.findAllBySender(actor.getId());
 			actor.setScore(this.computeScore(messages));
 			this.actorService.save(actor);
 		}
 	}
 
-	private Double computeScore(Collection<Message> messages) {
+	private Double computeScore(final Collection<Message> messages) {
 		final Collection<String> positiveWords = this.configurationsService.getConfiguration().getPositiveWords();
 		final Collection<String> negativeWords = this.configurationsService.getConfiguration().getNegativeWords();
 
 		Double positiveWordsValue = 0.0;
 		Double negativeWordsValue = 0.0;
 
-		for (Message message : messages) {
-			for (String positiveWord : positiveWords) {
+		for (final Message message : messages) {
+			for (final String positiveWord : positiveWords) {
 				if (message.getBody().contains(positiveWord) || message.getSubject().contains(positiveWord)) {
 					positiveWordsValue += 1.0;
 				}
 			}
-			for (String negativeWord : negativeWords) {
+			for (final String negativeWord : negativeWords) {
 				if (message.getBody().contains(negativeWord) || message.getSubject().contains(negativeWord)) {
 					negativeWordsValue += 1.0;
 				}
@@ -300,10 +306,11 @@ public class AdministratorService {
 		}
 
 		// check for NaN values
-		if (positiveWordsValue + negativeWordsValue == 0 || positiveWordsValue - negativeWordsValue == 0)
+		if (((positiveWordsValue + negativeWordsValue) == 0) || ((positiveWordsValue - negativeWordsValue) == 0)) {
 			return 0.0;
-		else
+		} else {
 			return (positiveWordsValue - negativeWordsValue) / (positiveWordsValue + negativeWordsValue);
+		}
 
 	}
 
@@ -364,8 +371,7 @@ public class AdministratorService {
 		Assert.notNull(index);
 		Assert.isTrue(this.configurationsService.getConfiguration().getPositiveWords().contains(word) != true);
 
-		final ArrayList<String> words = new ArrayList<String>(
-				this.configurationsService.getConfiguration().getPositiveWords());
+		final ArrayList<String> words = new ArrayList<String>(this.configurationsService.getConfiguration().getPositiveWords());
 		words.set(index, word);
 
 		this.configurationsService.getConfiguration().setPositiveWords(words);
@@ -410,8 +416,7 @@ public class AdministratorService {
 		Assert.notNull(index);
 		Assert.isTrue(this.configurationsService.getConfiguration().getNegativeWords().contains(word) != true);
 
-		final ArrayList<String> words = new ArrayList<String>(
-				this.configurationsService.getConfiguration().getNegativeWords());
+		final ArrayList<String> words = new ArrayList<String>(this.configurationsService.getConfiguration().getNegativeWords());
 		words.set(index, word);
 
 		this.configurationsService.getConfiguration().setNegativeWords(words);
