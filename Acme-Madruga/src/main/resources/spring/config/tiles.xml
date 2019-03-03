@@ -18,6 +18,7 @@
 		<value>/views/welcome/tiles.xml</value>
 
 		<value>/views/administrator/tiles.xml</value>
+		<value>/views/area/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/brotherhood/tiles.xml</value>
 		<value>/views/procession/tiles.xml</value>

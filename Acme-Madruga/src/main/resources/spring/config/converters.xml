@@ -14,6 +14,9 @@
 	<util:list id="converters">
 		<bean class="converters.AdministratorToStringConverter" />
 		<bean class="converters.StringToAdministratorConverter" />
+		
+		<bean class="converters.AreaToStringConverter" />
+		<bean class="converters.StringToAreaConverter" />
 
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.StringToAuthorityConverter" />

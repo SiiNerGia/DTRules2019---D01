@@ -1,5 +1,5 @@
 
-package administrator;
+package controllers.administrator;
 
 import java.util.List;
 

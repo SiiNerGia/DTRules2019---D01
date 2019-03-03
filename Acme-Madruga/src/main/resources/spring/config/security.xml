@@ -61,6 +61,7 @@
 		<security:intercept-url pattern="/administrator/score.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/administrator/computeScore.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/administrator/computeSpammers.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/area/administrator/**" access="hasRole('ADMIN')" />
 
 		<!-- BROTHERHOOD -->
 		<security:intercept-url pattern="/brotherhood/create.do" access="isAnonymous()" />
@@ -77,10 +78,10 @@
 		<security:intercept-url pattern="/procession/brotherhood/delete.do" access="hasRole('BROTHERHOOD')" />	
 		
 		<!-- POSITION -->
-		<security:intercept-url pattern="/position/admin/list.do" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/position/admin/create.do" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/position/admin/edit.do" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/position/admin/delete.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/list.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/create.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/edit.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/position/administrator/delete.do" access="hasRole('ADMIN')" />
 		
 		<!--  MEMBER -->
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
