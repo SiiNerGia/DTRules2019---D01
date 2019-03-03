@@ -188,6 +188,10 @@ public class AdministratorService {
 		return this.adminRepository.query7();
 	}
 
+	public Integer query8(final Integer id) {
+		return this.adminRepository.query8(id);
+	}
+
 	// 28.2 Spammers procedure--------------------------------------------------------------------
 	public void computeSpammers() {
 		Actor principal;
@@ -203,18 +207,13 @@ public class AdministratorService {
 		for (final Actor user : users) {
 			spamMessages = 0;
 			messages = this.messageService.findAllBySender(user.getId());
-			if ((messages != null) && !messages.isEmpty()) { // puede ser null
-				for (final Message message : messages) {
-					for (final String spamWord : spamWords) {
-						if (message.getBody().contains(spamWord) || message.getSubject().contains(spamWord)) {
+			if ((messages != null) && !messages.isEmpty())
+				for (final Message message : messages)
+					for (final String spamWord : spamWords)
+						if (message.getBody().contains(spamWord) || message.getSubject().contains(spamWord))
 							spamMessages++;
-						}
-					}
-				}
-			}
-			if ((spamMessages != 0) && (spamMessages >= (messages.size() * 0.1))) {
+			if ((spamMessages != 0) && (spamMessages >= (messages.size() * 0.1)))
 				user.setIsSpammer(true);
-			}
 		}
 	}
 
@@ -292,25 +291,20 @@ public class AdministratorService {
 		Double negativeWordsValue = 0.0;
 
 		for (final Message message : messages) {
-			for (final String positiveWord : positiveWords) {
-				if (message.getBody().contains(positiveWord) || message.getSubject().contains(positiveWord)) {
+			for (final String positiveWord : positiveWords)
+				if (message.getBody().contains(positiveWord) || message.getSubject().contains(positiveWord))
 					positiveWordsValue += 1.0;
-				}
-			}
-			for (final String negativeWord : negativeWords) {
-				if (message.getBody().contains(negativeWord) || message.getSubject().contains(negativeWord)) {
+			for (final String negativeWord : negativeWords)
+				if (message.getBody().contains(negativeWord) || message.getSubject().contains(negativeWord))
 					negativeWordsValue += 1.0;
-				}
-			}
 
 		}
 
 		// check for NaN values
-		if (((positiveWordsValue + negativeWordsValue) == 0) || ((positiveWordsValue - negativeWordsValue) == 0)) {
+		if (((positiveWordsValue + negativeWordsValue) == 0) || ((positiveWordsValue - negativeWordsValue) == 0))
 			return 0.0;
-		} else {
+		else
 			return (positiveWordsValue - negativeWordsValue) / (positiveWordsValue + negativeWordsValue);
-		}
 
 	}
 
