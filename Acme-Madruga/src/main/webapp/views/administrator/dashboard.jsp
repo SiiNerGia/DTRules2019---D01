@@ -46,7 +46,48 @@
 <!--  Custom table style -->
 <head>
 <link rel="stylesheet" href="styles/tablas.css" type="text/css">
+<link rel="stylesheet" href="styles/charts.css" type="text/css">
 </head>
+
+
+
+<!-- Charts -->
+<div class="chart-container">
+	<div class="pie-chart-container">
+		<canvas id="pie-chartcanvas-1"></canvas>
+	</div>
+</div>
+
+<script>
+$(document).ready(function () {
+	var ctx1 = $("#pie-chartcanvas-1");
+	
+	var data1 = {
+		labels: ["Spammers", "Not Spammers"],
+		datasets: [
+			{
+				label: "Acme-Madruga",
+				data: [${spammers}, ${notSpammers}],
+				backgroundColor: [
+					"#0000FF",
+					"#FF0000"
+				],
+				borderColor: ["#000000"],
+				borderWidth: [1]
+			}
+		]
+	};
+	
+	
+	var chart1 = new Chart(ctx1, {
+		type: "pie",
+		data: data1,
+		options: {}
+	});
+});
+
+
+</script>
 
 
 <!-- C level -->
@@ -165,18 +206,18 @@
 <!-- <br /> -->
 
 <!-- Query 7  -->
-<table>
-	<caption>
-<%-- 		<jstl:out value="${query7Header}"></jstl:out> --%>
-	</caption>
- 	<tr>
-<%-- 		<th><jstl:out value="${ratioHeader}"></jstl:out></th> --%>
- 	</tr>
- 	<tr>
-<%-- 		<td><jstl:out value="${query7}"></jstl:out></td> --%>
-	</tr>
-</table>
-<br />
+<!-- <table> -->
+<!-- 	<caption> -->
+<%-- <%-- 		<jstl:out value="${query7Header}"></jstl:out> --%> --%>
+<!-- 	</caption> -->
+<!--  	<tr> -->
+<%-- <%-- 		<th><jstl:out value="${ratioHeader}"></jstl:out></th> --%> --%>
+<!--  	</tr> -->
+<!--  	<tr> -->
+<%-- <%-- 		<td><jstl:out value="${query7}"></jstl:out></td> --%> --%>
+<!-- 	</tr> -->
+<!-- </table> -->
+<!-- <br /> -->
 
 <!-- Query 8  -->
 <!-- <table> -->
@@ -190,4 +231,16 @@
 <%-- 		<td><jstl:out value="${query8}"></jstl:out></td> --%>
 <!-- 	</tr> -->
 <!-- </table> -->
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- <br /> -->

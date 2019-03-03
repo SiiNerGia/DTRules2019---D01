@@ -28,16 +28,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Administrator;
+import domain.Brotherhood;
+import domain.Procession;
 import services.ActorService;
 import services.AdministratorService;
 import services.ConfigurationsService;
 import services.MessageBoxService;
 import utilities.Md5;
-import domain.Actor;
-import domain.Administrator;
-import domain.Brotherhood;
-import domain.Member;
-import domain.Procession;
 
 @Controller
 @RequestMapping("/administrator")
@@ -168,14 +167,15 @@ public class AdministratorController extends AbstractController {
 		ModelAndView result;
 
 		// Queries
-		final Object[] query1 = this.administratorService.query1();
-		final Collection<Brotherhood> query2 = this.administratorService.query2();
-		final Collection<Brotherhood> query3 = this.administratorService.query3();
-		final Collection<Double> query4 = this.administratorService.query4();
-		final Collection<Procession> query5 = this.administratorService.query5();
-		// final Double query6 = this.administratorService.query6();
-		final Collection<Member> query7 = this.administratorService.query7();
-		// final Double query8 = this.administratorService.query8();
+		Object[] query1 = this.administratorService.query1();
+		Collection<Brotherhood> query2 = this.administratorService.query2();
+		Collection<Brotherhood> query3 = this.administratorService.query3();
+		Collection<Double> query4 = this.administratorService.query4();
+		Collection<Procession> query5 = this.administratorService.query5();
+		// Double query6 = this.administratorService.query6();
+		// Collection<Member> query7 = this.administratorService.query7();
+		// Double query8 = this.administratorService.query8();
+		
 
 		result = new ModelAndView("administrator/dashboard");
 
@@ -185,11 +185,40 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query4", query4);
 		result.addObject("query5", query5);
 		// result.addObject("query6", query6);
-		result.addObject("query7", query7);
+		// result.addObject("query7", query7);
 		// result.addObject("query8", query8);
+		
+		// Charts
+		
+//		int[] values = this.administratorService.querySpammersGetValues();
+//		
+//		PieOptions options = new PieOptions();
+//		options.setResponsive(true).setTitle(new Title()
+//								   .setText("Spammers Pie")
+//								   .setDisplay(true));
+//		
+//		PieDataset dataset = new PieDataset().setData(values)
+//											 .addBackgroundColors(Color.RED, Color.BLUE)
+//											 .setBorderWidth(4)
+//											 .setBorderColor(Color.BLACK);
+//		
+//		PieData data = new PieData().addLabels("Spammers", "Not Spammers")
+//									.addDataset(dataset);
+//		String pieChart = new PieChart(data, options).toJson();
+//		
+//		result.addObject("pieChart", pieChart);
+		
+		int spammers = this.administratorService.queryGetSpammers();
+		int notSpammers = this.administratorService.queryGetNotSpammers();
+		
+		
+		result.addObject("spammers", spammers);
+		result.addObject("notSpammers", notSpammers);
+		
 
 		return result;
 	}
+	
 
 	/**
 	 * 
