@@ -7,7 +7,6 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.MemberService;
@@ -46,51 +45,61 @@ public class MemberController extends AbstractController {
 	public ModelAndView save(final MemberForm memberForm, final BindingResult binding) {
 		ModelAndView result;
 		String password;
-		Member member;
 
-		member = this.memberService.reconstruct(memberForm, binding);
+		final Member member = this.memberService.reconstruct(memberForm, binding);
 
 		if (binding.hasErrors())
 
-			result = this.createEditModelAndView(member);
+			result = this.createEditModelAndView(memberForm);
 		else
 			try {
 				password = Md5.encodeMd5(member.getUserAccount().getPassword());
 				member.getUserAccount().setPassword(password);
 				this.memberService.save(member);
-				result = new ModelAndView("redirect:/**"); //TODO: mirar a donde hay que redireccionar esto
+				result = new ModelAndView("redirect:/"); //TODO: mirar a donde hay que redireccionar esto
 
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(member, "member.commit.error");
+				result = this.createEditModelAndView(memberForm, "member.commit.error");
 			}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int memberId) {
+	public ModelAndView edit() {
 		final ModelAndView result;
 		Member member;
+		member = this.memberService.findByPrincipal();
 
-		member = this.memberService.findOne(memberId);
 		Assert.notNull(member);
-		result = this.createEditModelAndView(member);
+
+		final MemberForm memberForm = new MemberForm();
+
+		memberForm.setAddress(member.getAddress());
+		memberForm.setEmail(member.getEmail());
+		memberForm.setMiddleName(member.getMiddleName());
+		memberForm.setName(member.getName());
+		memberForm.setPhoneNumber(member.getPhoneNumber());
+		memberForm.setPhoto(member.getPhoto());
+		memberForm.setSurname(member.getSurname());
+		memberForm.setUserAccount(member.getUserAccount());
+
+		result = this.createEditModelAndView(memberForm);
 
 		return result;
 	}
-
-	protected ModelAndView createEditModelAndView(final Member member) {
+	protected ModelAndView createEditModelAndView(final MemberForm memberForm) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(member, null);
+		result = this.createEditModelAndView(memberForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Member member, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final MemberForm memberForm, final String messageCode) {
 		final ModelAndView result;
 
 		result = new ModelAndView("member/create");
-		result.addObject("member", member);
+		result.addObject("memberForm", memberForm);
 
 		result.addObject("message", messageCode);
 

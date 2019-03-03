@@ -15,6 +15,7 @@ import repositories.MemberRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Brotherhood;
 import domain.Dropout;
 import domain.Enrol;
 import domain.Member;
@@ -106,7 +107,13 @@ public class MemberService {
 
 
 	public Member reconstruct(final MemberForm memberForm, final BindingResult binding) {
-		final Member result = this.create();
+		Member result = new Member();
+		try {
+			result = this.findByPrincipal();
+		} catch (final IllegalArgumentException a) {
+			result = this.create();
+		}
+
 		result.getUserAccount().setPassword(memberForm.getUserAccount().getPassword());
 		result.getUserAccount().setUsername(memberForm.getUserAccount().getUsername());
 		result.setUsername(memberForm.getUserAccount().getUsername());
@@ -126,7 +133,6 @@ public class MemberService {
 
 		return result;
 	}
-
 	public Member findByUserAccount(final UserAccount userAccount) {
 		Assert.notNull(userAccount);
 
@@ -153,5 +159,11 @@ public class MemberService {
 		Assert.notNull(username);
 
 		return this.memberRepository.findByUserName(username);
+	}
+
+	public Collection<Member> findByBrotherhood(final Brotherhood brotherhood) {
+		final Collection<Member> result = this.memberRepository.findByBrotherhood(brotherhood.getId());
+		Assert.notNull(result);
+		return result;
 	}
 }
