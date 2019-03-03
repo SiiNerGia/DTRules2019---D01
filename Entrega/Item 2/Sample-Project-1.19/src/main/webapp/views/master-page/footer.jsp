@@ -17,3 +17,7 @@
 <hr />
 
 <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Sample Co., Inc.</b>
+
+<a href="terms.do" target="_blank"><spring:message code="masterpage.terms"/></a>. 
+
+ <a href="cookies.do" target="_blank"><spring:message code="masterpage.cookies"/></a>.
