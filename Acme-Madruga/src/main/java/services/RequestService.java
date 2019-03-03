@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import repositories.RequestRepository;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Member;
+import domain.Message;
 import domain.Procession;
 import domain.Request;
 
@@ -31,6 +33,9 @@ public class RequestService {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private MessageService		messageService;
 
 
 	/************************************* CRUD methods ********************************/
@@ -130,6 +135,24 @@ public class RequestService {
 		}
 
 		return result;
+	}
+
+	public void automaticNotification(final Request request, final Request old) {
+		if (!old.getStatus().toString().equals(request.getStatus().toString())) {
+			final Message message = this.messageService.create();
+			message.setBody("The brotherhood " + request.getProcession().getBrotherhood().getTitle() + " changed the status of your request to march in " + request.getProcession().getTitle() + " from "
+				+ old.getStatus().toString().toLowerCase(Locale.ENGLISH) + " to " + request.getStatus().toString().toLowerCase(Locale.ENGLISH) + ".");
+
+			message.setIsNotification(true);
+			message.getMessageBoxes().add(request.getMember().getMessageBox("in"));
+			message.setPriority("MEDIUM");
+			message.getRecipients().add(request.getMember());
+
+			final Message send = this.messageService.save(message);
+
+			request.getMember().getMessageBox("in").addMessage(send);
+		}
+
 	}
 
 }
