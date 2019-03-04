@@ -158,12 +158,12 @@ public class RequestController extends AbstractController {
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
 				System.out.println(oops.getCause());
-				result = this.createEditModelAndView(request);
+				result = this.editModelAndView(request);
 
 				if (oops instanceof DataIntegrityViolationException)
-					result = this.createEditModelAndView(request, "request.commit.username");
+					result = this.editModelAndView(request, "request.commit.username");
 				else
-					result = this.createEditModelAndView(request, "request.commit.error");
+					result = this.editModelAndView(request, "request.commit.error");
 			}
 		return result;
 	}

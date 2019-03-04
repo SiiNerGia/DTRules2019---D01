@@ -70,8 +70,7 @@
     </security:authorize>
 
 	<%-- Buttons --%>
-	<input type="submit" name="save"
-		value="<spring:message code="request.save"/>"/>
+	<input type="submit" name="save" value="<spring:message code="request.save"/>" />
 	
 	<acme:cancel code="request.cancel" url="/" />
 </form:form>
