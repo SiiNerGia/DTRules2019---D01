@@ -86,7 +86,6 @@
 		<!--  MEMBER -->
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/edit.do" access="hasRole('MEMBER')" />
-		<security:intercept-url pattern="/member/create.do" access="hasRole('MEMBER')" />
 
 
 		<!-- REQUEST -->
