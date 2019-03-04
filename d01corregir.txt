@@ -1,8 +1,5 @@
-8.1 para registrarte como member tienes que logearte
 8.1 register member da panic
 9.2 editar datos member da panic
-10.1 float list da panic
-10.1 float list no debe salir en la nav-bar sin estar logeado
 10.3 No esta hecho
 10.6 no funciona, no entra a la vista
 11.1 No funciona, ni la lista ni create ni nada
