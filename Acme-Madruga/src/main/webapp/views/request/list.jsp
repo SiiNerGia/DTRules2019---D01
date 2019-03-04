@@ -10,7 +10,7 @@
 
    <security:authorize access="hasRole('MEMBER')">
         <display:column>
-        <jstl:if test="${row.status.value eq 'PENDING'}">
+        <jstl:if test="${row.status eq 'PENDING'}">
           <a href="request/member/delete.do?requestId=${row.id}">
             <spring:message code="request.delete"/>
           </a>
@@ -20,7 +20,7 @@
 
     <security:authorize access="hasRole('BROTHERHOOD')">
         <display:column>
-        <jstl:if test="${row.status.value eq 'PENDING'}">
+        <jstl:if test="${row.status eq 'PENDING'}">
           <a href="request/brotherhood/edit.do?requestId=${row.id}">
             <spring:message code="request.edit"/>
           </a>
@@ -46,10 +46,10 @@
 
 	<!-- Member -->
 	<spring:message code="request.member.name" var="memberHeader" />
-	<display:column property="member" title="${memberHeader}" />
+	<display:column property="member.name" title="${memberHeader}" />
 
 	<!-- Procession -->
 	<spring:message code="request.procession.ticker" var="processionHeader" />
-	<display:column property="procession" title="${processionHeader}" />
+	<display:column property="procession.ticker" title="${processionHeader}" />
 	
 </display:table>
