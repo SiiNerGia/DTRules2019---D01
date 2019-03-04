@@ -20,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
 import services.MemberService;
+import services.ProcessionService;
 import services.RequestService;
+import domain.Procession;
 import domain.Request;
 
 @Controller
@@ -36,6 +38,9 @@ public class RequestController extends AbstractController {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private ProcessionService	processionService;
+
 
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
@@ -50,11 +55,10 @@ public class RequestController extends AbstractController {
 
 		try {
 
-			if (this.memberService.findByPrincipal() != null) {
+			if (this.memberService.findByPrincipal() != null)
 				requests = this.memberService.findByPrincipal().getRequests();
-			} else if (this.brotherhoodService.findByPrincipal() != null) {
+			else if (this.brotherhoodService.findByPrincipal() != null)
 				requests = this.requestService.findRequestByBrotherhood(this.brotherhoodService.findByPrincipal().getId());
-			}
 			result = new ModelAndView("request/list");
 			result.addObject("requests", requests);
 		} catch (final Throwable oops) {
@@ -87,13 +91,12 @@ public class RequestController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors) {
+			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			}
 
 			result = new ModelAndView("request/member/create");
 			result.addObject("request", request);
-		} else {
+		} else
 			try {
 				this.requestService.save(request);
 				result = new ModelAndView("request/list");
@@ -104,13 +107,11 @@ public class RequestController extends AbstractController {
 				System.out.println(oops.getCause());
 				result = this.createEditModelAndView(request);
 
-				if (oops instanceof DataIntegrityViolationException) {
+				if (oops instanceof DataIntegrityViolationException)
 					result = this.createEditModelAndView(request, "request.commit.username");
-				} else {
+				else
 					result = this.createEditModelAndView(request, "request.commit.error");
-				}
 			}
-		}
 		return result;
 	}
 
@@ -140,13 +141,12 @@ public class RequestController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors) {
+			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			}
 
 			result = new ModelAndView("request/member/create");
 			result.addObject("request", request);
-		} else {
+		} else
 			try {
 				/*** Descomentar cuando el metodo funcione, comprobar que se manda la notificacion ***/
 				//final Request old = this.requestService.findOne(request.getId());
@@ -160,13 +160,11 @@ public class RequestController extends AbstractController {
 				System.out.println(oops.getCause());
 				result = this.createEditModelAndView(request);
 
-				if (oops instanceof DataIntegrityViolationException) {
+				if (oops instanceof DataIntegrityViolationException)
 					result = this.createEditModelAndView(request, "request.commit.username");
-				} else {
+				else
 					result = this.createEditModelAndView(request, "request.commit.error");
-				}
 			}
-		}
 		return result;
 	}
 
@@ -198,9 +196,12 @@ public class RequestController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Request request, final String message) {
 		ModelAndView result;
 
+		final Collection<Procession> processions = this.processionService.findAll();
+
 		result = new ModelAndView("request/member/create");
 		result.addObject("request", request);
 		result.addObject("message", message);
+		result.addObject("processions", processions);
 
 		return result;
 	}
@@ -216,9 +217,12 @@ public class RequestController extends AbstractController {
 	protected ModelAndView editModelAndView(final Request request, final String message) {
 		ModelAndView result;
 
+		final Collection<Procession> processions = this.processionService.findAll();
+
 		result = new ModelAndView("request/brotherhood/edit");
 		result.addObject("request", request);
 		result.addObject("message", message);
+		result.addObject("processions", processions);
 
 		return result;
 	}
