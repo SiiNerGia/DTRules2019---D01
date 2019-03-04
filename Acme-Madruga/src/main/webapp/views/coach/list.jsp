@@ -30,7 +30,7 @@
 	<display:column property="description" title="${descriptionHeader}" />
 
 	<!-- Picture -->
-	<spring:message code="coach.picture" var="pictureHeader" />
-	<display:column property="picture" title="${pictureHeader}" />
+	<spring:message code="coach.pictures" var="picturesHeader" />
+	<display:column property="pictures" title="${picturesHeader}" />
 
 </display:table>
