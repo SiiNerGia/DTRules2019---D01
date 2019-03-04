@@ -36,7 +36,6 @@ import services.ActorService;
 import services.AdministratorService;
 import services.ConfigurationsService;
 import services.MessageBoxService;
-import services.PositionService;
 import utilities.Md5;
 
 
@@ -50,8 +49,8 @@ public class AdministratorController extends AbstractController {
 	@Autowired
 	private ActorService			actorService;
 
-	@Autowired
-	private PositionService			positionService;
+//	@Autowired
+//	private PositionService			positionService;
 
 	@Autowired
 	private MessageBoxService		messageBoxService;
@@ -168,13 +167,13 @@ public class AdministratorController extends AbstractController {
 		final ModelAndView result;
 
 		// Queries
-		final Object[] query1 = this.administratorService.query1();
-		final Collection<Brotherhood> query2 = this.administratorService.query2();
-		final Collection<Brotherhood> query3 = this.administratorService.query3();
-		final Collection<Double> query4 = this.administratorService.query4();
-		final Collection<Procession> query5 = this.administratorService.query5();
-		// final Double query6 = this.administratorService.query6();
-		//final Collection<Member> query7 = this.administratorService.query7();
+		Object[] query1 = this.administratorService.query1();
+		Collection<Brotherhood> query2 = this.administratorService.query2();
+		Collection<Brotherhood> query3 = this.administratorService.query3();
+		Collection<Double> query4 = this.administratorService.query4();
+		Collection<Procession> query5 = this.administratorService.query5();
+
+		Collection<Object> query7 = this.administratorService.query7();
 
 //		final Collection<Position> query8a = this.positionService.findAll();
 //		final Collection<Integer> query8b = null;
@@ -189,6 +188,7 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query3", query3);
 		result.addObject("query4", query4);
 		result.addObject("query5", query5);
+		result.addObject("query7", query7);
 
 		
 		// Charts

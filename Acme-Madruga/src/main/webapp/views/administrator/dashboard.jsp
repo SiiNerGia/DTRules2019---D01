@@ -8,9 +8,7 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -19,20 +17,22 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<spring:message code="administrator.dashboard.avg" var="avgHeader" />
-<spring:message code="administrator.dashboard.min" var="minHeader" />
-<spring:message code="administrator.dashboard.max" var="maxHeader" />
-<spring:message code="administrator.dashboard.std" var="stdHeader" />
-<spring:message code="administrator.dashboard.ratio" var="ratioHeader" />
-<spring:message code="administrator.dashboard.name" var="nameHeader" />
-<spring:message code="administrator.dashboard.email" var="emailHeader" />
-<spring:message code="administrator.brotherhood" var="brotherhoodlHeader" />
-<spring:message code="administrator.member" var="memberHeader" />
-<spring:message code="administrator.status" 	var="statusHeader" />
-<spring:message code="administrator.procession" var="processionHeader" />
-<spring:message code="administrator.moment" 	var="momentHeader" />
-<spring:message code="administrator.position" 	var="positionHeader" />
-<spring:message code="administrator.enrols" 	var="enrolsHeader" />
+<spring:message code="administrator.dashboard.avg" 	  var="avgHeader" />
+<spring:message code="administrator.dashboard.min" 	  var="minHeader" />
+<spring:message code="administrator.dashboard.max" 	  var="maxHeader" />
+<spring:message code="administrator.dashboard.std" 	  var="stdHeader" />
+<spring:message code="administrator.dashboard.ratio"  var="ratioHeader" />
+<spring:message code="administrator.dashboard.name"   var="nameHeader" />
+<spring:message code="administrator.dashboard.email"  var="emailHeader" />
+<spring:message code="administrator.brotherhood" 	  var="brotherhoodlHeader" />
+<spring:message code="administrator.member" 		  var="memberHeader" />
+<spring:message code="administrator.status" 		  var="statusHeader" />
+<spring:message code="administrator.procession" 	  var="processionHeader" />
+<spring:message code="administrator.moment" 		  var="momentHeader" />
+<spring:message code="administrator.position" 		  var="positionHeader" />
+<spring:message code="administrator.enrols" 		  var="enrolsHeader" />
+<spring:message code="administrator.approved.request" var="aprovedRequestHeader" />
+<spring:message code="administrator.total.request"    var="totalRequestHeader" />
 
 
 <spring:message code="administrator.dashboard.query1" var="query1Header" />
@@ -54,41 +54,39 @@
 
 
 <!-- Charts -->
-<div class="chart-container">
-	<div class="pie-chart-container">
-		<canvas id="pie-chartcanvas-1"></canvas>
-	</div>
-</div>
+<!-- <div class="chart-container"> -->
+<!-- 	<div class="pie-chart-container"> -->
+<!-- 		<canvas id="pie-chartcanvas-1"></canvas> -->
+<!-- 	</div> -->
+<!-- </div> -->
 
 <script>
-$(document).ready(function () {
-	var ctx1 = $("#pie-chartcanvas-1");
+// $(document).ready(function () {
+// 	var ctx1 = $("#pie-chartcanvas-1");
 	
-	var data1 = {
-		labels: ["Spammers", "Not Spammers"],
-		datasets: [
-			{
-				label: "Acme-Madruga",
-				data: [${spammers}, ${notSpammers}],
-				backgroundColor: [
-					"#0000FF",
-					"#FF0000"
-				],
-				borderColor: ["#000000"],
-				borderWidth: [1]
-			}
-		]
-	};
+// 	var data1 = {
+// 		labels: ["Spammers", "Not Spammers"],
+// 		datasets: [
+// 			{
+// 				label: "Acme-Madruga",
+// 				data: [${spammers}, ${notSpammers}],
+// 				backgroundColor: [
+// 					"#0000FF",
+// 					"#FF0000"
+// 				],
+// 				borderColor: ["#000000"],
+// 				borderWidth: [1]
+// 			}
+// 		]
+// 	};
 	
 	
-	var chart1 = new Chart(ctx1, {
-		type: "pie",
-		data: data1,
-		options: {}
-	});
-});
-
-
+// 	var chart1 = new Chart(ctx1, {
+// 		type: "pie",
+// 		data: data1,
+// 		options: {}
+// 	});
+// });
 </script>
 
 
@@ -188,6 +186,25 @@ $(document).ready(function () {
       <tr>
         	<td>${row.title}</td>
         	<td><fmt:formatDate value="${row.moment}" pattern="dd/MM/yyyy" /></td>
+      </tr>
+   </jstl:forEach>
+</table>
+
+<!-- Query 7  -->
+<table>
+	<caption>
+		<jstl:out value="${query7Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${memberHeader}"></jstl:out></th>
+		<th><jstl:out value="${aprovedRequestHeader}"></jstl:out></th>
+		<th><jstl:out value="${totalRequestHeader}"></jstl:out></th>
+	</tr>
+	<jstl:forEach items="${query7}" var="row">
+      <tr>
+        	<td>${row[0]}</td>
+        	<td>${row[1]}</td>
+        	<td>${row[2]}</td>
       </tr>
    </jstl:forEach>
 </table>

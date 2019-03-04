@@ -183,6 +183,10 @@ public class AdministratorService {
 		return result;
 	}
 	
+	public Collection<Object> query7() {
+		return this.adminRepository.query7();
+	}
+	
 	
 	
 	
@@ -204,9 +208,7 @@ public class AdministratorService {
 		return this.adminRepository.getAllNotSpammers();
 	}
 
-//	public Collection<Member> query7() {
-//		return this.adminRepository.query7();
-//	}
+
 
 //	public Integer query8(final Integer id) {
 //		return this.adminRepository.query8(id);
