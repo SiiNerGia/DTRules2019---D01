@@ -1,6 +1,7 @@
 
 package controllers.administrator;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -192,6 +193,27 @@ public class AreaAdministratorController extends AbstractController {
 				result.addObject("url", url);
 				result.addObject("areaId", areaId);
 			}
+		return result;
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+
+		Collection<Area> areas;
+
+		try {
+			areas = this.areaService.findAll();
+			result = new ModelAndView("area/administrator/list");
+			result.addObject("areas", areas);
+			result.addObject("uri", "area/administrator/list");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
 		return result;
 	}
 

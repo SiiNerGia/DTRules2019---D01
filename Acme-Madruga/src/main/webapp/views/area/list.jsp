@@ -31,3 +31,9 @@
 	<display:column property="picture" title="${pictureHeader}" />
 
 </display:table>
+
+  <security:authorize access="hasRole('ADMINISTRATOR')">
+	<a href=area/administrator/create.do><spring:message code="area.create" /></a>
+	<br>
+	
+</security:authorize>
