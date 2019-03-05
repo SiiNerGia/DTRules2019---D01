@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BrotherhoodService;
 import services.CoachService;
 import controllers.AbstractController;
 import domain.Coach;
@@ -29,10 +28,7 @@ import domain.Url;
 public class CoachBrotherhoodController extends AbstractController {
 
 	@Autowired
-	private CoachService		coachService;
-
-	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private CoachService	coachService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -63,8 +59,9 @@ public class CoachBrotherhoodController extends AbstractController {
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
 
-			result = new ModelAndView("coach/brotherhood/create");
-			result.addObject("coach", coach);
+			//result = new ModelAndView("coach/brotherhood/create");
+			//result.addObject("coach", coach);
+			result = this.createEditModelAndView(coach);
 		} else
 			try {
 				this.coachService.save(coach);
