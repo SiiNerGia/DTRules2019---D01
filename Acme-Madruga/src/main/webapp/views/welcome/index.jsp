@@ -18,4 +18,8 @@
 
 <p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
 
-<p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
+<p><spring:message code="welcome.greeting.current.time" /> ${moment}</p>
+
+<p><a href="<spring:url value='/misc/cookies.jsp'/>"><spring:message code="welcome.termsandconditions" /></a></p>
+
+<p><spring:message code="welcome.greeting.current.time" /> ${moment}</p>
