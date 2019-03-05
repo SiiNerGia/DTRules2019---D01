@@ -54,6 +54,8 @@ public class RequestService {
 
 		result.setStatus("PENDING");
 
+		result.setMember(this.memberService.findByPrincipal());
+
 		return result;
 	}
 

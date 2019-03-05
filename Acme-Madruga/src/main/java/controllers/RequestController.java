@@ -115,7 +115,7 @@ public class RequestController extends AbstractController {
 		} else
 			try {
 				this.requestService.save(request);
-				result = new ModelAndView("redirect:request/list.do");
+				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
 				System.out.println(request);
 				System.out.println(oops.getMessage());
@@ -167,7 +167,7 @@ public class RequestController extends AbstractController {
 				//final Request old = this.requestService.findOne(request.getId());
 				this.requestService.save(request);
 				//this.requestService.automaticNotification(request, old);
-				result = new ModelAndView("request/list");
+				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
 				System.out.println(request);
 				System.out.println(oops.getMessage());
