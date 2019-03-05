@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.BrotherhoodService;
 import services.MemberService;
 import services.ProcessionService;
 import services.RequestService;
+import domain.Actor;
+import domain.Brotherhood;
+import domain.Member;
 import domain.Procession;
 import domain.Request;
 
@@ -36,6 +40,9 @@ public class RequestController extends AbstractController {
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private ActorService		actorService;
 
 	@Autowired
 	private ProcessionService	processionService;
@@ -54,13 +61,15 @@ public class RequestController extends AbstractController {
 		Collection<Request> approvedRequests = null;
 		Collection<Request> rejectedRequests = null;
 
+		final Actor principal = this.actorService.findByPrincipal();
+
 		try {
 
-			if (this.memberService.findByPrincipal() != null) {
+			if (principal instanceof Member) {
 				pendingRequests = this.requestService.findRequestsByStatus("PENDING");
 				approvedRequests = this.requestService.findRequestsByStatus("APPROVED");
 				rejectedRequests = this.requestService.findRequestsByStatus("REJECTED");
-			} else if (this.brotherhoodService.findByPrincipal() != null) {
+			} else if (principal instanceof Brotherhood) {
 				pendingRequests = this.requestService.findRequestByBrotherhood("PENDING");
 				approvedRequests = this.requestService.findRequestByBrotherhood("APPROVED");
 				rejectedRequests = this.requestService.findRequestByBrotherhood("REJECTED");
@@ -78,7 +87,6 @@ public class RequestController extends AbstractController {
 
 		return result;
 	}
-
 	// Create ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/member/create", method = RequestMethod.GET)
 	public ModelAndView create() {
