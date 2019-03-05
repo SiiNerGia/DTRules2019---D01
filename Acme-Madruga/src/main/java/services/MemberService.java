@@ -107,13 +107,9 @@ public class MemberService {
 
 
 	public Member reconstruct(final MemberForm memberForm, final BindingResult binding) {
-		Member result = new Member();
-		try {
-			result = this.findByPrincipal();
-		} catch (final IllegalArgumentException a) {
-			result = this.create();
-		}
+		final Member result = this.create();
 
+		result.setUserAccount(memberForm.getUserAccount());
 		result.getUserAccount().setPassword(memberForm.getUserAccount().getPassword());
 		result.getUserAccount().setUsername(memberForm.getUserAccount().getUsername());
 		result.setUsername(memberForm.getUserAccount().getUsername());

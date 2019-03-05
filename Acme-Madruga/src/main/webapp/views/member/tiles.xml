@@ -12,7 +12,7 @@
 	</definition>
 	
 	
-	<definition name="member/edit" extends="master.page">
+	<definition name="member/member/edit" extends="master.page">
 		<put-attribute name="title" value="Edit Member" />
 		<put-attribute name="body" value="/views/member/create.jsp" />
 	</definition>

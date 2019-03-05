@@ -41,30 +41,49 @@ public class MemberController extends AbstractController {
 
 		return result;
 	}
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/member/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final MemberForm memberForm, final BindingResult binding) {
 		ModelAndView result;
 		String password;
 
-		final Member member = this.memberService.reconstruct(memberForm, binding);
+		//		Member usuario = memberService.findByPrincipal();
+		//		
+		//		usuario.setAddress(member.getAddress());
+		//		usuario.setEmail(member.getEmail());
+		//		usuario.setMiddleName(member.getMiddleName());
+		//		usuario.setName(member.getName());
+		//		usuario.setPhoneNumber(member.getPhoneNumber());
+		//		usuario.setSurname(member.getSurname());
+		//		usuario.setUsername(member.getUsername());
+		//		
+		//		
+		//		usuario.getUserAccount().setPassword(usuario.getUserAccount().getPassword());
+		//		usuario.getUserAccount().setUsername(member.getUserAccount().getUsername());
 
-		if (binding.hasErrors())
+		try {
 
-			result = this.createEditModelAndView(memberForm);
-		else
-			try {
+			final Member member = this.memberService.reconstruct(memberForm, binding);
+
+			if (binding.hasErrors())
+
+				result = this.createEditModelAndView(memberForm);
+
+			else {
+
+				// member.getUserAccount().setId(LoginService.getPrincipal().getId());
 				password = Md5.encodeMd5(member.getUserAccount().getPassword());
 				member.getUserAccount().setPassword(password);
 				this.memberService.save(member);
-				result = new ModelAndView("redirect:/"); //TODO: mirar a donde hay que redireccionar esto
+				result = new ModelAndView("redirect:/welcome/index"); //TODO: mirar a donde hay que redireccionar esto
 
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(memberForm, "member.commit.error");
 			}
+
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(memberForm, "member.commit.error");
+		}
 		return result;
 	}
-
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "member/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		final ModelAndView result;
 		Member member;
@@ -98,7 +117,7 @@ public class MemberController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final MemberForm memberForm, final String messageCode) {
 		final ModelAndView result;
 
-		result = new ModelAndView("member/create");
+		result = new ModelAndView("member/member/edit");
 		result.addObject("memberForm", memberForm);
 
 		result.addObject("message", messageCode);

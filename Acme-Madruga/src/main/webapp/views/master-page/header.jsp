@@ -134,7 +134,7 @@
 						<li><a href="administrator/update.do"><spring:message code="master.page.brotherhood.edit" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('MEMBER')">
-						<li><a href="member/edit.do"><spring:message code="master.page.member.edit" /></a></li>
+						<li><a href="member/member/edit.do"><spring:message code="master.page.member.edit" /></a></li>
 					</security:authorize>
 					
 					<!-- MessageBox -->
