@@ -32,6 +32,12 @@ public class RequestService {
 	private ActorService		actorService;
 
 	@Autowired
+	private MemberService		memberService;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
 	private MessageService		messageService;
 
 
@@ -72,15 +78,24 @@ public class RequestService {
 
 		// Principal must be a Member or a Brotherhood
 		principal = this.actorService.findByPrincipal();
+		Member member = null;
 
 		if (request.getId() != 0)
 			Assert.isInstanceOf(Brotherhood.class, principal);
-		else
+		else {
 			Assert.isInstanceOf(Member.class, principal);
+			member = this.memberService.findByPrincipal();
+		}
 
 		this.checkRequest(request);
 
-		return this.requestRepository.save(request);
+		final Request r = this.requestRepository.save(request);
+
+		if (member != null && !member.getRequests().contains(r))
+			member.getRequests().add(r);
+
+		return r;
+
 	}
 
 	public void delete(final int requestId) {
@@ -113,18 +128,38 @@ public class RequestService {
 		if (request.getStatus() == "ACCEPTED") {
 			if ((request.getAssignedColumn() < 0) || (request.getAssignedRow() < 0))
 				check = false;
-		} else if (request.getStatus() == "REJECTED")
+		} else if (request.getStatus() == "REJECTED") {
 			if (request.getReason() == null)
 				check = false;
+		} else if (request.getProcession() == null)
+			check = false;
 
 		Assert.isTrue(check);
 	}
 
-	public Collection<Request> findRequestByBrotherhood(final Brotherhood b) {
+	public Collection<Request> findRequestByBrotherhood(final String status) {
 		final Collection<Request> result = new ArrayList<Request>();
 
+		final Brotherhood b = this.brotherhoodService.findByPrincipal();
+
+		Assert.notNull(b);
+
 		for (final Procession p : b.getProcessions())
-			result.addAll(p.getRequests());
+			for (final Request r : p.getRequests())
+				if (r.getStatus().equals(status))
+					result.add(r);
+		return result;
+	}
+	public Collection<Request> findRequestsByStatus(final String status) {
+		final Collection<Request> result = new ArrayList<Request>();
+
+		final Member m = this.memberService.findByPrincipal();
+
+		Assert.notNull(m);
+
+		for (final Request r : m.getRequests())
+			if (r.getStatus().equals(status))
+				result.add(r);
 
 		return result;
 	}

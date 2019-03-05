@@ -1,7 +1,6 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -51,16 +50,25 @@ public class RequestController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Request> requests = new ArrayList<Request>();
+		Collection<Request> pendingRequests = null;
+		Collection<Request> approvedRequests = null;
+		Collection<Request> rejectedRequests = null;
 
 		try {
 
-			if (this.memberService.findByPrincipal() != null)
-				requests = this.memberService.findByPrincipal().getRequests();
-			else if (this.brotherhoodService.findByPrincipal() != null)
-				requests = this.requestService.findRequestByBrotherhood(this.brotherhoodService.findByPrincipal());
+			if (this.memberService.findByPrincipal() != null) {
+				pendingRequests = this.requestService.findRequestsByStatus("PENDING");
+				approvedRequests = this.requestService.findRequestsByStatus("APPROVED");
+				rejectedRequests = this.requestService.findRequestsByStatus("REJECTED");
+			} else if (this.brotherhoodService.findByPrincipal() != null) {
+				pendingRequests = this.requestService.findRequestByBrotherhood("PENDING");
+				approvedRequests = this.requestService.findRequestByBrotherhood("APPROVED");
+				rejectedRequests = this.requestService.findRequestByBrotherhood("REJECTED");
+			}
 			result = new ModelAndView("request/list");
-			result.addObject("requests", requests);
+			result.addObject("pendingRequests", pendingRequests);
+			result.addObject("approvedRequests", approvedRequests);
+			result.addObject("rejectedRequests", rejectedRequests);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -99,7 +107,7 @@ public class RequestController extends AbstractController {
 		} else
 			try {
 				this.requestService.save(request);
-				result = new ModelAndView("request/list");
+				result = new ModelAndView("redirect:request/list.do");
 			} catch (final Throwable oops) {
 				System.out.println(request);
 				System.out.println(oops.getMessage());
@@ -144,8 +152,7 @@ public class RequestController extends AbstractController {
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
 
-			result = new ModelAndView("request/member/create");
-			result.addObject("request", request);
+			result = this.editModelAndView(request);
 		} else
 			try {
 				/*** Descomentar cuando el metodo funcione, comprobar que se manda la notificacion ***/
