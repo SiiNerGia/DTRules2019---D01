@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
-import services.BrotherhoodService;
-import services.MemberService;
 import services.ProcessionService;
 import services.RequestService;
 import domain.Actor;
@@ -34,12 +32,6 @@ public class RequestController extends AbstractController {
 
 	@Autowired
 	private RequestService		requestService;
-
-	@Autowired
-	private MemberService		memberService;
-
-	@Autowired
-	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
 	private ActorService		actorService;

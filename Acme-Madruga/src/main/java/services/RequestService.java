@@ -96,6 +96,9 @@ public class RequestService {
 		if (member != null && !member.getRequests().contains(r))
 			member.getRequests().add(r);
 
+		if (!r.getProcession().getRequests().contains(r))
+			r.getProcession().getRequests().add(r);
+
 		return r;
 
 	}
@@ -127,11 +130,11 @@ public class RequestService {
 	public void checkRequest(final Request request) {
 		boolean check = true;
 
-		if (request.getStatus() == "ACCEPTED") {
-			if ((request.getAssignedColumn() < 0) || (request.getAssignedRow() < 0))
+		if (request.getStatus().equals("APPROVED")) {
+			if (request.getAssignedColumn() < 0 || request.getAssignedRow() < 0 || request.getAssignedColumn() == null || request.getAssignedRow() == null)
 				check = false;
-		} else if (request.getStatus() == "REJECTED") {
-			if (request.getReason() == null)
+		} else if (request.getStatus().equals("REJECTED")) {
+			if (request.getReason().isEmpty())
 				check = false;
 		} else if (request.getProcession() == null)
 			check = false;
