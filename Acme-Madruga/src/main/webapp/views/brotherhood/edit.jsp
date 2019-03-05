@@ -10,13 +10,8 @@
 
 <form:form action="brotherhood/edit.do" modelAttribute="brotherhood">
 
-	<%-- Hidden properties from handy worker--%>
+	<%-- Hidden properties from brotherhood--%>
 	<form:hidden path="id" />
-<%-- 	<form:hidden path="version" />
-	<form:hidden path="userAccount.Authorities" />
-	<form:hidden path="userAccount" />
-	<form:hidden path="processions" />
-	<form:hidden path="coaches" /> --%>
 	<form:hidden path="establishment" />
 	
 	<%-- Name --%>

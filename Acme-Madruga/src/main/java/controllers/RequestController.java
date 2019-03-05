@@ -1,7 +1,6 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BrotherhoodService;
-import services.MemberService;
+import services.ActorService;
 import services.ProcessionService;
 import services.RequestService;
+import domain.Actor;
+import domain.Brotherhood;
+import domain.Member;
 import domain.Procession;
 import domain.Request;
 
@@ -33,10 +34,7 @@ public class RequestController extends AbstractController {
 	private RequestService		requestService;
 
 	@Autowired
-	private MemberService		memberService;
-
-	@Autowired
-	private BrotherhoodService	brotherhoodService;
+	private ActorService		actorService;
 
 	@Autowired
 	private ProcessionService	processionService;
@@ -51,16 +49,27 @@ public class RequestController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Request> requests = new ArrayList<Request>();
+		Collection<Request> pendingRequests = null;
+		Collection<Request> approvedRequests = null;
+		Collection<Request> rejectedRequests = null;
+
+		final Actor principal = this.actorService.findByPrincipal();
 
 		try {
 
-			if (this.memberService.findByPrincipal() != null)
-				requests = this.memberService.findByPrincipal().getRequests();
-			else if (this.brotherhoodService.findByPrincipal() != null)
-				requests = this.requestService.findRequestByBrotherhood(this.brotherhoodService.findByPrincipal());
+			if (principal instanceof Member) {
+				pendingRequests = this.requestService.findRequestsByStatus("PENDING");
+				approvedRequests = this.requestService.findRequestsByStatus("APPROVED");
+				rejectedRequests = this.requestService.findRequestsByStatus("REJECTED");
+			} else if (principal instanceof Brotherhood) {
+				pendingRequests = this.requestService.findRequestByBrotherhood("PENDING");
+				approvedRequests = this.requestService.findRequestByBrotherhood("APPROVED");
+				rejectedRequests = this.requestService.findRequestByBrotherhood("REJECTED");
+			}
 			result = new ModelAndView("request/list");
-			result.addObject("requests", requests);
+			result.addObject("pendingRequests", pendingRequests);
+			result.addObject("approvedRequests", approvedRequests);
+			result.addObject("rejectedRequests", rejectedRequests);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -70,7 +79,6 @@ public class RequestController extends AbstractController {
 
 		return result;
 	}
-
 	// Create ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/member/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -99,7 +107,7 @@ public class RequestController extends AbstractController {
 		} else
 			try {
 				this.requestService.save(request);
-				result = new ModelAndView("request/list");
+				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
 				System.out.println(request);
 				System.out.println(oops.getMessage());
@@ -144,15 +152,14 @@ public class RequestController extends AbstractController {
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
 
-			result = new ModelAndView("request/member/create");
-			result.addObject("request", request);
+			result = this.editModelAndView(request);
 		} else
 			try {
 				/*** Descomentar cuando el metodo funcione, comprobar que se manda la notificacion ***/
 				//final Request old = this.requestService.findOne(request.getId());
 				this.requestService.save(request);
 				//this.requestService.automaticNotification(request, old);
-				result = new ModelAndView("request/list");
+				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
 				System.out.println(request);
 				System.out.println(oops.getMessage());
