@@ -60,16 +60,15 @@ public class CoachBrotherhoodController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors) {
+			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			}
 
 			result = new ModelAndView("coach/brotherhood/create");
 			result.addObject("coach", coach);
-		} else {
+		} else
 			try {
 				this.coachService.save(coach);
-				result = new ModelAndView("coach/list");
+				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
 				System.out.println(coach);
 				System.out.println(oops.getMessage());
@@ -77,13 +76,11 @@ public class CoachBrotherhoodController extends AbstractController {
 				System.out.println(oops.getCause());
 				result = this.createEditModelAndView(coach);
 
-				if (oops instanceof DataIntegrityViolationException) {
+				if (oops instanceof DataIntegrityViolationException)
 					result = this.createEditModelAndView(coach, "coach.commit.username");
-				} else {
+				else
 					result = this.createEditModelAndView(coach, "coach.commit.error");
-				}
 			}
-		}
 		return result;
 	}
 
@@ -113,7 +110,7 @@ public class CoachBrotherhoodController extends AbstractController {
 
 		try {
 			this.coachService.delete(coachId);
-			result = new ModelAndView("coach/list");
+			result = new ModelAndView("redirect:../list.do");
 		} catch (final Throwable oops) {
 			result = this.forbiddenOpperation();
 			return result;
@@ -148,12 +145,11 @@ public class CoachBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		try {
 			final Coach c = this.coachService.findOne(coachId);
-			for (final Url picture : c.getPictures()) {
+			for (final Url picture : c.getPictures())
 				if (picture.getLink().equals(link)) {
 					c.getPictures().remove(picture);
 					break;
 				}
-			}
 			result = this.createEditModelAndView(c);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
@@ -171,14 +167,13 @@ public class CoachBrotherhoodController extends AbstractController {
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors) {
+			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			}
 
 			result = new ModelAndView("coach/brotherhood/addPicture");
 			result.addObject("url", url);
 			result.addObject("coachId", coachId);
-		} else {
+		} else
 			try {
 				Coach c = this.coachService.findOne(coachId);
 				c.getPictures().add(url);
@@ -193,7 +188,6 @@ public class CoachBrotherhoodController extends AbstractController {
 				result.addObject("url", url);
 				result.addObject("coachId", coachId);
 			}
-		}
 		return result;
 	}
 

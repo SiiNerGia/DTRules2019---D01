@@ -58,7 +58,7 @@ public class RequestController extends AbstractController {
 			if (this.memberService.findByPrincipal() != null)
 				requests = this.memberService.findByPrincipal().getRequests();
 			else if (this.brotherhoodService.findByPrincipal() != null)
-				requests = this.requestService.findRequestByBrotherhood(this.brotherhoodService.findByPrincipal().getId());
+				requests = this.requestService.findRequestByBrotherhood(this.brotherhoodService.findByPrincipal());
 			result = new ModelAndView("request/list");
 			result.addObject("requests", requests);
 		} catch (final Throwable oops) {

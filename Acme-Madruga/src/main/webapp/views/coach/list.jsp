@@ -6,7 +6,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="coaches" id="row" requestURI="coaches/list.do" pagesize="5" class="displaytag">
+<display:table name="coaches" id="row" requestURI="coach/list.do" pagesize="5" class="displaytag">
 
    <security:authorize access="hasRole('BROTHERHOOD')">
         <display:column>

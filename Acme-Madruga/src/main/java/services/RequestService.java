@@ -121,10 +121,8 @@ public class RequestService {
 		Assert.isTrue(check);
 	}
 
-	public Collection<Request> findRequestByBrotherhood(final int brotherhoodId) {
+	public Collection<Request> findRequestByBrotherhood(final Brotherhood b) {
 		final Collection<Request> result = new ArrayList<Request>();
-
-		final Brotherhood b = this.brotherhoodService.findOne(brotherhoodId);
 
 		for (final Procession p : b.getProcessions())
 			result.addAll(p.getRequests());

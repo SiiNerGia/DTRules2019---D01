@@ -35,7 +35,7 @@
 
 				<spring:message code="coach.pictures.delete" var="deleteHeader" />
 				<display:column title="${deleteHeader}">
-					<a href="coach/brotherhood/deletePicture.do?link=${row.link}"><spring:message code="coach.picture.delete"/></a>
+					<a href="coach/brotherhood/deletePicture.do?link=${row.link}&coachId=${coach.id}"><spring:message code="coach.picture.delete"/></a>
 				</display:column>
 
 				<display:caption><spring:message code="coach.pictures"/></display:caption>
@@ -43,9 +43,11 @@
 		</jstl:if>
 	</jstl:if>
 	<br>
-	<a href="coach/brotherhood/addPicture.do?coachId=${coach.id}">
-		<spring:message code="coach.picture.create"/>
-	</a>
+	<jstl:if test="${coach.id!=0}">
+		<a href="coach/brotherhood/addPicture.do?coachId=${coach.id}">
+			<spring:message code="coach.picture.create"/>
+		</a>
+	</jstl:if>
 	<br>
 
 	<%-- Buttons --%>

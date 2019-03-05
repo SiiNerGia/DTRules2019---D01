@@ -1,38 +1,42 @@
+
 package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import domain.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.CoachRepository;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Coach;
-import repositories.CoachRepository;
+import domain.Url;
 
 @Service
 @Transactional
 public class CoachService {
-	
+
 	// Manage Repository
 
 	@Autowired
-	private CoachRepository coachRepository;
-	
+	private CoachRepository		coachRepository;
+
 	// Supporting services
 	@Autowired
-	private ActorService			actorService;
-	
-	
+	private ActorService		actorService;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
+
+
 	/************************************* CRUD methods ********************************/
 	public Coach create() {
 		Coach result;
 		Actor principal;
-		
+
 		result = new Coach();
 
 		// Principal must be a Brotherhood
@@ -40,60 +44,60 @@ public class CoachService {
 		Assert.isInstanceOf(Brotherhood.class, principal);
 
 		result.setPictures(new ArrayList<Url>());
-		
+
 		return result;
 	}
-	
-	public Coach findOne(int id) {
-		Coach result = this.coachRepository.findOne(id);
-		
+
+	public Coach findOne(final int id) {
+		final Coach result = this.coachRepository.findOne(id);
+
 		Assert.notNull(result);
-		
+
 		return result;
 	}
-	
+
 	public Collection<Coach> findAll() {
-		Collection<Coach> result = this.coachRepository.findAll();
+		final Collection<Coach> result = this.coachRepository.findAll();
 		//Assert.notNull(result);
-		
+
 		return result;
 	}
-	
-	
-	public Coach save(Coach coach) {
+
+	public Coach save(final Coach coach) {
 		Assert.notNull(coach);
 		Actor principal;
-		
+
 		// Principal must be a Brotherhood
 		principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Brotherhood.class, principal);
-		
-		return this.coachRepository.save(coach);
+
+		final Coach c = this.coachRepository.save(coach);
+
+		if (!this.brotherhoodService.findByPrincipal().getCoaches().contains(c))
+			this.brotherhoodService.findByPrincipal().getCoaches().add(c);
+
+		return c;
 	}
-	
-	
-	public void delete(int coachId) {
+	public void delete(final int coachId) {
 		Assert.isTrue(coachId != 0);
-		Coach coach = this.findOne(coachId);
+		final Coach coach = this.findOne(coachId);
 
 		Assert.notNull(coach);
 		Actor principal;
-		
+
 		// Principal must be a Brotherhood
 		principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Brotherhood.class, principal);
-		
-		Brotherhood brotherhood = (Brotherhood) principal;
-		Assert.isTrue(brotherhood.getCoaches().contains(coach));
-		
-		
-		this.coachRepository.delete(coach);
-		
-	}
-	
-	/************************************* Other business methods********************************/
 
-	
-	
+		final Brotherhood brotherhood = (Brotherhood) principal;
+		Assert.isTrue(brotherhood.getCoaches().contains(coach));
+
+		brotherhood.getCoaches().remove(coach);
+
+		this.coachRepository.delete(coach);
+
+	}
+
+	/************************************* Other business methods ********************************/
 
 }
