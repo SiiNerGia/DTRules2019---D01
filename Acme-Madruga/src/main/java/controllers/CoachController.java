@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.TypeMismatchException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.CoachService;
 import domain.Coach;
 
@@ -19,7 +21,10 @@ import domain.Coach;
 public class CoachController extends AbstractController {
 
 	@Autowired
-	private CoachService	coachService;
+	private CoachService		coachService;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -31,10 +36,12 @@ public class CoachController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Coach> coaches;
+		Collection<Coach> coaches = new ArrayList<Coach>();
 
 		try {
-			coaches = this.coachService.findAll();
+			if (this.brotherhoodService.findByPrincipal() != null)
+				coaches = this.brotherhoodService.findByPrincipal().getCoaches();
+
 			result = new ModelAndView("coach/list");
 			result.addObject("coaches", coaches);
 		} catch (final Throwable oops) {

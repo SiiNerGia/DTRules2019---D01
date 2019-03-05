@@ -99,6 +99,8 @@ public class RequestService {
 		final Member member = (Member) principal;
 		Assert.isTrue(member.getRequests().contains(request));
 
+		member.getRequests().remove(request);
+
 		this.requestRepository.delete(request);
 
 	}
