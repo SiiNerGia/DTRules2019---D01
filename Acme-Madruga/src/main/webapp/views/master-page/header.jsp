@@ -61,6 +61,12 @@
 					<li><a href="request/list.do"><spring:message code="master.page.request.list" /></a></li>
 				</ul>
 			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.brotherhood.member" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="member/brotherhood/list.do"><spring:message code="master.page.member.list" /></a></li>				
+				</ul>
+			</li>
 		</security:authorize>
 		
 		

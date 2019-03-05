@@ -588,7 +588,7 @@
 
 	<!-- Enrol **************************************************************************************** -->
 	<bean id="enrol1" class="domain.Enrol">
-		<property name="moment" value="2019/02/19" />
+		<property name="moment" value="2019/01/19" />
 		<property name="member" ref="member1" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="positions">
@@ -599,7 +599,7 @@
 	</bean>
 
 	<bean id="enrol2" class="domain.Enrol">
-		<property name="moment" value="2019/02/19" />
+		<property name="moment" value="2019/01/19" />
 		<property name="member" ref="member2" />
 		<property name="brotherhood" ref="brotherhood2" />
 		<property name="positions">
