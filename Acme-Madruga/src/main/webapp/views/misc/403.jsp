@@ -16,4 +16,6 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<p>Oops! You don't have access to this resource.</p> 
 
+<p><a href="<spring:url value='/' />">Return to the welcome page</a><p>

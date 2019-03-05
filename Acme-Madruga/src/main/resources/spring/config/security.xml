@@ -34,7 +34,11 @@
 		<security:intercept-url pattern="/scripts/**" access="permitAll" /> 
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 
-		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
+		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" />
+		<security:intercept-url pattern="/views/misc/terms.jsp" access="permitAll" /> 
+		<security:intercept-url pattern="/views/misc/cookies.jsp" access="permitAll" />
+		<security:intercept-url pattern="/views/misc/403.jsp" access="permitAll" /> 
+		<security:intercept-url pattern="/views/misc/panic.jsp" access="permitAll" /> 
 
 		<security:intercept-url pattern="/security/login.do" access="permitAll" /> 
 		<security:intercept-url pattern="/security/loginFailure.do" access="permitAll" /> 
