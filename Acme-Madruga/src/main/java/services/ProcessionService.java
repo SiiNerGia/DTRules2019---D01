@@ -3,6 +3,7 @@ package services;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -50,7 +51,10 @@ public class ProcessionService {
 		Procession result;
 
 		result = new Procession();
+
 		result.setTicker(this.generateTicker());
+		while (this.isValidTicker(result.getTicker()) == false)
+			result.setTicker(this.generateTicker());
 
 		return result;
 	}
@@ -84,9 +88,8 @@ public class ProcessionService {
 		if (procession.getId() == 0) {
 			procession.setBrotherhood(brotherhood);
 			this.automaticNotification(procession);
-		} else {
+		} else
 			Assert.isTrue(brotherhood.getProcessions().contains(procession));
-		}
 
 		return this.processionRepository.save(procession);
 	}
@@ -158,8 +161,18 @@ public class ProcessionService {
 
 		final Message send = this.messageService.save(message);
 
-		for (final Member m : this.memberService.findByBrotherhood(procession.getBrotherhood())) {
+		for (final Member m : this.memberService.findByBrotherhood(procession.getBrotherhood()))
 			m.getMessageBox("in").addMessage(send);
-		}
+	}
+
+	public Boolean isValidTicker(final String ticker) {
+		Boolean res = true;
+		final Collection<String> tickers = new ArrayList<String>();
+		for (final Procession p : this.processionRepository.findAll())
+			tickers.add(p.getTicker());
+
+		if (tickers.contains(ticker))
+			res = false;
+		return res;
 	}
 }
