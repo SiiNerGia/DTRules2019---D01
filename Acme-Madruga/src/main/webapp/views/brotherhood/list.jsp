@@ -58,11 +58,11 @@
 	si ese enrol.member.id es igual a nuestro id, colocamos el link a dropout, 
 	si no lo colocamos a enrol -->
 
-			<security:authentication var="id" property="principal" />
+		<jstl:set var= "username">	<security:authentication property="principal.username" /> </jstl:set>
 
 			<jstl:set var="contains" value="false" />
 			<jstl:forEach var="enr" items="${row.enrols }">
-				<jstl:if test="${enr.member.userAccount == principal }">
+				<jstl:if test="${enr.member.userAccount.username == username }">
 					<jstl:set var="contains" value="true" />
 				</jstl:if>
 
