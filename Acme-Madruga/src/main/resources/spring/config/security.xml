@@ -35,8 +35,6 @@
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" />
-		<security:intercept-url pattern="/views/misc/terms.jsp" access="permitAll" /> 
-		<security:intercept-url pattern="/views/misc/cookies.jsp" access="permitAll" />
 		<security:intercept-url pattern="/views/misc/403.jsp" access="permitAll" /> 
 		<security:intercept-url pattern="/views/misc/panic.jsp" access="permitAll" /> 
 
@@ -122,7 +120,9 @@
 		<security:intercept-url pattern="/messageBox/list.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageBox/create.do" access="isAuthenticated()" />
 
-
+		<security:intercept-url pattern="/cookies.do" access="permitAll"/>
+		<security:intercept-url pattern="/terms.do" access="permitAll"/>
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

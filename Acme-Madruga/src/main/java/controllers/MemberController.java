@@ -1,10 +1,13 @@
 
 package controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,68 +44,98 @@ public class MemberController extends AbstractController {
 
 		return result;
 	}
-	@RequestMapping(value = "/member/edit", method = RequestMethod.POST, params = "save")
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final MemberForm memberForm, final BindingResult binding) {
 		ModelAndView result;
+		Member member;
 		String password;
 
-		//		Member usuario = memberService.findByPrincipal();
-		//		
-		//		usuario.setAddress(member.getAddress());
-		//		usuario.setEmail(member.getEmail());
-		//		usuario.setMiddleName(member.getMiddleName());
-		//		usuario.setName(member.getName());
-		//		usuario.setPhoneNumber(member.getPhoneNumber());
-		//		usuario.setSurname(member.getSurname());
-		//		usuario.setUsername(member.getUsername());
-		//		
-		//		
-		//		usuario.getUserAccount().setPassword(usuario.getUserAccount().getPassword());
-		//		usuario.getUserAccount().setUsername(member.getUserAccount().getUsername());
+		member = this.memberService.reconstruct(memberForm, binding);
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
 
-		try {
+			result = new ModelAndView("member/create");
+			result.addObject("memberForm", memberForm);
+		}
 
-			final Member member = this.memberService.reconstruct(memberForm, binding);
-
-			if (binding.hasErrors())
-
-				result = this.createEditModelAndView(memberForm);
-
-			else {
-
-				// member.getUserAccount().setId(LoginService.getPrincipal().getId());
+		else
+			try {
 				password = Md5.encodeMd5(member.getUserAccount().getPassword());
 				member.getUserAccount().setPassword(password);
 				this.memberService.save(member);
-				result = new ModelAndView("redirect:/welcome/index"); //TODO: mirar a donde hay que redireccionar esto
+				result = new ModelAndView("redirect:../security/login.do");
+			} catch (final Throwable oops) {
+				System.out.println(member);
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = this.createEditModelAndView(memberForm);
 
+				if (oops instanceof DataIntegrityViolationException)
+					result = this.createEditModelAndView(memberForm, "member.duplicated.username");
+				else
+					result = this.createEditModelAndView(memberForm, "member.registration.error");
 			}
-
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(memberForm, "member.commit.error");
-		}
 		return result;
 	}
-	@RequestMapping(value = "member/edit", method = RequestMethod.GET)
+
+	// SAVE ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/member/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveEdit(final Member prune, final BindingResult binding) {
+		ModelAndView result;
+		final Member member;
+
+		member = this.memberService.reconstruct(prune, binding);
+
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+
+			result = new ModelAndView("member/member/edit");
+			result.addObject("member", prune);
+		}
+
+		else
+			try {
+				this.memberService.save(member);
+				result = new ModelAndView("redirect:/");
+			} catch (final Throwable oops) {
+				System.out.println(member);
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = this.editModelAndView(member, "member.registration.error");
+			}
+		return result;
+	}
+
+	@RequestMapping(value = "/member/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
-		final ModelAndView result;
-		Member member;
-		member = this.memberService.findByPrincipal();
+		ModelAndView result;
+		final Member member;
 
-		Assert.notNull(member);
+		try {
+			member = this.memberService.findByPrincipal();
 
-		final MemberForm memberForm = new MemberForm();
+			// Set relations to null to use as a prune object
 
-		memberForm.setAddress(member.getAddress());
-		memberForm.setEmail(member.getEmail());
-		memberForm.setMiddleName(member.getMiddleName());
-		memberForm.setName(member.getName());
-		memberForm.setPhoneNumber(member.getPhoneNumber());
-		memberForm.setPhoto(member.getPhoto());
-		memberForm.setSurname(member.getSurname());
-		memberForm.setUserAccount(member.getUserAccount());
+			member.setFinder(null);
+			member.setEnrols(null);
+			member.setDropouts(null);
+			member.setUserAccount(null);
 
-		result = this.createEditModelAndView(memberForm);
+			result = new ModelAndView("member/member/edit");
+			result.addObject("member", member);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
 
 		return result;
 	}
@@ -124,6 +157,16 @@ public class MemberController extends AbstractController {
 
 		return result;
 
+	}
+
+	protected ModelAndView editModelAndView(final Member member, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("member/member/edit");
+		result.addObject("member", member);
+		result.addObject("message", message);
+
+		return result;
 	}
 
 	private ModelAndView forbiddenOpperation() {
