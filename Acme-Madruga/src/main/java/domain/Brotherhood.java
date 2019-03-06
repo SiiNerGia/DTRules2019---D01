@@ -32,7 +32,7 @@ public class Brotherhood extends Actor {
 	private Collection<Enrol>		enrols;
 	private Collection<Procession>	processions;
 	private Area					area;
-	private Collection<Coach>		coaches;
+	private Collection<Float>		floats;
 
 
 	@NotBlank
@@ -90,12 +90,12 @@ public class Brotherhood extends Actor {
 
 	@Valid
 	@OneToMany
-	public Collection<Coach> getCoaches() {
-		return this.coaches;
+	public Collection<Float> getFloats() {
+		return this.floats;
 	}
 
-	public void setCoaches(final Collection<Coach> coaches) {
-		this.coaches = coaches;
+	public void setFloats(final Collection<Float> floats) {
+		this.floats = floats;
 	}
 
 	@Valid

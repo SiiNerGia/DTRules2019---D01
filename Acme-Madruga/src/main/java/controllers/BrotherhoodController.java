@@ -156,7 +156,7 @@ public class BrotherhoodController extends AbstractController {
 			bro = this.brotherhoodService.findByPrincipal();
 
 			// Set relations to null to use as a prune object
-			bro.setCoaches(null);
+			bro.setFloats(null);
 			bro.setEnrols(null);
 			bro.setProcessions(null);
 			bro.setUserAccount(null);

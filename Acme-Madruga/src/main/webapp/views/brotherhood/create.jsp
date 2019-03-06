@@ -16,7 +16,7 @@
 	<form:hidden path="version" />
 	<form:hidden path="userAccount.Authorities" />
 	<form:hidden path="processions" />
-	<form:hidden path="coaches" />
+	<form:hidden path="floats" />
 	<form:hidden path="establishment" />
 	<form:hidden path="pictures" /> --%>
 	<%-- UserAccount--%>

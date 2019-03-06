@@ -19,7 +19,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Area;
 import domain.Brotherhood;
-import domain.Coach;
+import domain.Float;
 import domain.Member;
 import domain.MessageBox;
 import domain.Procession;
@@ -58,7 +58,7 @@ public class BrotherhoodService {
 		result.setUserAccount(userAccount);
 		result.setEstablishment(new Date());
 		result.setPictures(new ArrayList<Url>());
-		result.setCoaches(new ArrayList<Coach>());
+		result.setFloats(new ArrayList<Float>());
 		result.setProcessions(new ArrayList<Procession>());
 		result.setMessageBoxes(boxes);
 
@@ -128,7 +128,7 @@ public class BrotherhoodService {
 		result.setSurname(brotherhood.getSurname());
 		result.setTitle(brotherhood.getTitle());
 
-		result.setCoaches(temp.getCoaches());
+		result.setFloats(temp.getFloats());
 		result.setEnrols(temp.getEnrols());
 		result.setEstablishment(temp.getEstablishment());
 		result.setPictures(temp.getPictures());

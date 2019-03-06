@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
-import services.CoachService;
-import domain.Coach;
+import domain.Float;
 
 @Controller
-@RequestMapping("/coach")
-public class CoachController extends AbstractController {
+@RequestMapping("/float")
+public class FloatController extends AbstractController {
 
-	@Autowired
-	private CoachService		coachService;
+	//	@Autowired
+	//	private FloatService		floatService;
 
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
@@ -36,14 +35,14 @@ public class CoachController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Coach> coaches = new ArrayList<Coach>();
+		Collection<Float> floats = new ArrayList<Float>();
 
 		try {
 			if (this.brotherhoodService.findByPrincipal() != null)
-				coaches = this.brotherhoodService.findByPrincipal().getCoaches();
+				floats = this.brotherhoodService.findByPrincipal().getFloats();
 
-			result = new ModelAndView("coach/list");
-			result.addObject("coaches", coaches);
+			result = new ModelAndView("float/list");
+			result.addObject("floats", floats);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());

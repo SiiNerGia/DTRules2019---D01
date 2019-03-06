@@ -8,13 +8,13 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="coach/brotherhood/addPicture.do?coachId=${coachId}" modelAttribute="url">
+<form:form action="float/brotherhood/addPicture.do?floatId=${floatId}" modelAttribute="url">
 		<%-- Hidden properties--%>
 		<form:hidden path="targetId" />
 
 		<%-- Link--%>
 		<form:label path="link">
-			<spring:message code="coach.picture.link" />
+			<spring:message code="float.picture.link" />
 		</form:label>
 		<form:input path="link" />
 		<form:errors class="error" path="link" />
@@ -23,10 +23,10 @@
 
 		<%-- Buttons --%>
 
-		<input type="submit" name="save" value="<spring:message code="coach.save"/>" />
+		<input type="submit" name="save" value="<spring:message code="float.save"/>" />
 		
 		<input type="button" name="cancel"
-			value="<spring:message code="coach.cancel" />"
-			onClick="javascript: window.location.replace('coach/brotherhood/edit.do')" />
+			value="<spring:message code="float.cancel" />"
+			onClick="javascript: window.location.replace('float/brotherhood/list.do')" />
 	<br><br>
 </form:form>
