@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -21,6 +23,7 @@ public class MessageBox extends DomainEntity {
 
 	// Getters and Setters -----------------------------------------------------------
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getName() {
 		return this.name;
 	}

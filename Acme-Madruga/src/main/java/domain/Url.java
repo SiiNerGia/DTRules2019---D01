@@ -6,6 +6,8 @@ import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 @Embeddable
@@ -13,12 +15,13 @@ import org.hibernate.validator.constraints.URL;
 public class Url {
 
 	// Attribute
-	private String link;
-	private int targetId;
+	private String	link;
+	private int		targetId;
 
 
 	@NotBlank
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLink() {
 		return this.link;
 	}
@@ -26,14 +29,12 @@ public class Url {
 	public void setLink(final String link) {
 		this.link = link;
 	}
-	
-	
+
 	public int getTargetId() {
-		return targetId;
+		return this.targetId;
 	}
 
-	
-	public void setTargetId(int targetId) {
+	public void setTargetId(final int targetId) {
 		this.targetId = targetId;
 	}
 

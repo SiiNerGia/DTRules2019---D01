@@ -18,6 +18,8 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -29,7 +31,7 @@ public class Message extends DomainEntity {
 	private String				subject;
 	private String				body;
 	private String				priority;
-	private Boolean				isNotification;		
+	private Boolean				isNotification;
 	private Collection<String>	tags;
 
 
@@ -46,6 +48,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getSubject() {
 		return this.subject;
 	}
@@ -55,6 +58,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getBody() {
 		return this.body;
 	}
@@ -65,6 +69,7 @@ public class Message extends DomainEntity {
 
 	@NotBlank
 	@Pattern(regexp = "^(LOW)|(MEDIUM)|(HIGH)$")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPriority() {
 		return this.priority;
 	}
@@ -72,12 +77,12 @@ public class Message extends DomainEntity {
 	public void setPriority(final String priority) {
 		this.priority = priority;
 	}
-	
+
 	public Boolean getIsNotification() {
-		return isNotification;
+		return this.isNotification;
 	}
 
-	public void setIsNotification(Boolean isNotification) {
+	public void setIsNotification(final Boolean isNotification) {
 		this.isNotification = isNotification;
 	}
 
