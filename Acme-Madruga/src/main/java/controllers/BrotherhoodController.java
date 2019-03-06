@@ -48,6 +48,8 @@ public class BrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Collection<Brotherhood> bros;
 
+		final Boolean isEnroled = false;
+
 		try {
 			bros = this.brotherhoodService.findAll();
 			result = new ModelAndView("brotherhood/list");
