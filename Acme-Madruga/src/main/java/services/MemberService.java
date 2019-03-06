@@ -19,6 +19,7 @@ import security.UserAccount;
 import domain.Brotherhood;
 import domain.Dropout;
 import domain.Enrol;
+import domain.Finder;
 import domain.Member;
 import domain.MessageBox;
 import domain.Request;
@@ -130,6 +131,7 @@ public class MemberService {
 	public Member reconstruct(final Member member, final BindingResult binding) {
 		final Member result = this.create();
 		final Member temp = this.findOne(member.getId());
+		final Finder finder = new Finder();
 
 		Assert.isTrue(this.findByPrincipal().getId() == member.getId());
 
@@ -140,7 +142,7 @@ public class MemberService {
 		result.setPhoneNumber(member.getPhoneNumber());
 		result.setPhoto(member.getPhoto());
 		result.setSurname(member.getSurname());
-		result.setFinder(member.getFinder());
+		//		result.setFinder(finder);
 		result.setDropouts(member.getDropouts());
 		result.setRequests(member.getRequests());
 		result.setEnrols(temp.getEnrols());
