@@ -13,6 +13,8 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -27,8 +29,8 @@ public class Configurations extends DomainEntity {
 	private Collection<String>	negativeWords;
 	private double				vat;
 	private String				countryCode;
-	private String 				title;
-	private String 				logo;
+	private String				title;
+	private String				logo;
 
 
 	@Range(min = 1, max = 24)
@@ -92,6 +94,7 @@ public class Configurations extends DomainEntity {
 
 	@NotBlank
 	@Pattern(regexp = "([+]?\\d{1,2})")
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getCountryCode() {
 		return this.countryCode;
 	}
@@ -100,33 +103,28 @@ public class Configurations extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
-
 	@NotEmpty
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
-	
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
 	@NotEmpty
 	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getLogo() {
-		return logo;
+		return this.logo;
 	}
 
-	
-	public void setLogo(String logo) {
+	public void setLogo(final String logo) {
 		this.logo = logo;
 	}
 
-
-
-
 	// Relationships ----------------------------------------------------------
-
 
 	// Other methods
 }

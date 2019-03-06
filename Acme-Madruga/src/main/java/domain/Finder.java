@@ -12,6 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -25,6 +27,7 @@ public class Finder extends DomainEntity {
 	private Date	lastUpdate;
 
 
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getKeyword() {
 		return this.keyword;
 	}
