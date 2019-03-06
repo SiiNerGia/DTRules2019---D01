@@ -100,9 +100,9 @@
 		<security:intercept-url pattern="/request/member/**" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/request/brotherhood/**" access="hasRole('BROTHERHOOD')" />
 
-		<!-- COACH -->
-		<security:intercept-url pattern="/coach/list.do" access="permitAll" />
-		<security:intercept-url pattern="/coach/brotherhood/**" access="hasRole('BROTHERHOOD')" />
+		<!-- FLOAT -->
+		<security:intercept-url pattern="/float/list.do" access="permitAll" />
+		<security:intercept-url pattern="/float/brotherhood/**" access="hasRole('BROTHERHOOD')" />
 
 		<!-- FINDER -->
 		<security:intercept-url pattern="/finder/member/edit.do" access="hasRole('MEMBER')" />

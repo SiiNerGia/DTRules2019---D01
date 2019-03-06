@@ -36,8 +36,8 @@
 		<bean class="converters.MemberToStringConverter" />
 		<bean class="converters.StringToMemberConverter" />
 
-		<bean class="converters.CoachToStringConverter" />
-		<bean class="converters.StringToCoachConverter" />
+		<bean class="converters.FloatToStringConverter" />
+		<bean class="converters.StringToFloatConverter" />
 
 		<bean class="converters.ProcessionToStringConverter" />
 		<bean class="converters.StringToProcessionConverter" />
