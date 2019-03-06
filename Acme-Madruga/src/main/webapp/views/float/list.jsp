@@ -6,31 +6,31 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="coaches" id="row" requestURI="coach/list.do" pagesize="5" class="displaytag">
+<display:table name="floats" id="row" requestURI="float/list.do" pagesize="5" class="displaytag">
 
    <security:authorize access="hasRole('BROTHERHOOD')">
         <display:column>
-          <a href="coach/brotherhood/delete.do?coachId=${row.id}">
-            <spring:message code="coach.delete"/>
+          <a href="float/brotherhood/delete.do?floatId=${row.id}">
+            <spring:message code="float.delete"/>
           </a>
         </display:column>
         <display:column>
-          <a href="coach/brotherhood/edit.do?coachId=${row.id}">
-            <spring:message code="coach.edit"/>
+          <a href="float/brotherhood/edit.do?floatId=${row.id}">
+            <spring:message code="float.edit"/>
           </a>
         </display:column>
    </security:authorize>
 	
 	<!-- Title -->
-	<spring:message code="coach.title" var="titleHeader" />
+	<spring:message code="float.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" />
 	
 	<!-- Description -->
-	<spring:message code="coach.description" var="descriptionHeader" />
+	<spring:message code="float.description" var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}" />
 
 	<!-- Picture -->
-	<spring:message code="coach.pictures" var="picturesHeader" />
+	<spring:message code="float.pictures" var="picturesHeader" />
 	<display:column property="pictures" title="${picturesHeader}" />
 
 </display:table>

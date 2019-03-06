@@ -9,20 +9,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.CoachRepository;
+import repositories.FloatRepository;
 import domain.Actor;
 import domain.Brotherhood;
-import domain.Coach;
+import domain.Float;
 import domain.Url;
 
 @Service
 @Transactional
-public class CoachService {
+public class FloatService {
 
 	// Manage Repository
 
 	@Autowired
-	private CoachRepository		coachRepository;
+	private FloatRepository		floatRepository;
 
 	// Supporting services
 	@Autowired
@@ -33,11 +33,11 @@ public class CoachService {
 
 
 	/************************************* CRUD methods ********************************/
-	public Coach create() {
-		Coach result;
+	public Float create() {
+		Float result;
 		Actor principal;
 
-		result = new Coach();
+		result = new Float();
 
 		// Principal must be a Brotherhood
 		principal = this.actorService.findByPrincipal();
@@ -48,41 +48,41 @@ public class CoachService {
 		return result;
 	}
 
-	public Coach findOne(final int id) {
-		final Coach result = this.coachRepository.findOne(id);
+	public Float findOne(final int id) {
+		final Float result = this.floatRepository.findOne(id);
 
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Collection<Coach> findAll() {
-		final Collection<Coach> result = this.coachRepository.findAll();
+	public Collection<Float> findAll() {
+		final Collection<Float> result = this.floatRepository.findAll();
 		//Assert.notNull(result);
 
 		return result;
 	}
 
-	public Coach save(final Coach coach) {
-		Assert.notNull(coach);
+	public Float save(final Float f) {
+		Assert.notNull(f);
 		Actor principal;
 
 		// Principal must be a Brotherhood
 		principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Brotherhood.class, principal);
 
-		final Coach c = this.coachRepository.save(coach);
+		final Float c = this.floatRepository.save(f);
 
-		if (!this.brotherhoodService.findByPrincipal().getCoaches().contains(c))
-			this.brotherhoodService.findByPrincipal().getCoaches().add(c);
+		if (!this.brotherhoodService.findByPrincipal().getFloats().contains(c))
+			this.brotherhoodService.findByPrincipal().getFloats().add(c);
 
 		return c;
 	}
-	public void delete(final int coachId) {
-		Assert.isTrue(coachId != 0);
-		final Coach coach = this.findOne(coachId);
+	public void delete(final int floatId) {
+		Assert.isTrue(floatId != 0);
+		final Float f = this.findOne(floatId);
 
-		Assert.notNull(coach);
+		Assert.notNull(f);
 		Actor principal;
 
 		// Principal must be a Brotherhood
@@ -90,11 +90,11 @@ public class CoachService {
 		Assert.isInstanceOf(Brotherhood.class, principal);
 
 		final Brotherhood brotherhood = (Brotherhood) principal;
-		Assert.isTrue(brotherhood.getCoaches().contains(coach));
+		Assert.isTrue(brotherhood.getFloats().contains(f));
 
-		brotherhood.getCoaches().remove(coach);
+		brotherhood.getFloats().remove(f);
 
-		this.coachRepository.delete(coach);
+		this.floatRepository.delete(f);
 
 	}
 

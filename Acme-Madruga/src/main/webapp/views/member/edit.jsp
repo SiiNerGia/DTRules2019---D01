@@ -11,25 +11,13 @@
 
 <form:form action="member/member/edit.do" modelAttribute="memberForm">
 
-	<%-- Hidden properties from handy worker
+	<%-- Hidden properties from member--%>
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="userAccount.authorities" />
-	<form:hidden path="enrols" />
-	<form:hidden path="dropouts" />
-	<form:hidden path="requests" />
-	<form:hidden path="finder" />
-	<form:hidden path="messageBoxes" />
---%>
-	<%-- UserAccount--%>
+	<form:hidden path="establishment" />
 
-	<%-- username--%>
-	<acme:textbox code="member.username" path="userAccount.username" />
-	<br>
+	
 
-	<%-- password--%>
-	<acme:password code="member.password" path="userAccount.password" />
-	<br>
+	
 
 	<%-- Name --%>
 	<acme:textbox code="member.name" path="name" />

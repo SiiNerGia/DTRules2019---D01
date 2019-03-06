@@ -180,9 +180,9 @@
 		<property name="establishment" value="2019/01/30" />
 		<property name="UserAccount" ref="userAccount2" />
 		<property name="isSpammer" value="false" />
-		<property name="coaches">
+		<property name="floats">
 			<list>
-				<ref bean="coach1" />
+				<ref bean="float1" />
 			</list>
 		</property>
 		<property name="enrols">
@@ -210,9 +210,9 @@
 		<property name="establishment" value="2019/02/10" />
 		<property name="UserAccount" ref="userAccount4" />
 		<property name="isSpammer" value="false" />
-		<property name="coaches">
+		<property name="floats">
 			<list>
-				<ref bean="coach2" />
+				<ref bean="float2" />
 			</list>
 		</property>
 		<property name="enrols">
@@ -499,26 +499,26 @@
 
 
 
-	<!-- Coaches ******************************************************** -->
-	<bean id="coach1" class="domain.Coach">
-		<property name="title" value="Title Coach 1" />
-		<property name="description" value="Description Coach 1" />
+	<!-- Floats ******************************************************** -->
+	<bean id="float1" class="domain.Float">
+		<property name="title" value="Title Float 1" />
+		<property name="description" value="Description Float 1" />
 	</bean>
 
 
-	<bean id="coach2" class="domain.Coach">
-		<property name="title" value="Title Coach 2" />
-		<property name="description" value="Description Coach 2" />
+	<bean id="float2" class="domain.Float">
+		<property name="title" value="Title Float 2" />
+		<property name="description" value="Description Float 2" />
 	</bean>
 
-	<bean id="coach3" class="domain.Coach">
-		<property name="title" value="Title Coach 3" />
-		<property name="description" value="Description Coach 3" />
+	<bean id="float3" class="domain.Float">
+		<property name="title" value="Title Float 3" />
+		<property name="description" value="Description Float 3" />
 	</bean>
 
-	<bean id="coach4" class="domain.Coach">
-		<property name="title" value="Title Coach 4" />
-		<property name="description" value="Description Coach 4" />
+	<bean id="float4" class="domain.Float">
+		<property name="title" value="Title Float 4" />
+		<property name="description" value="Description Float 4" />
 	</bean>
 
 

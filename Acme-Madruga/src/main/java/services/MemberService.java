@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -41,21 +42,22 @@ public class MemberService {
 	@Autowired
 	private FinderService		finderService;
 
+	@Autowired
+	@Qualifier("validator")
+	private Validator			validator;
+
 
 	// CRUD methods
 	// ------------------------------------------------------------------
 
 	public Member create() {
-		Member result;
+		final Member result = new Member();
 
-		result = new Member();
-
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority authority = new Authority();
 		authority.setAuthority(Authority.MEMBER);
-
-		final Collection<Authority> authorities = new ArrayList<Authority>();
 		authorities.add(authority);
-		final UserAccount userAccount = new UserAccount();
 		userAccount.setAuthorities(authorities);
 
 		final Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
@@ -98,13 +100,8 @@ public class MemberService {
 
 	}
 
-
 	// Other methods
 	// -----------------------------------------------------------------
-
-	@Autowired
-	private Validator	validator;
-
 
 	public Member reconstruct(final MemberForm memberForm, final BindingResult binding) {
 		final Member result = this.create();
@@ -124,6 +121,31 @@ public class MemberService {
 		result.setPhoto(memberForm.getPhoto());
 
 		result.setSurname(memberForm.getSurname());
+
+		this.validator.validate(result, binding);
+
+		return result;
+	}
+
+	public Member reconstruct(final Member member, final BindingResult binding) {
+		final Member result = this.create();
+		final Member temp = this.findOne(member.getId());
+
+		Assert.isTrue(this.findByPrincipal().getId() == member.getId());
+
+		result.setAddress(member.getAddress());
+		result.setEmail(member.getEmail());
+		result.setMiddleName(member.getMiddleName());
+		result.setName(member.getName());
+		result.setPhoneNumber(member.getPhoneNumber());
+		result.setPhoto(member.getPhoto());
+		result.setSurname(member.getSurname());
+		result.setFinder(member.getFinder());
+		result.setDropouts(member.getDropouts());
+		result.setRequests(member.getRequests());
+		result.setEnrols(temp.getEnrols());
+		result.setId(temp.getId());
+		result.setVersion(temp.getVersion());
 
 		this.validator.validate(result, binding);
 

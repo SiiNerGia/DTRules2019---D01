@@ -35,8 +35,6 @@
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" />
-		<security:intercept-url pattern="/views/misc/terms.jsp" access="permitAll" /> 
-		<security:intercept-url pattern="/views/misc/cookies.jsp" access="permitAll" />
 		<security:intercept-url pattern="/views/misc/403.jsp" access="permitAll" /> 
 		<security:intercept-url pattern="/views/misc/panic.jsp" access="permitAll" /> 
 
@@ -100,9 +98,9 @@
 		<security:intercept-url pattern="/request/member/**" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/request/brotherhood/**" access="hasRole('BROTHERHOOD')" />
 
-		<!-- COACH -->
-		<security:intercept-url pattern="/coach/list.do" access="permitAll" />
-		<security:intercept-url pattern="/coach/brotherhood/**" access="hasRole('BROTHERHOOD')" />
+		<!-- FLOAT -->
+		<security:intercept-url pattern="/float/list.do" access="permitAll" />
+		<security:intercept-url pattern="/float/brotherhood/**" access="hasRole('BROTHERHOOD')" />
 
 		<!-- FINDER -->
 		<security:intercept-url pattern="/finder/member/edit.do" access="hasRole('MEMBER')" />
@@ -122,7 +120,9 @@
 		<security:intercept-url pattern="/messageBox/list.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/messageBox/create.do" access="isAuthenticated()" />
 
-
+		<security:intercept-url pattern="/cookies.do" access="permitAll"/>
+		<security:intercept-url pattern="/terms.do" access="permitAll"/>
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

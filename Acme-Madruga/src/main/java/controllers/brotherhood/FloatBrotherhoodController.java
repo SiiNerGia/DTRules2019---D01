@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CoachService;
+import services.FloatService;
 import controllers.AbstractController;
-import domain.Coach;
+import domain.Float;
 import domain.Url;
 
 @Controller
-@RequestMapping("/coach/brotherhood")
-public class CoachBrotherhoodController extends AbstractController {
+@RequestMapping("/float/brotherhood")
+public class FloatBrotherhoodController extends AbstractController {
 
 	@Autowired
-	private CoachService	coachService;
+	private FloatService	floatService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -40,18 +40,18 @@ public class CoachBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Coach coach;
+		Float f;
 
-		coach = this.coachService.create();
+		f = this.floatService.create();
 
-		result = this.createEditModelAndView(coach);
+		result = this.createEditModelAndView(f);
 
 		return result;
 	}
 
-	// Save the coach ------------------------------------------------------------------------------------
+	// Save the float ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final Coach coach, final BindingResult binding) {
+	public ModelAndView save(final Float f, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
@@ -59,54 +59,54 @@ public class CoachBrotherhoodController extends AbstractController {
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
 
-			//result = new ModelAndView("coach/brotherhood/create");
-			//result.addObject("coach", coach);
-			result = this.createEditModelAndView(coach);
+			//result = new ModelAndView("float/brotherhood/create");
+			//result.addObject("float", float);
+			result = this.createEditModelAndView(f);
 		} else
 			try {
-				this.coachService.save(coach);
+				this.floatService.save(f);
 				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
-				System.out.println(coach);
+				System.out.println(f);
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
 				System.out.println(oops.getCause());
-				result = this.createEditModelAndView(coach);
+				result = this.createEditModelAndView(f);
 
 				if (oops instanceof DataIntegrityViolationException)
-					result = this.createEditModelAndView(coach, "coach.commit.username");
+					result = this.createEditModelAndView(f, "float.commit.username");
 				else
-					result = this.createEditModelAndView(coach, "coach.commit.error");
+					result = this.createEditModelAndView(f, "float.commit.error");
 			}
 		return result;
 	}
 
 	// Edit ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int coachId) {
+	public ModelAndView edit(@RequestParam final int floatId) {
 		ModelAndView result;
-		Coach coach;
+		Float f;
 
 		try {
-			coach = this.coachService.findOne(coachId);
-			Assert.notNull(coach);
+			f = this.floatService.findOne(floatId);
+			Assert.notNull(f);
 		} catch (final Throwable oops) {
 			result = this.forbiddenOpperation();
 			return result;
 		}
 
-		result = this.createEditModelAndView(coach);
+		result = this.createEditModelAndView(f);
 
 		return result;
 	}
 
 	// Delete --------------------------------------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final int coachId) {
+	public ModelAndView delete(@RequestParam final int floatId) {
 		ModelAndView result;
 
 		try {
-			this.coachService.delete(coachId);
+			this.floatService.delete(floatId);
 			result = new ModelAndView("redirect:../list.do");
 		} catch (final Throwable oops) {
 			result = this.forbiddenOpperation();
@@ -118,15 +118,15 @@ public class CoachBrotherhoodController extends AbstractController {
 
 	// Picture  ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/addPicture", method = RequestMethod.GET)
-	public ModelAndView addPicture(@RequestParam final int coachId) {
+	public ModelAndView addPicture(@RequestParam final int floatId) {
 		ModelAndView result;
 		final Url url;
 
 		try {
 			url = new Url();
-			result = new ModelAndView("coach/brotherhood/addPicture");
+			result = new ModelAndView("float/brotherhood/addPicture");
 			result.addObject("url", url);
-			result.addObject("coachId", coachId);
+			result.addObject("floatId", floatId);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -138,10 +138,10 @@ public class CoachBrotherhoodController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/deletePicture", method = RequestMethod.GET)
-	public ModelAndView deletePicture(@RequestParam final String link, @RequestParam final int coachId) {
+	public ModelAndView deletePicture(@RequestParam final String link, @RequestParam final int floatId) {
 		ModelAndView result;
 		try {
-			final Coach c = this.coachService.findOne(coachId);
+			final Float c = this.floatService.findOne(floatId);
 			for (final Url picture : c.getPictures())
 				if (picture.getLink().equals(link)) {
 					c.getPictures().remove(picture);
@@ -160,48 +160,48 @@ public class CoachBrotherhoodController extends AbstractController {
 
 	// SAVE ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST, params = "save")
-	public ModelAndView savePicture(@RequestParam final int coachId, @Valid final Url url, final BindingResult binding) {
+	public ModelAndView savePicture(@RequestParam final int floatId, @Valid final Url url, final BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
 
-			result = new ModelAndView("coach/brotherhood/addPicture");
+			result = new ModelAndView("float/brotherhood/addPicture");
 			result.addObject("url", url);
-			result.addObject("coachId", coachId);
+			result.addObject("floatId", floatId);
 		} else
 			try {
-				Coach c = this.coachService.findOne(coachId);
+				Float c = this.floatService.findOne(floatId);
 				c.getPictures().add(url);
-				c = this.coachService.save(c);
+				c = this.floatService.save(c);
 				result = this.createEditModelAndView(c);
 			} catch (final Throwable oops) {
 				System.out.println(url);
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
 				System.out.println(oops.getCause());
-				result = new ModelAndView("coach/brotherhood/addPicture");
+				result = new ModelAndView("float/brotherhood/addPicture");
 				result.addObject("url", url);
-				result.addObject("coachId", coachId);
+				result.addObject("floatId", floatId);
 			}
 		return result;
 	}
 
 	// Ancillary methods -----------------------------------------------------------------------
-	protected ModelAndView createEditModelAndView(final Coach coach) {
+	protected ModelAndView createEditModelAndView(final Float f) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(coach, null);
+		result = this.createEditModelAndView(f, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Coach coach, final String message) {
+	protected ModelAndView createEditModelAndView(final Float f, final String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("coach/brotherhood/edit");
-		result.addObject("coach", coach);
+		result = new ModelAndView("float/brotherhood/edit");
+		result.addObject("f", f);
 		result.addObject("message", message);
 
 		return result;

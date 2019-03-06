@@ -5,19 +5,19 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Coach;
+import domain.Float;
 
 @Component
 @Transactional
-public class CoachToStringConverter implements Converter<Coach, String> {
+public class FloatToStringConverter implements Converter<Float, String> {
 
 	@Override
-	public String convert(final Coach coach) {
+	public String convert(final Float f) {
 		String result;
-		if (coach == null)
+		if (f == null)
 			result = null;
 		else
-			result = String.valueOf(coach.getId());
+			result = String.valueOf(f.getId());
 		return result;
 	}
 

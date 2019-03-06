@@ -6,24 +6,24 @@
       
 <tiles-definitions>
 
-	<definition name="coach/brotherhood/create" extends="master.page">
+	<definition name="float/brotherhood/create" extends="master.page">
 		<put-attribute name="title" value="Crear Cuadrilla" />
-		<put-attribute name="body" value="/views/coach/edit.jsp" />
+		<put-attribute name="body" value="/views/float/edit.jsp" />
 	</definition>
 
-	<definition name="coach/brotherhood/edit" extends="master.page">
+	<definition name="float/brotherhood/edit" extends="master.page">
 		<put-attribute name="title" value="Editar Cuadrilla" />
-		<put-attribute name="body" value="/views/coach/edit.jsp" />
+		<put-attribute name="body" value="/views/float/edit.jsp" />
 	</definition>
 
-	<definition name="coach/list" extends="master.page">
+	<definition name="float/list" extends="master.page">
 		<put-attribute name="title" value="Lista de Cuadrillas" />
-		<put-attribute name="body" value="/views/coach/list.jsp" />
+		<put-attribute name="body" value="/views/float/list.jsp" />
 	</definition>
 
 	<definition name="coach/brotherhood/addPicture" extends="master.page">
 		<put-attribute name="title" value="Añadir Imagen" />
-		<put-attribute name="body" value="/views/coach/addPicture.jsp" />
+		<put-attribute name="body" value="/views/float/addPicture.jsp" />
 	</definition>
 	
 </tiles-definitions>

@@ -9,7 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="coach/brotherhood/edit.do" modelAttribute="coach">
+<form:form action="float/brotherhood/edit.do" modelAttribute="f">
 
 	<%-- Hidden properties --%>
 	<form:hidden path="id" />
@@ -17,42 +17,42 @@
 
 
     <%-- title--%>
-    <acme:textbox code="coach.title" path="title" />
+    <acme:textbox code="float.title" path="title" />
     <br>
 
     <%-- description--%>
-    <acme:textbox code="coach.description" path="description" />
+    <acme:textbox code="float.description" path="description" />
     <br>
 
     <%-- picture --%>
-	<jstl:if test="${not empty coach.pictures}">
-		<jstl:if test="${coach.id!=0}">
-			<display:table name="coach.pictures"  id="row" >
-				<spring:message code="coach.picture" var="pictureNameHeader" />
+	<jstl:if test="${not empty f.pictures}">
+		<jstl:if test="${f.id!=0}">
+			<display:table name="f.pictures"  id="row" >
+				<spring:message code="float.picture" var="pictureNameHeader" />
 				<display:column title="${pictureNameHeader}" sortable="false" >
 					<img src="${row.link}" width="50%" height="200"/>
 				</display:column>
 
-				<spring:message code="coach.pictures.delete" var="deleteHeader" />
+				<spring:message code="float.pictures.delete" var="deleteHeader" />
 				<display:column title="${deleteHeader}">
-					<a href="coach/brotherhood/deletePicture.do?link=${row.link}&coachId=${coach.id}"><spring:message code="coach.picture.delete"/></a>
+					<a href="float/brotherhood/deletePicture.do?link=${row.link}&floatId=${f.id}"><spring:message code="float.picture.delete"/></a>
 				</display:column>
 
-				<display:caption><spring:message code="coach.pictures"/></display:caption>
+				<display:caption><spring:message code="float.pictures"/></display:caption>
 			</display:table>
 		</jstl:if>
 	</jstl:if>
 	<br>
-	<jstl:if test="${coach.id!=0}">
-		<a href="coach/brotherhood/addPicture.do?coachId=${coach.id}">
-			<spring:message code="coach.picture.create"/>
+	<jstl:if test="${f.id!=0}">
+		<a href="float/brotherhood/addPicture.do?floatId=${f.id}">
+			<spring:message code="float.picture.create"/>
 		</a>
 	</jstl:if>
 	<br>
 
 	<%-- Buttons --%>
 	<input type="submit" name="save"
-		value="<spring:message code="coach.save"/>"/>
+		value="<spring:message code="float.save"/>"/>
 	
-	<acme:cancel code="coach.cancel" url="/" />
+	<acme:cancel code="float.cancel" url="/" />
 </form:form>
