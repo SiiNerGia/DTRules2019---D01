@@ -159,7 +159,6 @@ public class MemberController extends AbstractController {
 
 		result = new ModelAndView("member/create");
 		result.addObject("memberForm", memberForm);
-
 		result.addObject("message", messageCode);
 
 		return result;

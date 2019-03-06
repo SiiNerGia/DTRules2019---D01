@@ -19,7 +19,6 @@ import security.UserAccount;
 import domain.Brotherhood;
 import domain.Dropout;
 import domain.Enrol;
-import domain.Finder;
 import domain.Member;
 import domain.MessageBox;
 import domain.Request;
@@ -107,20 +106,15 @@ public class MemberService {
 	public Member reconstruct(final MemberForm memberForm, final BindingResult binding) {
 		final Member result = this.create();
 
-		result.setUserAccount(memberForm.getUserAccount());
 		result.getUserAccount().setPassword(memberForm.getUserAccount().getPassword());
 		result.getUserAccount().setUsername(memberForm.getUserAccount().getUsername());
-		result.setUsername(memberForm.getUserAccount().getUsername());
 
 		result.setAddress(memberForm.getAddress());
-
 		result.setEmail(memberForm.getEmail());
-
 		result.setMiddleName(memberForm.getMiddleName());
 		result.setName(memberForm.getName());
 		result.setPhoneNumber(memberForm.getPhoneNumber());
 		result.setPhoto(memberForm.getPhoto());
-
 		result.setSurname(memberForm.getSurname());
 
 		this.validator.validate(result, binding);
@@ -131,7 +125,6 @@ public class MemberService {
 	public Member reconstruct(final Member member, final BindingResult binding) {
 		final Member result = this.create();
 		final Member temp = this.findOne(member.getId());
-		final Finder finder = new Finder();
 
 		Assert.isTrue(this.findByPrincipal().getId() == member.getId());
 
@@ -148,6 +141,7 @@ public class MemberService {
 		result.setEnrols(temp.getEnrols());
 		result.setId(temp.getId());
 		result.setVersion(temp.getVersion());
+		result.setUserAccount(temp.getUserAccount());
 
 		this.validator.validate(result, binding);
 
