@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
@@ -33,13 +34,14 @@ public class FloatController extends AbstractController {
 
 	// List ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(required = false) final Integer brotherhoodId) {
+
 		ModelAndView result;
 		Collection<Float> floats = new ArrayList<Float>();
 
 		try {
-			if (this.brotherhoodService.findByPrincipal() != null)
-				floats = this.brotherhoodService.findByPrincipal().getFloats();
+			if (brotherhoodId != null && brotherhoodId != 0)
+				floats = this.brotherhoodService.findOne(brotherhoodId).getFloats();
 
 			result = new ModelAndView("float/list");
 			result.addObject("floats", floats);
@@ -52,7 +54,6 @@ public class FloatController extends AbstractController {
 
 		return result;
 	}
-
 	private ModelAndView forbiddenOpperation() {
 		return new ModelAndView("redirect:/");
 	}
