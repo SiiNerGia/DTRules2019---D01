@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Administrators *************************************************************************** -->
+	<bean id="admin1" class="domain.Administrator">
+		<property name="name" value="admin" />
+		<property name="username" value="admin" />
+		<property name="middleName" value="middlename1" />
+		<property name="surname" value="surname1" />
+		<property name="email" value="admin1@gmail.com" />
+		<property name="phoneNumber" value="+34656256697" />
+		<property name="address" value="admin1 18" />
+		<property name="UserAccount" ref="userAccount1" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="admin1-Spam" />
+				<ref bean="admin1-in" />
+				<ref bean="admin1-out" />
+				<ref bean="admin1-trash" />
+				<ref bean="admin1-notification" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Admin MessageBoxes -->
+	<bean id="admin1-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="admin1-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="admin1-Spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+
+			</list>
+		</property>
+	</bean>
+
+	<bean id="admin1-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+
+			</list>
+		</property>
+	</bean>
+
+	<bean id="admin1-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Positions default **************************************************************************************** -->
+	<bean id="President" class="domain.Position">
+		<property name="spanishName" value="Presidente" />
+		<property name="englishName" value="President" />
+	</bean>
+
+	<bean id="Vice President" class="domain.Position">
+		<property name="spanishName" value="Vicepresidente" />
+		<property name="englishName" value="Vice President" />
+	</bean>
+
+	<bean id="Secretary" class="domain.Position">
+		<property name="spanishName" value="Secretario" />
+		<property name="englishName" value="Secretary" />
+	</bean>
+
+	<bean id="Treasurer" class="domain.Position">
+		<property name="spanishName" value="Tesorero" />
+		<property name="englishName" value="Treasurer" />
+	</bean>
+
+	<bean id="Historian" class="domain.Position">
+		<property name="spanishName" value="Historiador" />
+		<property name="englishName" value="Historian" />
+	</bean>
+
+	<bean id="Fundraiser" class="domain.Position">
+		<property name="spanishName" value="Promotor" />
+		<property name="englishName" value="Fundraiser" />
+	</bean>
+
+	<bean id="Officer" class="domain.Position">
+		<property name="spanishName" value="Vocal" />
+		<property name="englishName" value="Officer" />
+	</bean>
+
+
+	<!-- configurations *************************************************************************** -->
+	<bean id="configurations" class="domain.Configurations">
+		<property name="cacheTime" value="1" />
+		<property name="finderMaxResult" value="10" />
+		<property name="vat" value="0.21" />
+		<property name="countryCode" value="+34" />
+		<property name="title" value="Acme Madruga Co., Inc." />
+		<property name="logo" value="https://tinyurl.com/acme-madruga" />
+		<property name="spamWords">
+			<list>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you've been selected</value>
+				<value>Nigeria</value>
+				<value>sexo</value>
+				<value>un millón</value>
+				<value>ha sido seleccionado</value>
+			</list>
+		</property>
+		<property name="positiveWords">
+			<list>
+				<value>good</value>
+				<value>fantastic</value>
+				<value>excellent</value>
+				<value>great</value>
+				<value>amazing</value>
+				<value>terrific</value>
+				<value>beautiful</value>
+				<value>bueno</value>
+				<value>fantástico</value>
+				<value>excelente</value>
+				<value>gran</value>
+				<value>asombroso</value>
+				<value>terrible</value>
+				<value>bonito</value>
+			</list>
+		</property>
+		<property name="negativeWords">
+			<list>
+				<value>not</value>
+				<value>no</value>
+				<value>bad</value>
+				<value>malo</value>
+				<value>horrible</value>
+				<value>average</value>
+				<value>mediocre</value>
+				<value>disaster</value>
+				<value>desastre</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>
