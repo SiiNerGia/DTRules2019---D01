@@ -58,6 +58,8 @@
 	<%-- Address --%>
 	<acme:textbox code="member.address" path="address" />
 	<br>
+	
+	<p><input id="field_terms" onchange="this.setCustomValidity(validity.valueMissing ? '<spring:message code="member.check.terms"/>' : '');" type="checkbox" required name="terms"><spring:message code="member.terms"/></p>
 
 
 	<script type="text/javascript">
@@ -90,3 +92,9 @@
 
 	<acme:cancel code="member.cancel" url="/" />
 </form:form>
+
+<script>
+
+  document.getElementById("field_terms").setCustomValidity("<spring:message code="member.check.terms"/>");
+
+</script>
