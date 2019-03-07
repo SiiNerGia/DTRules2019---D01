@@ -118,6 +118,8 @@ public class RequestService {
 
 		member.getRequests().remove(request);
 
+		request.getProcession().getRequests().remove(request);
+
 		this.requestRepository.delete(request);
 
 	}
