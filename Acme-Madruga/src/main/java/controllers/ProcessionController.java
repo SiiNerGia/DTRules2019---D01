@@ -1,7 +1,6 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.TypeMismatchException;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
 import services.ProcessionService;
+import domain.Brotherhood;
 import domain.Procession;
 
 @Controller
@@ -45,15 +45,15 @@ public class ProcessionController extends AbstractController {
 	// List
 	// ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) final Integer brotherhoodId) {
-
+	public ModelAndView list() {
 		ModelAndView result;
-		Collection<Procession> processions = new ArrayList<Procession>();
+		Brotherhood principal;
+		Collection<Procession> processions;
+
+		principal = this.brotherhoodService.findByPrincipal();
 
 		try {
-			if (brotherhoodId != null && brotherhoodId != 0)
-				processions = this.brotherhoodService.findOne(brotherhoodId).getProcessions();
-
+			processions = principal.getProcessions();
 			result = new ModelAndView("procession/list");
 			result.addObject("processions", processions);
 			result.addObject("uri", "procession/list");

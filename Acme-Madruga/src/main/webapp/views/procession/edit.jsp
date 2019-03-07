@@ -14,6 +14,8 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="ticker" />
+	<form:hidden path="brotherhood" />
+	<form:hidden path="requests" />
 
 
 

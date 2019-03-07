@@ -21,6 +21,7 @@ import domain.Brotherhood;
 import domain.Member;
 import domain.Message;
 import domain.Procession;
+import domain.Request;
 
 @Service
 @Transactional
@@ -39,6 +40,9 @@ public class ProcessionService {
 
 	@Autowired
 	private MemberService			memberService;
+
+	@Autowired
+	private RequestService			requestService;
 
 	// Validator
 	@Autowired
@@ -104,12 +108,15 @@ public class ProcessionService {
 		Assert.isTrue(procession.getId() != 0);
 
 		final Brotherhood brotherhood = (Brotherhood) principal;
-		Assert.isTrue(brotherhood.getProcessions().contains(procession));
+
+		for (final Request r : procession.getRequests())
+			this.requestService.delete(r.getId());
+
+		brotherhood.getProcessions().remove(procession);
 
 		this.processionRepository.delete(procession);
 
 	}
-
 	/************************************* Reconstruct ******************************************/
 	public Procession reconstruct(final Procession pruned, final BindingResult binding) {
 		Procession result = this.create();

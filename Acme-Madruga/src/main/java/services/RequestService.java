@@ -108,15 +108,12 @@ public class RequestService {
 		final Request request = this.findOne(requestId);
 
 		Assert.notNull(request);
-		Actor principal;
 
 		Assert.isTrue(request.getStatus().equals("PENDING"));
 
 		// Principal must be a Member
-		principal = this.actorService.findByPrincipal();
-		Assert.isInstanceOf(Member.class, principal);
 
-		final Member member = (Member) principal;
+		final Member member = request.getMember();
 		Assert.isTrue(member.getRequests().contains(request));
 
 		member.getRequests().remove(request);
