@@ -20,7 +20,7 @@ import domain.Member;
 
 @Controller
 @RequestMapping("/dropout")
-public class DropOutController extends AbstractController {
+public class DropoutController extends AbstractController {
 
 	@Autowired
 	private DropoutService		dropoutService;
@@ -40,7 +40,7 @@ public class DropOutController extends AbstractController {
 		return new ModelAndView("redirect:/");
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "member/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int brotherhoodId) {
 		final ModelAndView result;
 		final Dropout dropout;
