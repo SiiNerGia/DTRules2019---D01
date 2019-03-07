@@ -12,6 +12,6 @@ import domain.Position;
 @Repository
 public interface PositionRepository extends JpaRepository<Position, Integer> {
 
-	@Query("select p from Position p join p.enrols e where e.id=?1")
+	@Query("select p from Position p join p.enrol e where e.id=?1")
 	Collection<Position> positionsByEnrol(int enrolId);
 }

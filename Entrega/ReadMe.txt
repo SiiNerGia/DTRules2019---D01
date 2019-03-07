@@ -1,1 +1,0 @@
-We've changed the name of "Float" entity to "Coach" due to conflicts with MySQL reserved words.
