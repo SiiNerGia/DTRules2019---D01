@@ -42,6 +42,8 @@ public class FloatController extends AbstractController {
 		try {
 			if (brotherhoodId != null && brotherhoodId != 0)
 				floats = this.brotherhoodService.findOne(brotherhoodId).getFloats();
+			else if (this.brotherhoodService.findByPrincipal() != null)
+				floats = this.brotherhoodService.findByPrincipal().getFloats();
 
 			result = new ModelAndView("float/list");
 			result.addObject("floats", floats);
