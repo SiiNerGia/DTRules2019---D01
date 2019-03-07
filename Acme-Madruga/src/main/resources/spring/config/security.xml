@@ -74,7 +74,8 @@
 		<security:intercept-url pattern="/brotherhood/deletePicture.do" access="hasRole('BROTHERHOOD')" />
 		
 		<!-- PROCESSION -->
-		<security:intercept-url pattern="/procession/list.do" access="hasAnyRole('BROTHERHOOD','MEMBER')" />
+		<security:intercept-url pattern="/procession/list.do" access="permitAll" />
+		<!-- <security:intercept-url pattern="/procession/list.do" access="hasAnyRole('BROTHERHOOD','MEMBER')" /> -->
 		<security:intercept-url pattern="/procession/brotherhood/create.do" access="hasRole('BROTHERHOOD')" />	
 		<security:intercept-url pattern="/procession/brotherhood/edit.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/procession/brotherhood/delete.do" access="hasRole('BROTHERHOOD')" />	

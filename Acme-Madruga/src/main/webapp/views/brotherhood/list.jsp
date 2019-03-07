@@ -38,25 +38,21 @@
 	</display:column>
 
 	<!-- Floats -->
-	<spring:message code="brotherhood.coaches" var="coachesHeader" />
+	<spring:message code="brotherhood.floats" var="floatsHeader" />
 	<display:column>
-		<a href="coach/list.do?brotherhoodId=${row.id}"> <spring:message
-				code="brotherhood.coaches" />
+		<a href="float/list.do?brotherhoodId=${row.id}"> <spring:message
+				code="brotherhood.floats" />
 		</a>
 	</display:column>
 
 	<!-- Enrol/Dropout -->
 	<security:authorize access="hasRole('MEMBER')">
 
-
-
-
 		<display:column>
 
-
-			<!-- para cada row, recorremos su coleccion de enrols, para cada enrol, 
-	si ese enrol.member.id es igual a nuestro id, colocamos el link a dropout, 
-	si no lo colocamos a enrol -->
+		<!-- para cada row, recorremos su coleccion de enrols, para cada enrol, 
+		si ese enrol.member.id es igual a nuestro id, colocamos el link a dropout, 
+		si no lo colocamos a enrol -->
 
 		<jstl:set var= "username">	<security:authentication property="principal.username" /> </jstl:set>
 
@@ -86,6 +82,7 @@
 	</a>
 	
 	-->
+		
 		</display:column>
 
 	</security:authorize>
