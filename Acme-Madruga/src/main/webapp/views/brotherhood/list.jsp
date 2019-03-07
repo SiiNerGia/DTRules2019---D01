@@ -69,13 +69,13 @@
 			</jstl:forEach>
 			<jstl:choose>
 				<jstl:when test="${contains == true }">
-					<a href="enrol/member/dropout.do?brotherhoodId=${row.id}"> <spring:message
+					<a href="dropout/member/create.do?brotherhoodId=${row.id}"> <spring:message
 							code="brotherhood.dropout" />
 					</a>
 				</jstl:when>
 
 				<jstl:when test="${contains == false }">
-					<a href="enrol/member/enrol.do?brotherhoodId=${row.id}"> <spring:message
+					<a href="enrol/member/create.do?brotherhoodId=${row.id}"> <spring:message
 							code="brotherhood.enrol" />
 					</a>
 				</jstl:when>

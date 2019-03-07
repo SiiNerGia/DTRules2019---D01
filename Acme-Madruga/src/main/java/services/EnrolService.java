@@ -55,14 +55,12 @@ public class EnrolService {
 		final Position newPosition = new ArrayList<Position>(enrol.getPositions()).get(0);
 		final Position oldPosition = new ArrayList<Position>(old.getPositions()).get(0);
 
-		if (newPosition != oldPosition) {
+		if (newPosition != oldPosition)
 			oldPosition.getEnrol().remove(enrol);
-		}
 		final Enrol result = this.enrolRepository.save(enrol);
 
-		if (newPosition != oldPosition) {
+		if (newPosition != oldPosition)
 			newPosition.getEnrol().add(result);
-		}
 
 		return result;
 	}
@@ -80,6 +78,15 @@ public class EnrolService {
 
 		this.enrolRepository.delete(enrol);
 
+	}
+
+	public Enrol findByBrothehoodAndMemberId(final int brotherhoodId, final int memberId) {
+		Assert.notNull(brotherhoodId);
+		Assert.notNull(memberId);
+		Enrol result;
+
+		result = this.enrolRepository.findEnrolByBrotherhoodAndMemberId(brotherhoodId, memberId);
+		return result;
 	}
 	// Other methods
 	// -----------------------------------------------------------------
@@ -100,4 +107,5 @@ public class EnrolService {
 
 		return result;
 	}
+
 }
