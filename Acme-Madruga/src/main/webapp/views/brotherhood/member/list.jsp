@@ -33,10 +33,10 @@
 	</display:column>
 	
 	<!-- Floats -->
-	<spring:message code="brotherhood.coaches" var="coachesHeader" />
+	<spring:message code="brotherhood.floats" var="floatsHeader" />
 	<display:column>
 			<a href="coach/list.do?brotherhoodId=${row.id}">
-				<spring:message code="brotherhood.coaches" />
+				<spring:message code="brotherhood.floats" />
 			</a>
 	</display:column>
 	<display:caption><spring:message code="brotherhood.list.belonging"/></display:caption>
@@ -70,10 +70,10 @@
 	</display:column>
 	
 	<!-- Floats -->
-	<spring:message code="brotherhood.coaches" var="coachesHeader" />
+	<spring:message code="brotherhood.floats" var="floatsHeader" />
 	<display:column>
 			<a href="coach/list.do?brotherhoodId=${row.id}">
-				<spring:message code="brotherhood.coaches" />
+				<spring:message code="brotherhood.floats" />
 			</a>
 	</display:column>
 	<display:caption><spring:message code="brotherhood.list.belonged"/></display:caption>

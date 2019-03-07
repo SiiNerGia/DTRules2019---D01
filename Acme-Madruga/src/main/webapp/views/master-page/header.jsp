@@ -76,8 +76,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>
-					<!-- >
-					<li><a href="brotherhood/member/list.do"><spring:message code="master.page.brotherhood.member.list" /></a></li>-->		
+					<li><a href="brotherhood/member/list.do"><spring:message code="master.page.brotherhood.member.list" /></a></li>	
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message	code="master.page.request" /></a>
