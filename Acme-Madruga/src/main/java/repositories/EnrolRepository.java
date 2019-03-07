@@ -11,6 +11,6 @@ import domain.Enrol;
 public interface EnrolRepository extends JpaRepository<Enrol, Integer> {
 
 	@Query("select e from Enrol e where e.brotherhood.id = ?1 and e.member.id = ?2")
-	Enrol findEnrolByBrotherhoodAndMember(int brotherhoodId, int memberId);
+	Enrol findEnrolByBrotherhoodAndMemberId(int brotherhoodId, int memberId);
 
 }

@@ -118,12 +118,6 @@
 		
 		<!-- An actor who is authenticated -->
 		<security:authorize access="isAuthenticated()">
-			<li><a class="fNiv"><spring:message	code="master.page.float" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="float/list.do"><spring:message code="master.page.float.list" /></a></li>
-				</ul>
-			</li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 
