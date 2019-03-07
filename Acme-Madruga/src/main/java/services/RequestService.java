@@ -133,6 +133,8 @@ public class RequestService {
 		if (request.getStatus().equals("APPROVED")) {
 			if (request.getAssignedColumn() < 0 || request.getAssignedRow() < 0 || request.getAssignedColumn() == null || request.getAssignedRow() == null)
 				check = false;
+			else if (this.findRequestByRowAndColumn(request.getAssignedRow(), request.getAssignedColumn()).isEmpty() == false)
+				check = false;
 		} else if (request.getStatus().equals("REJECTED")) {
 			if (request.getReason().isEmpty())
 				check = false;
@@ -187,4 +189,9 @@ public class RequestService {
 
 	}
 
+	public Collection<Request> findRequestByRowAndColumn(final int assignedRow, final int assignedColumn) {
+		Collection<Request> result = new ArrayList<Request>();
+		result = this.requestRepository.findRequestByRowAndColumn(assignedRow, assignedColumn);
+		return result;
+	}
 }
