@@ -90,6 +90,7 @@
 				return confirm('<spring:message code="brotherhood.confirm"/>');
 		}
 	</script>
+	
 	<%-- Buttons --%>
 	<input type="submit" name="save"
 		value="<spring:message code="brotherhood.save"/>"
