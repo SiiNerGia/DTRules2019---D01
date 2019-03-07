@@ -9,7 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="member/member/edit.do" modelAttribute="memberForm">
+<form:form action="member/member/create.do" modelAttribute="memberForm">
 
 	<%-- Hidden properties from handy worker
 	<form:hidden path="id" />
@@ -61,7 +61,6 @@
 	
 	<p><input id="field_terms" onchange="this.setCustomValidity(validity.valueMissing ? '<spring:message code="member.check.terms"/>' : '');" type="checkbox" required name="terms"><spring:message code="member.terms"/></p>
 
-
 	<script type="text/javascript">
 		function phoneNumberValidator() {
 
@@ -88,8 +87,6 @@
 	<input type="submit" name="save"
 		value="<spring:message code="member.save"/>"
 	  	onClick="javascript: return phoneNumberValidator()"/>
-
-
 	<acme:cancel code="member.cancel" url="/" />
 </form:form>
 
