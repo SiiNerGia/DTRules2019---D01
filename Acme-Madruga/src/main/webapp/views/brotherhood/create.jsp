@@ -9,10 +9,47 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<!-- <script>
+
+  	function checkForm(form) {
+    	if(!form.terms.checked) {
+      		alert("<spring:message code="brotherhood.check.terms"/>");
+      		form.terms.focus();
+      		return false;
+    	}
+    	return true;
+  	}
+
+</script> -->
+
+<!-- <script type="text/javascript">
+
+		function phoneNumberValidator() {
+
+			var phoneNumber = document.getElementById("phoneNumber").value;
+
+			var patternCCACPN = /^(\+[1-9][0-9]{0,2}) (\([1-9][0-9]{0,2}\)) (\d{3}\d+)/
+			$;
+			var patternCCPN = /^(\+[1-9][0-9]{0,2}) (\d{3}\d+)/
+			$;
+			var patternPN = /^(\d{3}\d+)/
+			$;
+
+			if (patternCCACPN.test(phoneNumber))
+				return true;
+			else if (patternCCPN.test(phoneNumber))
+				return true;
+			else if (patternPN.test(phoneNumber))
+				return true;
+			else
+				return confirm('<spring:message code="brotherhood.confirm"/>');
+		}
+</script> -->
+
 <form:form action="brotherhood/create.do" modelAttribute="brotherhoodForm">
 
 	<%-- Hidden properties from handy worker--%>
-<%-- 	<form:hidden path="id" />
+<%--<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="userAccount.Authorities" />
 	<form:hidden path="processions" />
@@ -59,37 +96,19 @@
 
 	<%-- Title --%>
 	<acme:textbox code="brotherhood.title" path="title" />
-	<br>
 	<%-- Picture --%>
 <%--  	<acme:textbox code="brotherhood.picture" path="pictures" />
 	<br> --%>
+	<p><input id="field_terms" onchange="this.setCustomValidity(validity.valueMissing ? '<spring:message code="brotherhood.check.terms"/>' : '');" type="checkbox" required name="terms"><spring:message code="brotherhood.terms"/></p>
 
-	<script type="text/javascript">
-		function phoneNumberValidator() {
-
-			var phoneNumber = document.getElementById("phoneNumber").value;
-
-			var patternCCACPN = /^(\+[1-9][0-9]{0,2}) (\([1-9][0-9]{0,2}\)) (\d{3}\d+)/
-			$;
-			var patternCCPN = /^(\+[1-9][0-9]{0,2}) (\d{3}\d+)/
-			$;
-			var patternPN = /^(\d{3}\d+)/
-			$;
-
-			if (patternCCACPN.test(phoneNumber))
-				return true;
-			else if (patternCCPN.test(phoneNumber))
-				return true;
-			else if (patternPN.test(phoneNumber))
-				return true;
-			else
-				return confirm('<spring:message code="brotherhood.confirm"/>');
-		}
-	</script>
 	<%-- Buttons --%>
-	<input type="submit" name="save"
-		value="<spring:message code="brotherhood.save"/>"
-		onClick="javascript: return phoneNumberValidator()" />
-	
+	<input type="submit" name="save" value="<spring:message code="brotherhood.save"/>"/>
 	<acme:cancel code="brotherhood.cancel" url="/" />
+	
 </form:form>
+
+<script>
+
+  document.getElementById("field_terms").setCustomValidity("<spring:message code="brotherhood.check.terms"/>");
+
+</script>
