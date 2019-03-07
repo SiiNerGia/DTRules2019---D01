@@ -20,7 +20,7 @@
 
 <p><a href="<spring:url value='/cookies.do'/>"><spring:message code="welcome.cookies" /></a></p>
 
-<p><a href="<spring:url value='/terms.do'/>"><spring:message code="welcome.cookies" /></a></p>
+<p><a href="<spring:url value='/terms.do'/>"><spring:message code="welcome.termsandconditions" /></a></p>
 
 
 <p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
