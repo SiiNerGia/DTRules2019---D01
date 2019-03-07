@@ -32,27 +32,27 @@
 	
 	<!-- Status -->
 	<spring:message code="request.status" var="statusHeader" />
-	<display:column property="status" title="${statusHeader}" />
+	<display:column style="background-color: grey" property="status" title="${statusHeader}" />
 	
 	<!-- AssignedRow -->
 	<spring:message code="request.assignedRow" var="assignedRowHeader" />
-	<display:column property="assignedRow" title="${assignedRowHeader}" />
+	<display:column style="background-color: grey" property="assignedRow" title="${assignedRowHeader}" />
 
 	<!-- AssignedColumn -->
 	<spring:message code="request.assignedColumn" var="assignedColumnHeader" />
-	<display:column property="assignedColumn" title="${assignedColumnHeader}" />
+	<display:column style="background-color: grey" property="assignedColumn" title="${assignedColumnHeader}" />
 
 	<!-- Reason -->
 	<spring:message code="request.reason" var="reasonHeader" />
-	<display:column property="reason" title="${reasonHeader}" />
+	<display:column style="background-color: grey" property="reason" title="${reasonHeader}" />
 
 	<!-- Member -->
 	<spring:message code="request.member.name" var="memberHeader" />
-	<display:column property="member.name" title="${memberHeader}" />
+	<display:column style="background-color: grey" property="member.name" title="${memberHeader}" />
 
 	<!-- Procession -->
 	<spring:message code="request.procession.ticker" var="processionHeader" />
-	<display:column property="procession.ticker" title="${processionHeader}" />
+	<display:column style="background-color: grey" property="procession.ticker" title="${processionHeader}" />
 	
 </display:table>
 
@@ -82,27 +82,27 @@
 	
 	<!-- Status -->
 	<spring:message code="request.status" var="statusHeader" />
-	<display:column property="status" title="${statusHeader}" />
+	<display:column style="background-color: green" property="status" title="${statusHeader}" />
 	
 	<!-- AssignedRow -->
 	<spring:message code="request.assignedRow" var="assignedRowHeader" />
-	<display:column property="assignedRow" title="${assignedRowHeader}" />
+	<display:column style="background-color: green" property="assignedRow" title="${assignedRowHeader}" />
 
 	<!-- AssignedColumn -->
 	<spring:message code="request.assignedColumn" var="assignedColumnHeader" />
-	<display:column property="assignedColumn" title="${assignedColumnHeader}" />
+	<display:column style="background-color: green" property="assignedColumn" title="${assignedColumnHeader}" />
 
 	<!-- Reason -->
 	<spring:message code="request.reason" var="reasonHeader" />
-	<display:column property="reason" title="${reasonHeader}" />
+	<display:column style="background-color: green" property="reason" title="${reasonHeader}" />
 
 	<!-- Member -->
 	<spring:message code="request.member.name" var="memberHeader" />
-	<display:column property="member.name" title="${memberHeader}" />
+	<display:column style="background-color: green" property="member.name" title="${memberHeader}" />
 
 	<!-- Procession -->
 	<spring:message code="request.procession.ticker" var="processionHeader" />
-	<display:column property="procession.ticker" title="${processionHeader}" />
+	<display:column style="background-color: green" property="procession.ticker" title="${processionHeader}" />
 	
 </display:table>
 
@@ -132,26 +132,26 @@
 	
 	<!-- Status -->
 	<spring:message code="request.status" var="statusHeader" />
-	<display:column property="status" title="${statusHeader}" />
+	<display:column style="background-color: orange" property="status" title="${statusHeader}" />
 	
 	<!-- AssignedRow -->
 	<spring:message code="request.assignedRow" var="assignedRowHeader" />
-	<display:column property="assignedRow" title="${assignedRowHeader}" />
+	<display:column style="background-color: orange" property="assignedRow" title="${assignedRowHeader}" />
 
 	<!-- AssignedColumn -->
 	<spring:message code="request.assignedColumn" var="assignedColumnHeader" />
-	<display:column property="assignedColumn" title="${assignedColumnHeader}" />
+	<display:column style="background-color: orange" property="assignedColumn" title="${assignedColumnHeader}" />
 
 	<!-- Reason -->
 	<spring:message code="request.reason" var="reasonHeader" />
-	<display:column property="reason" title="${reasonHeader}" />
+	<display:column style="background-color: orange" property="reason" title="${reasonHeader}" />
 
 	<!-- Member -->
 	<spring:message code="request.member.name" var="memberHeader" />
-	<display:column property="member.name" title="${memberHeader}" />
+	<display:column style="background-color: orange" property="member.name" title="${memberHeader}" />
 
 	<!-- Procession -->
 	<spring:message code="request.procession.ticker" var="processionHeader" />
-	<display:column property="procession.ticker" title="${processionHeader}" />
+	<display:column style="background-color: orange" property="procession.ticker" title="${processionHeader}" />
 	
 </display:table>
