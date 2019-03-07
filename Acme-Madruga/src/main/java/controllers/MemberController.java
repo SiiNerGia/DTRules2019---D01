@@ -57,9 +57,14 @@ public class MemberController extends AbstractController {
 		ModelAndView result;
 		Member member;
 		String password;
-
+		System.out.println("1111");
 		member = this.memberService.reconstruct(memberForm, binding);
+		System.out.println("2222");
+		System.out.println(member.getId());
+
 		if (binding.hasErrors()) {
+			System.out.println("3333");
+
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
@@ -70,9 +75,14 @@ public class MemberController extends AbstractController {
 
 		else
 			try {
+				System.out.println("4444");
+
 				password = Md5.encodeMd5(member.getUserAccount().getPassword());
 				member.getUserAccount().setPassword(password);
 				this.memberService.save(member);
+				System.out.println(member.getUserAccount().getPassword());
+				System.out.println(member.getUserAccount().getUsername());
+				System.out.println(member.getId());
 				result = new ModelAndView("redirect:../security/login.do");
 			} catch (final Throwable oops) {
 				System.out.println(member);

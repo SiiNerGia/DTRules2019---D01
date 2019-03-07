@@ -9,7 +9,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="member/member/create.do" modelAttribute="memberForm">
+
+<form:form action="member/create.do" modelAttribute="memberForm">
 
 	<%-- Hidden properties from handy worker
 	<form:hidden path="id" />
