@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.TypeMismatchException;
@@ -12,10 +14,14 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BrotherhoodService;
 import services.MemberService;
 import utilities.Md5;
+import domain.Brotherhood;
+import domain.Enrol;
 import domain.Member;
 import forms.MemberForm;
 
@@ -24,7 +30,10 @@ import forms.MemberForm;
 public class MemberController extends AbstractController {
 
 	@Autowired
-	private MemberService	memberService;
+	private MemberService		memberService;
+
+	@Autowired
+	private BrotherhoodService	brotherhoodService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -96,6 +105,55 @@ public class MemberController extends AbstractController {
 				else
 					result = this.createEditModelAndView(memberForm, "member.registration.error");
 			}
+		return result;
+	}
+
+	// LIST ------------------------------------------------------------------------------------
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam(required = false) final Integer brotherhoodId) {
+		ModelAndView result;
+		final Collection<Member> members = new ArrayList<Member>();
+
+		try {
+			if (brotherhoodId != null && brotherhoodId != 0) {
+				final Brotherhood brotherhood = this.brotherhoodService.findOne(brotherhoodId);
+				final Collection<Enrol> enrols = brotherhood.getEnrols();
+				for (final Enrol en : enrols) {
+					final Member toAdd = en.getMember();
+					members.add(toAdd);
+				}
+			}
+			result = new ModelAndView("member/brotherhoodList");
+			result.addObject("members", members);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
+	public ModelAndView memberList(@RequestParam final int brotherhoodId) {
+		ModelAndView result;
+		final Brotherhood brotherhood = this.brotherhoodService.findOne(brotherhoodId);
+		final Collection<Member> members = new ArrayList<Member>();
+		final Collection<Enrol> enrols = brotherhood.getEnrols();
+
+		try {
+			for (final Enrol en : enrols)
+				members.add(en.getMember());
+			result = new ModelAndView("member/list");
+			result.addObject("members", members);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
 		return result;
 	}
 
