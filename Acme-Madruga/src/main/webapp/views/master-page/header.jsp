@@ -93,7 +93,6 @@
 					<li><a href="finder/member/result.do"><spring:message code="master.page.finder.result" /></a></li>
 				</ul>
 			</li>
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
 		

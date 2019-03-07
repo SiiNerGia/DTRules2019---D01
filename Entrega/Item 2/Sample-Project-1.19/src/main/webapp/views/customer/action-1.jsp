@@ -17,3 +17,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p><spring:message code="customer.action.1" /></p>
+
+<p><input id="field_terms" onchange="this.setCustomValidity(validity.valueMissing ? '<spring:message code="brotherhood.check.terms"/>' : '');" type="checkbox" required name="terms"><spring:message code="brotherhood.terms"/></p>
+
+<script>
+
+  document.getElementById("field_terms").setCustomValidity("<spring:message code="brotherhood.check.terms"/>");
+
+</script>
