@@ -72,7 +72,7 @@ public class DropoutController extends AbstractController {
 
 		//Creo el modelandview correspondiente que vuelve a la vista
 
-		result = new ModelAndView("brotherhood/list");
+		result = new ModelAndView("redirect:/");
 
 		return result;
 
