@@ -60,59 +60,9 @@ public class MessageService {
 
 	public Message save(final Message message) {
 		Assert.notNull(message);
-		Assert.notNull(LoginService.getPrincipal());
 		Message result;
-		Actor sender = null;
 
-		if (message.getId() == 0) {
-			Assert.notNull(message);
-
-			if (!message.getSubject().contains("Change of status. Cambio del estado")) {
-				sender = this.actorService.findByPrincipal();
-				message.setSender(sender);
-			}
-
-			final Collection<Actor> recipients = message.getRecipients();
-			Assert.notNull(recipients);
-			Assert.notEmpty(recipients);
-
-			final Boolean spam = this.checkSpam(message);
-			final Boolean notification = message.getIsNotification();
-
-			String box;
-
-			if (spam) {
-				box = "spam";
-				//message.getSender().setIsSpammer(true);
-			}
-
-			if (notification) {
-				box = "notification";
-			} else {
-				box = "in";
-			}
-
-			if (sender != null) {
-				message.getMessageBoxes().add(sender.getMessageBox("out"));
-			}
-
-			for (final Actor recipient : recipients) {
-				message.getMessageBoxes().add(recipient.getMessageBox(box));
-			}
-
-			result = this.messageRepository.save(message);
-
-			if (sender != null) {
-				sender.getMessageBox("out").addMessage(result);
-			}
-
-			for (final Actor recipient : recipients) {
-				recipient.getMessageBox(box).addMessage(result);
-			}
-
-		} else {
-			result = this.messageRepository.save(message);
-		}
+		result = this.messageRepository.save(message);
 		return result;
 	}
 
@@ -125,31 +75,27 @@ public class MessageService {
 		Assert.isTrue(message.getRecipients().contains(actor) || message.getSender().equals(actor));
 
 		final Boolean actorRole;
-		if (message.getSender() == null) {
+		if (message.getSender() == null)
 			actorRole = true;
-		} else if (message.getSender().equals(actor)) {
+		else if (message.getSender().equals(actor))
 			actorRole = true;
-		} else {
+		else
 			actorRole = false;
-		}
 
 		if (srcMessageBox.getName().equals("trash")) {
-			for (final MessageBox box : actor.getMessageBoxes()) {
+			for (final MessageBox box : actor.getMessageBoxes())
 				if (box.getMessages().contains(message)) {
 					actor.getMessageBox(box.getName()).deleteMessage(message);
 					message.getMessageBoxes().remove(box);
 				}
-			}
-			if (!actorRole) {
+			if (!actorRole)
 				message.getRecipients().remove(actor);
-			} else {
+			else
 				message.setSender(null);
-			}
-			if ((message.getRecipients().size() == 0) && (message.getMessageBoxes().size() == 0) && (message.getSender() == null)) {
+			if ((message.getRecipients().size() == 0) && (message.getMessageBoxes().size() == 0) && (message.getSender() == null))
 				this.messageRepository.delete(message);
-			} else {
+			else
 				this.messageRepository.save(message);
-			}
 		} else {
 			Assert.isTrue(srcMessageBox.getMessages().contains(message));
 			this.moveMessage(message, srcMessageBox, actor.getMessageBox("trash"));
@@ -215,20 +161,17 @@ public class MessageService {
 
 		final Configurations configuration = this.configurationsService.getConfiguration();
 		final Collection<String> spamWords = configuration.getSpamWords();
-		for (final String word : spamWords) {
+		for (final String word : spamWords)
 			if (message.getSubject().contains(word)) {
 				spam = true;
 				break;
 			}
-		}
-		if (!spam) {
-			for (final String word : spamWords) {
+		if (!spam)
+			for (final String word : spamWords)
 				if (message.getBody().contains(word)) {
 					spam = true;
 					break;
 				}
-			}
-		}
 
 		return spam;
 	}

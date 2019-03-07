@@ -124,6 +124,7 @@ public class MemberController extends AbstractController {
 					members.add(toAdd);
 				}
 			}
+
 			result = new ModelAndView("member/brotherhoodList");
 			result.addObject("members", members);
 		} catch (final Throwable oops) {

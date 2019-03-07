@@ -43,7 +43,10 @@
 	<security:authorize access="hasRole('BROTHERHOOD')">
 		<spring:message code="procession.delete" var="deleteHeader" />
 		<display:column title="${deleteHeader}">
+		 <jstl:if test="${row.draftMode eq true}">
 			<a href="procession/brotherhood/delete.do?processionId=${row.id}"> <spring:message code="procession.delete" /></a>
+		        </jstl:if>
+		
 		</display:column>
 	</security:authorize>
 

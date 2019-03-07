@@ -111,13 +111,13 @@ public class ProcessionController extends AbstractController {
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(pruned);
 		else
-			try {
-				this.processionService.save(constructed);
-				result = new ModelAndView("redirect:../list.do");
-			} catch (final Throwable oops) {
-				oops.printStackTrace();
-				result = this.createEditModelAndView(pruned, "procession.registration.error");
-			}
+			//			try {
+			this.processionService.save(constructed);
+		result = new ModelAndView("redirect:../list.do");
+		//			} catch (final Throwable oops) {
+		//				oops.printStackTrace();
+		//				result = this.createEditModelAndView(pruned, "procession.registration.error");
+		//			}
 
 		return result;
 	}
