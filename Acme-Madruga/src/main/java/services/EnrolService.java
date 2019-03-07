@@ -30,9 +30,12 @@ public class EnrolService {
 	@Qualifier("validator")
 	private Validator		validator;
 
-
 	// Supporting services
 	// -------------------------------------------------------------
+
+	@Autowired
+	private PositionService	positionService;
+
 
 	// CRUD methods
 	// ------------------------------------------------------------------
@@ -78,20 +81,15 @@ public class EnrolService {
 	}
 	public void delete(final Enrol enrol) {
 		Assert.notNull(enrol);
-		//		Position position;
-		//		final ArrayList<Position> positions = new ArrayList<Position>();
-		//
-		//		enrol.getBrotherhood().getEnrols().remove(enrol);
-		//		enrol.getMember().getEnrols().remove(enrol);
-		//
-		//		positions.addAll(enrol.getPositions());
-		//		position = positions.get(0);
-		//		position.getEnrol().remove(enrol);
+		final Collection<Position> positions = this.positionService.positionsByEnrol(enrol);
+		for (final Position p : positions)
+			p.getEnrol().remove(enrol);
+		enrol.getBrotherhood().getEnrols().remove(enrol);
+		enrol.getMember().getEnrols().remove(enrol);
 
 		this.enrolRepository.delete(enrol);
 
 	}
-
 	public Enrol findByBrothehoodAndMemberId(final int brotherhoodId, final int memberId) {
 		Assert.notNull(brotherhoodId);
 		Assert.notNull(memberId);
