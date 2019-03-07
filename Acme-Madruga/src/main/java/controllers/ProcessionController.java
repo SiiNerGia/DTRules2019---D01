@@ -1,5 +1,7 @@
+
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.TypeMismatchException;
@@ -15,25 +17,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Brotherhood;
-import domain.Procession;
 import services.BrotherhoodService;
 import services.ProcessionService;
+import domain.Procession;
 
 @Controller
 @RequestMapping("/procession")
 public class ProcessionController extends AbstractController {
 
 	@Autowired
-	private ProcessionService processionService;
+	private ProcessionService	processionService;
 
 	@Autowired
-	private BrotherhoodService brotherhoodService;
+	private BrotherhoodService	brotherhoodService;
 
 	// Validator
 	@Autowired
 	@Qualifier("validator")
-	private Validator validator;
+	private Validator			validator;
+
 
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
@@ -43,15 +45,15 @@ public class ProcessionController extends AbstractController {
 	// List
 	// ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
-		ModelAndView result;
-		Brotherhood principal;
-		Collection<Procession> processions;
+	public ModelAndView list(@RequestParam(required = false) final Integer brotherhoodId) {
 
-		principal = this.brotherhoodService.findByPrincipal();
+		ModelAndView result;
+		Collection<Procession> processions = new ArrayList<Procession>();
 
 		try {
-			processions = principal.getProcessions();
+			if (brotherhoodId != null && brotherhoodId != 0)
+				processions = this.brotherhoodService.findOne(brotherhoodId).getProcessions();
+
 			result = new ModelAndView("procession/list");
 			result.addObject("processions", processions);
 			result.addObject("uri", "procession/list");
@@ -100,15 +102,15 @@ public class ProcessionController extends AbstractController {
 
 	// Save -------------------------------------------------------------
 	@RequestMapping(value = "brotherhood/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(Procession pruned, BindingResult binding) {
+	public ModelAndView save(final Procession pruned, final BindingResult binding) {
 		ModelAndView result;
 		Procession constructed;
 
 		constructed = this.processionService.reconstruct(pruned, binding);
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			result = this.createEditModelAndView(pruned);
-		} else
+		else
 			try {
 				this.processionService.save(constructed);
 				result = new ModelAndView("redirect:../list.do");
@@ -123,7 +125,7 @@ public class ProcessionController extends AbstractController {
 	// Delete
 	// --------------------------------------------------------------------------------------
 	@RequestMapping(value = "brotherhood/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam int processionId) {
+	public ModelAndView delete(@RequestParam final int processionId) {
 		ModelAndView result = null;
 		Procession procession;
 
@@ -149,7 +151,7 @@ public class ProcessionController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(Procession procession, String message) {
+	protected ModelAndView createEditModelAndView(final Procession procession, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("procession/brotherhood/edit");
