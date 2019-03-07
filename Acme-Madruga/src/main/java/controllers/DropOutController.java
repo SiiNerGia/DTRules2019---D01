@@ -40,7 +40,7 @@ public class DropoutController extends AbstractController {
 		return new ModelAndView("redirect:/");
 	}
 
-	@RequestMapping(value = "member/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int brotherhoodId) {
 		final ModelAndView result;
 		final Dropout dropout;

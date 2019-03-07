@@ -92,7 +92,7 @@
 		<security:intercept-url pattern="/member/brotherhood/**" access="hasRole('BROTHERHOOD')" />
 
 		<!--  DROPOUT -->
-		<security:intercept-url pattern="dropout/member/**" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="dropout/member/**" access="isAuthenticated()" />
 		
 		<!-- REQUEST -->
 		<security:intercept-url pattern="/request/list.do" access="hasAnyRole('BROTHERHOOD','MEMBER')" />
