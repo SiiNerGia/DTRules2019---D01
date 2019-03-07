@@ -139,15 +139,19 @@ public class FloatBrotherhoodController extends AbstractController {
 
 	@RequestMapping(value = "/deletePicture", method = RequestMethod.GET)
 	public ModelAndView deletePicture(@RequestParam final String link, @RequestParam final int floatId) {
-		ModelAndView result;
+		ModelAndView result = null;
 		try {
 			final Float c = this.floatService.findOne(floatId);
 			for (final Url picture : c.getPictures())
 				if (picture.getLink().equals(link)) {
 					c.getPictures().remove(picture);
+					this.floatService.save(c);
+					result = new ModelAndView("redirect:../list.do");
 					break;
 				}
-			result = this.createEditModelAndView(c);
+			if (result == null)
+				result = this.createEditModelAndView(c);
+
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -175,7 +179,8 @@ public class FloatBrotherhoodController extends AbstractController {
 				Float c = this.floatService.findOne(floatId);
 				c.getPictures().add(url);
 				c = this.floatService.save(c);
-				result = this.createEditModelAndView(c);
+				//result = this.createEditModelAndView(c);
+				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
 				System.out.println(url);
 				System.out.println(oops.getMessage());
